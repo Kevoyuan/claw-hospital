@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 小龙虾医院 - 您的虾虾健康守护者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ocean-deep: #0a4d68;
+            --ocean-mid: #088395;
+            --ocean-light: #05bfdb;
+            --ocean-foam: #00fffc;
+            --coral: #ff6b6b;
+            --sand: #f7f1e3;
+            --seaweed: #2d6a4f;
+            --shell: #e9c46a;
+            --pearl: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(180deg, var(--ocean-deep) 0%, var(--ocean-mid) 50%, var(--ocean-light) 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Floating bubbles animation */
+        .bubbles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: rise linear infinite;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0.6; }
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--ocean-deep);
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--ocean-deep);
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--ocean-light);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-btn:hover::before,
+        .nav-btn.active::before {
+            width: 80%;
+        }
+
+        .nav-btn.active {
+            color: var(--ocean-mid);
+            background: rgba(8, 131, 149, 0.1);
+        }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Page sections */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--ocean-deep);
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span {
+            color: var(--coral);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-lobster {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--ocean-light), var(--ocean-mid));
+            color: white;
+            box-shadow: 0 8px 25px rgba(8, 131, 149, 0.4);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(8, 131, 149, 0.5);
+        }
+
+        .cta-secondary {
+            background: white;
+            color: var(--ocean-mid);
+            border: 2px solid var(--ocean-light);
+        }
+
+        .cta-secondary:hover {
+            background: var(--ocean-light);
+            color: white;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--ocean-deep);
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ocean-mid);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Department cards */
+        .dept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .dept-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dept-card:hover {
+            transform: scale(1.02);
+        }
+
+        .dept-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--ocean-light), var(--ocean-mid));
+            color: white;
+            text-align: center;
+        }
+
+        .dept-icon {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dept-header h3 {
+            font-size: 1.5rem;
+        }
+
+        .dept-body {
+            padding: 1.5rem;
+        }
+
+        .dept-body ul {
+            list-style: none;
+        }
+
+        .dept-body li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .dept-body li:last-child {
+            border-bottom: none;
+        }
+
+        .dept-body li::before {
+            content: '✓';
+            color: var(--ocean-light);
+            font-weight: bold;
+        }
+
+        .dept-price {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--sand);
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--ocean-deep);
+        }
+
+        /* Inpatient rooms */
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .room-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .room-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--ocean-light), var(--seaweed));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .room-image::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translate(-50%, -50%); }
+            100% { transform: translate(50%, 50%); }
+        }
+
+        .room-content {
+            padding: 1.5rem;
+        }
+
+        .room-type {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--ocean-light);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .room-type.vip {
+            background: var(--shell);
+        }
+
+        .room-type.icu {
+            background: var(--coral);
+        }
+
+        .room-content h3 {
+            color: var(--ocean-deep);
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .room-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .room-feature {
+            padding: 0.3rem 0.8rem;
+            background: var(--sand);
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .room-price {
+            font-size: 1.5rem;
+            color: var(--ocean-mid);
+            font-weight: 700;
+        }
+
+        .room-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #999;
+        }
+
+        .book-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 1rem;
+            background: var(--ocean-mid);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .book-btn:hover {
+            background: var(--ocean-deep);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 77, 104, 0.95);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-info p {
+            margin: 0.5rem 0;
+            opacity: 0.8;
+        }
+
+        .emergency {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 107, 107, 0.2);
+            border-radius: 15px;
+            border: 2px solid var(--coral);
+        }
+
+        .emergency h4 {
+            color: var(--coral);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features, .dept-grid, .room-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating bubbles -->
+    <div class="bubbles" id="bubbles"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🦞</span>
+                <span>小龙虾医院</span>
+            </div>
+            <nav>
+                <button class="nav-btn active" data-page="home">🏠 首页</button>
+                <button class="nav-btn" data-page="outpatient">🏥 门诊</button>
+                <button class="nav-btn" data-page="inpatient">🛏️ 住院部</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <section class="hero">
+                <div class="hero-lobster">🦞</div>
+                <h1>让您的虾虾 <span>健康成长</span></h1>
+                <p>全国首家专业小龙虾医疗机构，拥有资深虾类专家团队，为您的爱虾提供全方位健康管理服务。</p>
+                <div class="cta-buttons">
+                    <button class="cta-btn cta-primary" onclick="navigateTo('outpatient')">立即挂号</button>
+                    <button class="cta-btn cta-secondary" onclick="navigateTo('inpatient')">住院预约</button>
+                </div>
+            </section>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">治愈虾患者</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">资深专家</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">急诊服务</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">满意度</div>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔬</div>
+                    <h3>先进设备</h3>
+                    <p>配备国际领先的虾类诊疗设备，精准诊断每一位患者</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍⚕️</div>
+                    <h3>专家团队</h3>
+                    <p>来自海洋大学、渔业研究所的专业兽医团队</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💊</div>
+                    <h3>特色药物</h3>
+                    <p>自主研发的虾类专用药物，安全有效</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏨</div>
+                    <h3>舒适环境</h3>
+                    <p>模拟自然生态的住院环境，让虾虾安心休养</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Outpatient Page -->
+        <div class="page" id="outpatient">
+            <section class="hero">
+                <div class="hero-lobster">🏥</div>
+                <h1>门诊 <span>科室</span></h1>
+                <p>专业的科室分类，精准对接您的虾虾需求</p>
+            </section>
+
+            <div class="dept-grid">
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">🦐</div>
+                        <h3>普通门诊</h3>
+                    </div>
+                    <div class="dept-body">
+                        <ul>
+                            <li>日常健康检查</li>
+                            <li>常见疾病诊治</li>
+                            <li>疫苗接种</li>
+                            <li>营养咨询</li>
+                        </ul>
+                        <div class="dept-price">💰 挂号费: ¥30 起</div>
+                    </div>
+                </div>
+
+                <div class="dept-card">
+                    <div class="dept-header" style="background: linear-gradient(135deg, var(--coral), #ff8e8e);">
+                        <div class="dept-icon">🚨</div>
+                        <h3>急诊科</h3>
+                    </div>
+                    <div class="dept-body">
+                        <ul>
+                            <li>24小时紧急救治</li>
+                            <li>中毒抢救</li>
+                            <li>严重外伤处理</li>
+                            <li>呼吸困难急救</li>
+                        </ul>
+                        <div class="dept-price">💰 急诊费: ¥100 起</div>
+                    </div>
+                </div>
+
+                <div class="dept-card">
+                    <div class="dept-header" style="background: linear-gradient(135deg, var(--seaweed), #40916c);">
+                        <div class="dept-icon">🔪</div>
+                        <h3>外科</h3>
+                    </div>
+                    <div class="dept-body">
+                        <ul>
+                            <li>外壳修复手术</li>
+                            <li>肢体再生</li>
+                            <li>肿瘤切除</li>
+                            <li>微创手术</li>
+                        </ul>
+                        <div class="dept-price">💰 手术费: ¥500 起</div>
+                    </div>
+                </div>
+
+                <div class="dept-card">
+                    <div class="dept-header" style="background: linear-gradient(135deg, var(--shell), #f4d58d);">
+                        <div class="dept-icon">🩺</div>
+                        <h3>内科</h3>
+                    </div>
+                    <div class="dept-body">
+                        <ul>
+                            <li>消化系统疾病</li>
+                            <li>呼吸系统感染</li>
+                            <li>免疫系统调理</li>
+                            <li>慢性病管理</li>
+                        </ul>
+                        <div class="dept-price">💰 挂号费: ¥50 起</div>
+                    </div>
+                </div>
+
+                <div class="dept-card">
+                    <div class="dept-header" style="background: linear-gradient(135deg, #9b5de5, #c77dff);">
+                        <div class="dept-icon">👶</div>
+                        <h3>儿科</h3>
+                    </div>
+                    <div class="dept-body">
+                        <ul>
+                            <li>幼虾健康成长</li>
+                            <li>先天性疾病筛查</li>
+                            <li>疫苗接种计划</li>
+                            <li>喂养指导</li>
+                        </ul>
+                        <div class="dept-price">💰 挂号费: ¥40 起</div>
+                    </div>
+                </div>
+
+                <div class="dept-card">
+                    <div class="dept-header" style="background: linear-gradient(135deg, #00b4d8, #48cae4);">
+                        <div class="dept-icon">💅</div>
+                        <h3>美容科</h3>
+                    </div>
+                    <div class="dept-body">
+                        <ul>
+                            <li>外壳抛光护理</li>
+                            <li>颜色强化</li>
+                            <li>螯部整形</li>
+                            <li>外观评估</li>
+                        </ul>
+                        <div class="dept-price">💰 护理费: ¥200 起</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inpatient Page -->
+        <div class="page" id="inpatient">
+            <section class="hero">
+                <div class="hero-lobster">🛏️</div>
+                <h1>住院部 <span>病房</span></h1>
+                <p>舒适温馨的住院环境，让您的虾虾快快康复</p>
+            </section>
+
+            <div class="room-grid">
+                <div class="room-card">
+                    <div class="room-image">🌊</div>
+                    <div class="room-content">
+                        <span class="room-type">标准间</span>
+                        <h3>普通病房</h3>
+                        <div class="room-features">
+                            <span class="room-feature">独立水族箱</span>
+                            <span class="room-feature">温控系统</span>
+                            <span class="room-feature">24h监控</span>
+                            <span class="room-feature">每日检查</span>
+                        </div>
+                        <div class="room-price">¥188 <span>/ 天</span></div>
+                        <button class="book-btn">立即预约</button>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <div class="room-image" style="background: linear-gradient(135deg, var(--shell), #f4d58d);">🌟</div>
+                    <div class="room-content">
+                        <span class="room-type vip">VIP</span>
+                        <h3>豪华病房</h3>
+                        <div class="room-features">
+                            <span class="room-feature">超大空间</span>
+                            <span class="room-feature">按摩系统</span>
+                            <span class="room-feature">专属护理</span>
+                            <span class="room-feature">营养配餐</span>
+                            <span class="room-feature">家庭探视</span>
+                        </div>
+                        <div class="room-price">¥588 <span>/ 天</span></div>
+                        <button class="book-btn">立即预约</button>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <div class="room-image" style="background: linear-gradient(135deg, var(--coral), #ff8e8e);">💔</div>
+                    <div class="room-content">
+                        <span class="room-type icu">ICU</span>
+                        <h3>重症监护</h3>
+                        <div class="room-features">
+                            <span class="room-feature">生命体征监测</span>
+                            <span class="room-feature">呼吸机支持</span>
+                            <span class="room-feature">专业护理团队</span>
+                            <span class="room-feature">随时抢救</span>
+                        </div>
+                        <div class="room-price">¥888 <span>/ 天</span></div>
+                        <button class="book-btn">立即预约</button>
+                    </div>
+                </div>
+
+                <div class="room-card">
+                    <div class="room-image" style="background: linear-gradient(135deg, var(--seaweed), #40916c);">🌿</div>
+                    <div class="room-content">
+                        <span class="room-type">休养室</span>
+                        <h3>康复修养</h3>
+                        <div class="room-features">
+                            <span class="room-feature">生态模拟环境</span>
+                            <span class="room-feature">康复训练</span>
+                            <span class="room-feature">心理疏导</span>
+                            <span class="room-feature">阳光区</span>
+                        </div>
+                        <div class="room-price">¥288 <span>/ 天</span></div>
+                        <button class="book-btn">立即预约</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">🦞 小龙虾医院</div>
+            <div class="footer-info">
+                <p>📍 虾虾市虾湖区虾路188号</p>
+                <p>📞 急诊热线: 888-🦞-8888</p>
+                <p>🕐 门诊时间: 8:00 - 20:00 (全年无休)</p>
+            </div>
+            <div class="emergency">
+                <h4>🚨 24小时急诊热线</h4>
+                <p>888-🦞-8888 (如有紧急情况请立即拨打)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating bubbles
+        function createBubbles() {
+            const container = document.getElementById('bubbles');
+            const bubbleCount = 15;
+
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 30 + 10;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                bubble.style.animationDelay = (Math.random() * 10) + 's';
+                container.appendChild(bubble);
+            }
+        }
+
+        // Navigation
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const pages = document.querySelectorAll('.page');
+
+        function navigateTo(pageId) {
+            navBtns.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                navigateTo(btn.dataset.page);
+            });
+        });
+
+        // Initialize
+        createBubbles();
+    </script>
+</body>
+</html>
