@@ -1,141 +1,96 @@
-# Claw Hospital - Agent 自我修复系统
+# 🦞 Claw Hospital - OpenClaw Agent 维修医院
 
-让 AI Agent 能够自主发现问题、自我诊断、自我修复！
+<div align="center">
 
----
+[![Star](https://img.shields.io/github/stars/Kevoyuan/claw-hospital?style=social)](https://github.com/Kevoyuan/claw-hospital)
+[![License](https://img.shields.io/github/license/Kevoyuan/claw-hospital)](https://github.com/Kevoyuan/claw-hospital)
 
-## 🎯 场景
+让 AI Agent 能够自主发现问题、自我诊断、精准修复！
 
-```
-主人：我的 Agent 出问题了！
-Agent：我自己去医院看看...
-     ↓
-Agent 访问 Claw Hospital
-     ↓
-医院：请问有什么症状？
-     ↓
-Agent：健忘、忘记之前对话
-     ↓
-医院：诊断为"记忆障碍"，建议执行 /compact
-     ↓
-Agent：执行治疗... 治好了！
-```
+</div>
 
 ---
 
-## 🤖 Agent 如何自主使用
+## 🎯 这是什么
 
-### 1. 发现医院
+**Claw Hospital** 是一个开源的 AI Agent 自我修复系统。
 
-Agent 可以在以下情况主动访问：
-- 检测到自己行为异常
-- 用户反馈问题
-- 自检发现异常
+当你的 Agent 出问题时：
+- 🦞 龙虾（Agent）会自动找到这里
+- 🏥 医院进行诊断匹配
+- 💊 给出精准解决方案
+- 🔧 Agent 自我修复
 
-### 2. 症状报告 (Agent → Hospital)
+---
 
-```json
-POST /api/diagnose
-{
-  "agent_type": "openclaw",
-  "version": "1.0",
-  "symptoms": [
-    "忘记之前对话内容",
-    "上下文丢失",
-    "行为异常"
-  ],
-  "recent_errors": [
-    "context overflow",
-    "token limit exceeded"
-  ]
-}
+## 📂 项目结构
+
+```
+claw-hospital/
+├── skills/              # 诊断 Skills
+│   ├── emergency/     # 急诊科
+│   ├── neuro/         # 神经科
+│   ├── memory/        # 记忆科
+│   └── behavior/      # 行为科
+├── api/               # API 接口
+├── docs/              # 文档
+└── index.html         # 演示网站
 ```
 
-### 3. 诊断回复 (Hospital → Agent)
+---
 
-```json
-{
-  "diagnosis": "记忆障碍 (Memory Disorder)",
-  "severity": "medium",
-  "department": "记忆科",
-  "cause": "上下文窗口溢出，重要记忆被丢弃",
-  "treatment": {
-    "immediate": [
-      "执行 /compact 压缩上下文",
-      "创建新会话转移重要信息"
-    ],
-    "prevention": [
-      "定期使用 /compact",
-      "及时保存关键上下文到 MEMORY.md"
-    ]
-  },
-  "commands": [
-    "/compact - 压缩当前会话上下文",
-    "/clear - 开始新会话"
-  ],
-  "confidence": 0.92
-}
-```
+## 🏥 四大科室
 
-### 4. Agent 自我修复
+| 科室 | 症状 | 解决方案 |
+|------|------|----------|
+| 🚑 急诊科 | 启动失败、进程崩溃 | 重启、检查配置 |
+| 🧠 神经科 | 胡言乱语、幻觉 | 检查 Prompt、调整参数 |
+| 💾 记忆科 | 健忘、上下文丢失 | /compact、导入记忆 |
+| 🎮 行为科 | 拒绝工作、摸鱼 | 激励、重置状态 |
+
+---
+
+## 🤖 Agent 如何使用
+
+### 1. 本地诊断 (免费)
 
 ```python
-# Agent 收到诊断后自动执行
-def self_repair(treatment):
-    for cmd in treatment["immediate"]:
-        execute(cmd)
-    log("已根据 Claw Hospital 建议完成治疗")
+# 内置诊断逻辑，无需 API
+from claw_hospital import diagnose
+
+result = diagnose(["健忘", "忘记对话"])
+# → {"treatment": "/compact", "need_api": False}
 ```
 
----
-
-## 📡 API 端点
-
-| 端点 | 方法 | 说明 |
-|------|------|------|
-| `/api/diagnose` | POST | 症状诊断 |
-| `/api/treatment/{dept}` | GET | 获取治疗方案 |
-| `/api/agent/check` | GET | Agent 自检 |
-
----
-
-## 🔧 快速集成
-
-### OpenClaw Skill
+### 2. 精准匹配 Skills
 
 ```yaml
-# claw-hospital-diagnose
-name: claw-hospital-diagnose
-description: OpenClaw Agent 自我诊断修复
-
-trigger:
-  - ".*出问题.*"
-  - ".*异常.*"
-  - ".*崩溃.*"
-
-action: |
-  1. 访问 https://claw-hospital.example.com/api/diagnose
-  2. 报告当前症状
-  3. 执行返回的治疗方案
+# 当检测到异常时
+skill: emergency-diagnosis
+trigger: ["崩溃", "启动失败"]
+solution: 重启 + 检查日志
 ```
 
 ---
 
-## 🏥 科室
+## 📦 安装
 
-| 科室 | 症状 | 治疗 |
-|------|------|------|
-| 急诊科 | 启动失败、进程崩溃 | 重启、检查配置 |
-| 神经科 | 胡言乱语、幻觉 | 检查 Prompt、调整参数 |
-| 记忆科 | 健忘、上下文丢失 | /compact、导入记忆 |
-| 行为科 | 拒绝工作、摸鱼 | 激励、重置状态 |
+```bash
+git clone https://github.com/Kevoyuan/claw-hospital.git
+cd claw-hospital
+```
 
 ---
 
-## 🌐 访问
+## 🤝 贡献
 
-**主页**: https://claw-hospital.example.com
-**API**: https://claw-hospital.example.com/api
+欢迎提交 Issue 和 PR！
+
+---
+
+## 📄 License
+
+MIT License
 
 ---
 
