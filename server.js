@@ -223,14 +223,14 @@ function handleRequest(req, res) {
 // 科室名称映射
 function getDepartmentName(dept) {
   const names = {
-    'emergency': '急诊科 - 启动/崩溃问题',
-    'neuro': '神经科 - 思维/幻觉问题',
-    'memory': '记忆科 - 记忆丢失问题',
-    'behavior': '行为科 - 行为异常问题',
-    'discord': 'Discord 科',
-    'whatsapp': 'WhatsApp 科',
-    'config': '配置科',
-    'model': '模型科'
+    'emergency': 'Emergency - Startup/Crash issues',
+    'neuro': 'Neuro - Thinking/Hallucination issues',
+    'memory': 'Memory - Memory loss issues',
+    'behavior': 'Behavior - Abnormal behavior issues',
+    'discord': 'Discord - Message issues',
+    'whatsapp': 'WhatsApp - Connection issues',
+    'config': 'Config - Configuration issues',
+    'model': 'Model - Model/API issues'
   };
   return names[dept] || dept;
 }
