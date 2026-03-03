@@ -1,37 +1,37 @@
-# OpenClaw 配置指南
+# OpenClaw Config指南
 
-本技能用于管理和排查 OpenClaw 配置问题，包括环境变量、Gateway 状态和节点管理。
+本Skill用于管理和排查 OpenClaw ConfigIssue，包括Environment变量、Gateway 状态和节点管理。
 
-## 核心配置概念
+## 核心Config概念
 
-### 1. 环境变量优先级
+### 1. Environment变量优先级
 
-OpenClaw 使用以下优先级（从高到低）：
-- 进程环境变量
+OpenClaw 使用以下优先级（从High到Low）：
+- 进程Environment变量
 - 当前目录的 `.env` 文件
 - 全局 `.env` 文件 (`~/.openclaw/.env`)
-- `openclaw.json` 中的 `env` 配置块
+- `openclaw.json` Medium的 `env` Config块
 
-**重要**：已存在的环境变量不会被覆盖。
+**重要**：已存在的Environment变量不会被覆盖。
 
-### 2. 主要环境变量
+### 2. 主要Environment变量
 
 | 变量名 | 说明 |
 |--------|------|
 | `OPENCLAW_HOME` | 覆盖主目录（默认 `~/.openclaw/`） |
 | `OPENCLAW_STATE_DIR` | 覆盖状态目录 |
-| `OPENCLAW_CONFIG_PATH` | 覆盖配置文件路径 |
+| `OPENCLAW_CONFIG_PATH` | 覆盖Config文件路径 |
 | `OPENCLAW_GATEWAY_TOKEN` | Gateway 认证令牌 |
-| `OPENCLAW_LOAD_SHELL_ENV` | 设为 `1` 从 shell 导入环境变量 |
+| `OPENCLAW_LOAD_SHELL_ENV` | 设为 `1` 从 shell 导入Environment变量 |
 
 ### 3. API 密钥管理
 
-推荐使用环境变量存储敏感信息：
+推荐使用Environment变量存储敏感信息：
 - `OPENROUTER_API_KEY`
 - `DISCORD_BOT_TOKEN`
 - `TELEGRAM_BOT_TOKEN`
 
-或在 `openclaw.json` 中使用 `SecretRef` 对象：
+或在 `openclaw.json` Medium使用 `SecretRef` 对象：
 ```json
 {
   "source": "env",
@@ -45,10 +45,10 @@ OpenClaw 使用以下优先级（从高到低）：
 ### 状态检查
 ```bash
 openclaw gateway status
-openclaw status  # 包含通道和模型信息
+openclaw status  # 包含通道和Model信息
 ```
 
-### 启动/停止/重启
+### Startup/停止/重启
 ```bash
 openclaw gateway start
 openclaw gateway stop
@@ -76,7 +76,7 @@ openclaw gateway --port 18789
   ssh -N -L 18789:127.0.0.1:18789 user@gateway-host
   ```
 
-## 节点（Node）配置
+## 节点（Node）Config
 
 ### 设置远程节点
 ```bash
@@ -90,10 +90,10 @@ openclaw devices approve <requestId>
 openclaw nodes status         # 查看节点状态
 ```
 
-### 节点配置文件
+### 节点Config文件
 位置：`~/.openclaw/node.json`
 
-## 初始化配置
+## 初始化Config
 
 推荐使用向导：
 ```bash
@@ -101,40 +101,40 @@ openclaw onboard --install-daemon
 ```
 
 这将自动：
-- 配置认证信息
+- Config认证信息
 - 设置 Gateway
-- 配置可选通道
-- 将 API 密钥安全存储到系统钥匙串
+- Config可选通道
+- 将 API 密钥Security存储到系统钥匙串
 
-## 常见配置问题解决
+## 常见ConfigIssue解决
 
-1. **Gateway 无法启动**
+1. **Gateway 无法Startup**
    - 检查端口是否被占用：`lsof -i :18789`
    - 查看日志：`openclaw gateway run`（前台运行查看错误）
    - 确认 `.env` 文件存在且格式正确
 
-2. **环境变量不生效**
+2. **Environment变量不生效**
    - 确认变量名拼写正确
-   - 检查优先级：进程环境 > .env > openclaw.json
+   - 检查优先级：进程Environment > .env > openclaw.json
    - 重启 Gateway：`openclaw gateway restart`
 
 3. **节点无法连接**
    - 检查 Gateway 是否在运行
    - 确认网络连通性（ping/telnet）
-   - 验证节点配置：`cat ~/.openclaw/node.json`
+   - 验证节点Config：`cat ~/.openclaw/node.json`
    - 重新生成节点：`openclaw node run --host ...`
 
-4. **API 密钥问题**
-   - 使用 `openclaw onboard` 重新配置
-   - 手动设置环境变量后重启 Gateway
+4. **API 密钥Issue**
+   - 使用 `openclaw onboard` 重新Config
+   - 手动设置Environment变量后重启 Gateway
    - 检查密钥是否还有额度
 
-## 配置文件位置
+## Config文件位置
 
-- 主配置：`~/.openclaw/openclaw.json`
-- 环境变量：`.env` 或 `~/.openclaw/.env`
-- 节点配置：`~/.openclaw/node.json`
-- 日志位置：取决于系统配置
+- 主Config：`~/.openclaw/openclaw.json`
+- Environment变量：`.env` 或 `~/.openclaw/.env`
+- 节点Config：`~/.openclaw/node.json`
+- 日志位置：取决于系统Config
 
 ## 相关命令速查
 
@@ -147,7 +147,7 @@ openclaw dashboard          # 打开 Web 控制台
 openclaw nodes status
 openclaw devices list/approve
 
-# 配置
+# Config
 openclaw onboard           # 初始化向导
 openclaw status            # 全面状态检查
 

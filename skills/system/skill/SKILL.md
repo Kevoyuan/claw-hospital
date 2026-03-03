@@ -1,25 +1,25 @@
 ---
 name: claw-hospital-skill
-description: OpenClaw Skills 问题排查与解决方案工具箱。用于处理 Skills 创建、使用、配置相关问题，以及 ClawHub 相关操作问题。
+description: OpenClaw Skills Issue排查与Solution工具箱。用于处理 Skills 创建、使用、Config相关Issue，以及 ClawHub 相关操作Issue。
 ---
 
-# Claw Hospital - OpenClaw Skills 问题处理指南
+# Claw Hospital - OpenClaw Skills Issue处理指南
 
-本技能用于排查和处理 OpenClaw Skills 相关的各种问题。
+本Skill用于排查和处理 OpenClaw Skills 相关的各种Issue。
 
 ## 什么是 Skills？
 
 Skills 是模块化的、自包含的扩展包，通过提供专业领域知识、工作流程和工具来扩展 OpenClaw 的能力。可以把它们看作是特定领域的"入门指南"——它们将通用 AI 助手转变为具备专业程序化知识的专用助手。
 
-## 常见问题分类
+## 常见Issue分类
 
-### 1. Skills 创建问题
+### 1. Skills 创建Issue
 
 #### 如何创建新 Skill？
 
 ```bash
 # 方式一：使用 skill-creator
-# 参考 skill-creator SKILL.md 中的步骤
+# 参考 skill-creator SKILL.md Medium的步骤
 
 # 方式二：手动创建目录结构
 mkdir my-skill/
@@ -48,20 +48,20 @@ skill-name/
 ```yaml
 ---
 name: skill-name
-description: 技能描述，包含触发条件和用途说明
+description: SkillDescription，包含触发条件和用途说明
 ---
 ```
 
 **重要**：
-- `name`: 技能名称（小写字母、数字和连字符）
-- `description**: 这是主要的触发机制，包含技能功能和触发场景
+- `name`: Skill名称（小写字母、数字和连字符）
+- `description**: 这是主要的触发机制，包含Skill功能和触发场景
 
-### 2. Skills 使用问题
+### 2. Skills 使用Issue
 
 #### 如何触发 Skill？
 
-当用户的请求匹配 Skill 的 `description` 时会自动触发。确保 description 清晰描述：
-- 技能功能
+当用户的请求匹配 Skill 的 `description` 时会自动触发。确保 description 清晰Description：
+- Skill功能
 - 具体触发场景
 - 使用情境
 
@@ -72,7 +72,7 @@ openclaw skills list
 openclaw skills check
 ```
 
-### 3. ClawHub 使用问题
+### 3. ClawHub 使用Issue
 
 #### 安装 ClawHub
 
@@ -115,14 +115,14 @@ clawhub update --all --no-input --force
 clawhub publish ./my-skill --slug my-skill --name "My Skill" --version 1.2.0 --changelog "更新内容"
 ```
 
-### 4. Skill 配置问题
+### 4. Skill ConfigIssue
 
-#### 配置文件位置
+#### Config文件位置
 
 - 全局 Skills: `~/.nvm/versions/node/v25.5.0/lib/node_modules/openclaw/skills/`
 - 工作区 Skills: `~/.openclaw/workspace/skills/`
 
-#### 环境变量
+#### Environment变量
 
 - `CLAWHUB_REGISTRY`: 覆盖默认注册表 (https://clawhub.com)
 - `CLAWHUB_WORKDIR`: 覆盖默认工作目录
@@ -137,7 +137,7 @@ clawhub publish ./my-skill --slug my-skill --name "My Skill" --version 1.2.0 --c
 
 ### Skill 不触发
 
-1. 检查 `description` 是否清晰描述了触发场景
+1. 检查 `description` 是否清晰Description了触发场景
 2. 确认 Skill 已正确安装
 3. 查看 OpenClaw 日志
 
@@ -156,6 +156,6 @@ clawhub publish ./my-skill --slug my-skill --name "My Skill" --version 1.2.0 --c
 ## 最佳实践
 
 1. **简洁优先**: 只添加 AI 需要的信息，避免冗余
-2. **清晰描述**: description 要具体说明触发场景
+2. **清晰Description**: description 要具体说明触发场景
 3. **资源分离**: 大型参考资料放 references/，小技巧放 SKILL.md
 4. **渐进式披露**: 核心内容放 SKILL.md，详细信息放引用文件

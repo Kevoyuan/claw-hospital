@@ -1,40 +1,41 @@
-# OpenClaw 急诊科问题清单
+# OpenClaw 急诊科Problem清单
 
-本文档列出 OpenClaw 启动、崩溃、连接等紧急问题的解决方案。
+本文档列出 OpenClaw Startup、Crash、连接等紧急Problem的Solution。
 
 ---
 
 ## 目录
 
-- [启动问题](#启动问题)
-- [崩溃问题](#崩溃问题)
-- [插件安装问题](#插件安装问题)
-- [端口与进程问题](#端口与进程问题)
-- [网络连接问题](#网络连接问题)
+- [StartupProblem](#StartupProblem)
+- [CrashProblem](#CrashProblem)
+- [插件安装Problem](#插件安装Problem)
+- [端口与进程Problem](#端口与进程Problem)
+- [网络连接Problem](#网络连接Problem)
+- [数据恢复Problem](#数据恢复Problem)
 
 ---
 
-## 启动问题
+## StartupProblem
 
-### 问题 1: TUI 运行后终端完全没有输出
+### Problem 1: TUI 运行后终端完全没有输出
 
-**严重程度**: 高
+**Severity**: High
 
-**问题描述**:
+**ProblemDescription**:
 - TUI 运行后终端没有任何输出（无错误信息，也无正常显示内容）
 - 但消息其实能收到（从日志里能看到 chat.history 请求）
 
-**环境**:
+**Environment**:
 - OpenClaw版本: v2026.3.2
 - 操作系统: Windows (PowerShell)
 
-**错误日志**:
+**Error Log**:
 从 gateway 日志可以看到：
 - TUI 进程在运行
 - 发送了 chat.history 请求并收到响应
 - 但终端没有任何显示
 
-**解决方案**:
+**Solution**:
 1. 使用 webchat 客户端替代 TUI：
    ```
    openclaw gateway --port 18789
@@ -50,15 +51,15 @@
 
 ---
 
-### 问题 2: Gateway 启动失败 - 端口被占用
+### Problem 2: Gateway Startup失败 - 端口被占用
 
-**严重程度**: 中
+**Severity**: Medium
 
-**问题描述**:
-- 启动 Gateway 时报错端口被占用
+**ProblemDescription**:
+- Startup Gateway 时报错端口被占用
 - `Error: listen EADDRINUSE`
 
-**解决方案**:
+**Solution**:
 ```
 # 查找占用端口的进程
 lsof -i :18789
@@ -66,21 +67,21 @@ lsof -i :18789
 # 杀掉占用进程
 kill -9 <PID>
 
-# 或更换端口启动
+# 或更换端口Startup
 openclaw gateway --port 18790
 ```
 
 ---
 
-### 问题 3: Gateway 启动失败 - 配置文件格式错误
+### Problem 3: Gateway Startup失败 - Config文件格式错误
 
-**严重程度**: 高
+**Severity**: High
 
-**问题描述**:
+**ProblemDescription**:
 - JSON 解析失败
-- Gateway 启动报错
+- Gateway Startup报错
 
-**解决方案**:
+**Solution**:
 1. 验证 JSON 格式：
    ```
    cat ~/.openclaw/openclaw.json | python3 -m json.tool
@@ -93,13 +94,37 @@ openclaw gateway --port 18790
 
 ---
 
-## 崩溃问题
+### Problem 4: npm 全局安装路径Problem
 
-### 问题 4: 进程异常退出
+**Severity**: Medium
 
-**严重程度**: 高
+**ProblemDescription**:
+- `openclaw: command not found` 即使安装了
+- npm 全局 bin 路径未添加到 PATH
 
-**问题描述**:
+**Solution**:
+1. 检查 npm 全局 bin 路径：
+   ```
+   npm bin -g
+   ```
+2. 添加到 PATH（添加到 ~/.zshrc 或 ~/.bashrc）：
+   ```
+   export PATH="$(npm bin -g):$PATH"
+   ```
+3. 重新加载Config：
+   ```
+   source ~/.zshrc
+   ```
+
+---
+
+## CrashProblem
+
+### Problem 5: 进程Abnormal退出
+
+**Severity**: High
+
+**ProblemDescription**:
 - Gateway 进程突然退出
 - 日志显示 `Process exited`
 
@@ -117,22 +142,22 @@ openclaw gateway --port 18790
    ps aux | grep node
    ```
 
-**解决方案**:
+**Solution**:
 1. 确保分配至少 4GB 内存
 2. 使用稳定版本而非 beta 版
 3. 检查是否有插件冲突
 
 ---
 
-### 问题 5: 进程假死 (无响应)
+### Problem 6: 进程假死 (无响应)
 
-**严重程度**: 中
+**Severity**: Medium
 
-**问题描述**:
+**ProblemDescription**:
 - 命令执行无响应
 - Gateway 看起来在运行但不处理请求
 
-**解决方案**:
+**Solution**:
 ```
 # 检查进程状态
 ps aux | grep openclaw
@@ -144,28 +169,68 @@ openclaw gateway start
 
 ---
 
-## 插件安装问题
+### Problem 7: OOM (内存溢出) Crash
 
-### 问题 6: 插件安装失败 - Cannot find module
+**Severity**: High
 
-**严重程度**: 中
+**ProblemDescription**:
+- 进程因内存不足被系统杀死
+- dmesg 显示 OOM killer
 
-**问题描述**:
+**Solution**:
+1. 增加系统内存或关闭其他应用
+2. 限制 Gateway 内存使用：
+   ```
+   NODE_OPTIONS="--max-old-space-size=2048" openclaw gateway
+   ```
+3. 定期清理 session 文件
+
+---
+
+### Problem 8: Segmentation Fault
+
+**Severity**: 严重
+
+**ProblemDescription**:
+- 进程Crash显示 segfault
+- 通常由 native 模块引起
+
+**Solution**:
+1. 重新安装 native 模块：
+   ```
+   npm rebuild
+   ```
+2. 检查 Node.js 版本兼容性
+3. 清除缓存重装：
+   ```
+   rm -rf node_modules
+   npm install
+   ```
+
+---
+
+## 插件安装Problem
+
+### Problem 9: 插件安装失败 - Cannot find module
+
+**Severity**: Medium
+
+**ProblemDescription**:
 - 插件安装成功但加载失败
 - 错误: `Cannot find module 'zca-js'`
 
-**错误日志**:
+**Error Log**:
 ```
 Error: Cannot find module 'zca-js'
 Require stack:
 - /home/user/.openclaw/extensions/zalouser/src/zca-client.ts
 ```
 
-**环境**:
+**Environment**:
 - OpenClaw版本: 2026.3.2
 - 操作系统: Debian
 
-**解决方案**:
+**Solution**:
 1. 手动安装缺失的依赖：
    ```
    cd ~/.npm-global/lib/node_modules/openclaw
@@ -180,27 +245,27 @@ Require stack:
 
 ---
 
-### 问题 7: exec 插件安装失败
+### Problem 10: exec 插件安装失败
 
-**严重程度**: 高
+**Severity**: High
 
-**问题描述**:
+**ProblemDescription**:
 - v2026.3.2 版本 exec 插件安装失败
 - 提示 `package.json missing openclaw.extensions`
 
-**错误日志**:
+**Error Log**:
 ```
 Config warnings:
 - plugins.entries.exec: plugin not found: exec (stale config entry ignored; remove it from plugins config)
 ```
 
-**解决方案**:
+**Solution**:
 1. 回退到之前版本：
    ```
    npm uninstall openclaw -g
    npm install openclaw@2026.2.26 -g
    ```
-2. 清理旧配置：
+2. 清理旧Config：
    ```
    rm ~/.openclaw/openclaw.json.bak
    openclaw gateway restart
@@ -210,15 +275,15 @@ Config warnings:
 
 ---
 
-### 问题 8: 插件依赖未自动安装
+### Problem 11: 插件依赖未自动安装
 
-**严重程度**: 中
+**Severity**: Medium
 
-**问题描述**:
+**ProblemDescription**:
 - 插件安装时依赖未自动安装
 - 导致插件加载失败
 
-**解决方案**:
+**Solution**:
 ```
 # 手动安装插件依赖
 cd ~/.openclaw/extensions/<plugin-name>
@@ -230,17 +295,35 @@ openclaw plugins install <plugin-name> --force
 
 ---
 
-## 端口与进程问题
+### Problem 12: 插件版本冲突
 
-### 问题 9: 同一机器运行多个 OpenClaw 实例
+**Severity**: Medium
 
-**严重程度**: 低
+**ProblemDescription**:
+- 多个插件依赖同一 npm 包的不同版本
+- 导致加载失败
 
-**问题描述**:
+**Solution**:
+1. 使用 npm dedupe：
+   ```
+   cd ~/.openclaw/extensions/<plugin-name>
+   npm dedupe
+   ```
+2. 锁定插件版本
+
+---
+
+## 端口与进程Problem
+
+### Problem 13: 同一机器运行多个 OpenClaw 实例
+
+**Severity**: Low
+
+**ProblemDescription**:
 - 同一机器上运行多个 OpenClaw 实例
 - 端口冲突
 
-**解决方案**:
+**Solution**:
 ```
 # 第一个实例
 openclaw gateway start --port 18789
@@ -253,16 +336,16 @@ openclaw gateway start --port 18790
 
 ---
 
-### 问题 10: Session 文件锁未释放
+### Problem 14: Session 文件锁未释放
 
-**严重程度**: 中
+**Severity**: Medium
 
-**问题描述**:
+**ProblemDescription**:
 - Session 文件锁未释放
 - 导致 Agent 失败
 - 进程死亡后锁变成 stale lock
 
-**解决方案**:
+**Solution**:
 ```
 # 查找 stale locks
 ls -la ~/.openclaw/sessions/*.lock
@@ -278,17 +361,17 @@ openclaw gateway restart
 
 ---
 
-## 网络连接问题
+## 网络连接Problem
 
-### 问题 11: WebSocket 连接不稳定
+### Problem 15: WebSocket 连接不稳定
 
-**严重程度**: 中
+**Severity**: Medium
 
-**问题描述**:
+**ProblemDescription**:
 - WebSocket 断开连接
-- 消息丢失
+- 消息Loss
 
-**解决方案**:
+**Solution**:
 ```
 # 重启 Gateway
 openclaw gateway restart
@@ -298,22 +381,84 @@ openclaw gateway restart
 
 ---
 
-### 问题 12: Telegram 消息丢失
+### Problem 16: Telegram 消息Loss
 
-**严重程度**: 中
+**Severity**: Medium
 
-**问题描述**:
-- systemd 重启时缓冲区消息丢失
+**ProblemDescription**:
+- systemd 重启时缓冲区消息Loss
 - graceful shutdown 未正确处理
 
-**解决方案**:
-等待 v2026.3.3 或更高版本修复
+**Solution**:
+等待 v2026.3.3 或更High版本修复
 
 **相关 Fix**: drain buffered messages on graceful shutdown (#32876)
 
 ---
 
-## 快速诊断清单
+### Problem 17: 代理/防火墙导致连接失败
+
+**Severity**: Medium
+
+**ProblemDescription**:
+- 通过代理或防火墙连接时失败
+- 连接被重置或超时
+
+**Solution**:
+1. Config代理Environment变量：
+   ```
+   export HTTP_PROXY=http://proxy:8080
+   export HTTPS_PROXY=http://proxy:8080
+   ```
+2. 检查防火墙规则
+3. 使用 --proxy 参数（如果支持）
+
+---
+
+## 数据恢复Problem
+
+### Problem 18: Session 数据恢复
+
+**Severity**: Medium
+
+**ProblemDescription**:
+- Gateway Crash后需要恢复 Session 数据
+
+**Solution**:
+1. 检查 session 文件完整性：
+   ```
+   ls -la ~/.openclaw/sessions/
+   ```
+2. 使用备份恢复：
+   ```
+   openclaw sessions restore --from-backup
+   ```
+3. 手动恢复 JSON 文件
+
+---
+
+### Problem 19: Config回滚
+
+**Severity**: Low
+
+**ProblemDescription**:
+- Config错误导致无法Startup
+- 需要恢复到之前的工作Config
+
+**Solution**:
+1. 检查自动备份：
+   ```
+   ls -la ~/.openclaw/backups/
+   ```
+2. 恢复Config：
+   ```
+   cp ~/.openclaw/backups/openclaw.json.bak ~/.openclaw/openclaw.json
+   ```
+3. 重启 Gateway
+
+---
+
+## 快速Diagnosis清单
 
 | 检查项 | 命令 |
 |--------|------|
@@ -321,18 +466,18 @@ openclaw gateway restart
 | 进程存活 | `ps aux \| grep openclaw` |
 | 端口占用 | `lsof -i :18789` |
 | 查看日志 | `openclaw logs --tail 50` |
-| 诊断工具 | `openclaw doctor` |
-| 配置文件验证 | `cat ~/.openclaw/openclaw.json \| python3 -m json.tool` |
+| Diagnosis工具 | `openclaw doctor` |
+| Config文件验证 | `cat ~/.openclaw/openclaw.json \| python3 -m json.tool` |
 
 ---
 
-## 相关配置路径
+## 相关Config路径
 
-- 配置文件：`~/.openclaw/openclaw.json`
+- Config文件：`~/.openclaw/openclaw.json`
 - 日志目录：`~/.openclaw/logs/`
 - Session 目录：`~/.openclaw/sessions/`
 - 插件目录：`~/.openclaw/extensions/`
 
 ---
 
-*最后更新：2026-03-03*
+*最后更新：2026-03-04*

@@ -54,58 +54,245 @@
                         <!-- Dynamic interior environment -->
                         <div class="indoor-environment" id="indoorEnvironment">
                             <div class="env-floor"></div>
+                            <!-- Ambient particles -->
+                            <div class="particles">
+                                <div class="particle p1"></div>
+                                <div class="particle p2"></div>
+                                <div class="particle p3"></div>
+                                <div class="particle p4"></div>
+                                <div class="particle p5"></div>
+                            </div>
 
                             <div class="env-layer" id="env-lobby">
+                                <!-- Reception Desk -->
                                 <div class="pixel-prop desk">
                                     <div class="desk-side"></div>
+                                    <div class="desk-computer"></div>
+                                    <div class="desk-lamp"></div>
                                 </div>
-                                <div class="pixel-prop plant"></div>
-                                <div class="pixel-prop sofa"></div>
+                                <!-- Waiting Sofa -->
+                                <div class="pixel-prop sofa">
+                                    <div class="sofa-cushion"></div>
+                                </div>
+                                <!-- Potted Plants -->
+                                <div class="pixel-prop plant p1"></div>
+                                <div class="pixel-prop plant p2"></div>
+                                <!-- Wall Clock -->
+                                <div class="pixel-prop wall-clock"></div>
+                                <!-- Info Kiosk -->
+                                <div class="pixel-prop info-kiosk"></div>
+                                <!-- Holographic Logo -->
+                                <div class="pixel-prop holo-logo"></div>
                             </div>
                             <div class="env-layer" id="env-triage">
-                                <div class="pixel-prop scale"></div>
-                                <div class="pixel-prop monitor-stand"></div>
+                                <!-- Medical Scale -->
+                                <div class="pixel-prop scale">
+                                    <div class="scale-platform"></div>
+                                </div>
+                                <!-- Monitor Stand with vital signs -->
+                                <div class="pixel-prop monitor-stand">
+                                    <div class="monitor-screen">
+                                        <div class="vital-line"></div>
+                                    </div>
+                                </div>
+                                <!-- Exam Bed -->
                                 <div class="pixel-prop exam-bed">
                                     <div class="exam-bed-side"></div>
+                                    <div class="bed-pillow"></div>
                                 </div>
+                                <!-- Medical Cart -->
+                                <div class="pixel-prop med-cart">
+                                    <div class="cart-drawer"></div>
+                                </div>
+                                <!-- IV Stand -->
+                                <div class="pixel-prop iv-pole"></div>
+                                <!-- First Aid Kit -->
+                                <div class="pixel-prop first-aid"></div>
                             </div>
                             <div class="env-layer" id="env-emergency">
-                                <div class="pixel-prop op-table"></div>
-                                <div class="pixel-prop surg-light"></div>
-                                <div class="pixel-prop iv-drip"></div>
+                                <!-- Operating Table -->
+                                <div class="pixel-prop op-table">
+                                    <div class="op-light"></div>
+                                </div>
+                                <!-- Surgical Light -->
+                                <div class="pixel-prop surg-light">
+                                    <div class="surg-light-head"></div>
+                                    <div class="surg-light-beam"></div>
+                                </div>
+                                <!-- IV Drip -->
+                                <div class="pixel-prop iv-drip">
+                                    <div class="iv-bag"></div>
+                                    <div class="iv-tube"></div>
+                                </div>
+                                <!-- Defibrillator -->
+                                <div class="pixel-prop defibrillator"></div>
+                                <!-- Emergency Cart -->
+                                <div class="pixel-prop emergency-cart">
+                                    <div class="cart-tray"></div>
+                                </div>
+                                <!-- Heart Monitor -->
+                                <div class="pixel-prop heart-monitor">
+                                    <div class="monitor-display">
+                                        <div class="ecg-line"></div>
+                                    </div>
+                                </div>
+                                <!-- Oxygen Tank -->
+                                <div class="pixel-prop oxygen-tank"></div>
                             </div>
                             <div class="env-layer" id="env-neuro">
-                                <div class="pixel-prop brain-scanner"></div>
-                                <div class="pixel-prop holo-display"></div>
+                                <!-- Brain Scanner -->
+                                <div class="pixel-prop brain-scanner">
+                                    <div class="scanner-ring"></div>
+                                    <div class="scanner-beam"></div>
+                                </div>
+                                <!-- Holographic Display -->
+                                <div class="pixel-prop holo-display">
+                                    <div class="holo-brain"></div>
+                                    <div class="holo-particles"></div>
+                                </div>
+                                <!-- Neural Interface Chair -->
+                                <div class="pixel-prop neural-chair">
+                                    <div class="chair-headset"></div>
+                                </div>
+                                <!-- Synapse Projector -->
+                                <div class="pixel-prop synapse-projector"></div>
+                                <!-- EEG Monitor -->
+                                <div class="pixel-prop eeg-monitor">
+                                    <div class="eeg-waves"></div>
+                                </div>
+                                <!-- Memory Crystal -->
+                                <div class="pixel-prop memory-crystal"></div>
                             </div>
                             <div class="env-layer" id="env-memory">
+                                <!-- Server Racks -->
                                 <div class="pixel-prop server-rack r1">
                                     <div class="server-rack-side"></div>
+                                    <div class="server-lights"></div>
                                 </div>
                                 <div class="pixel-prop server-rack r2">
                                     <div class="server-rack-side"></div>
+                                    <div class="server-lights"></div>
                                 </div>
-                                <div class="pixel-prop data-core"></div>
+                                <div class="pixel-prop server-rack r3">
+                                    <div class="server-rack-side"></div>
+                                    <div class="server-lights"></div>
+                                </div>
+                                <!-- Data Core -->
+                                <div class="pixel-prop data-core">
+                                    <div class="core-orb"></div>
+                                    <div class="core-ring"></div>
+                                </div>
+                                <!-- Memory Matrix -->
+                                <div class="pixel-prop memory-matrix">
+                                    <div class="matrix-cube"></div>
+                                </div>
+                                <!-- Backup Drives -->
+                                <div class="pixel-prop backup-array">
+                                    <div class="drive-unit"></div>
+                                </div>
                             </div>
                             <div class="env-layer" id="env-behavior">
-                                <div class="pixel-prop therapy-couch"></div>
-                                <div class="pixel-prop bookcase"></div>
+                                <!-- Therapy Couch -->
+                                <div class="pixel-prop therapy-couch">
+                                    <div class="cushion"></div>
+                                </div>
+                                <!-- Bookcase -->
+                                <div class="pixel-prop bookcase">
+                                    <div class="book-row"></div>
+                                    <div class="book-row"></div>
+                                    <div class="book-row"></div>
+                                </div>
+                                <!-- Behavior Calibration Station -->
+                                <div class="pixel-prop behavior-station">
+                                    <div class="station-screen"></div>
+                                </div>
+                                <!-- Personality Matrix -->
+                                <div class="pixel-prop personality-matrix">
+                                    <div class="matrix-orb"></div>
+                                </div>
+                                <!-- Test Charts -->
+                                <div class="pixel-prop test-chart"></div>
+                                <!-- Relaxation Fountain -->
+                                <div class="pixel-prop relax-fountain"></div>
                             </div>
                             <div class="env-layer" id="env-whatsapp">
-                                <div class="pixel-prop comms-array"></div>
-                                <div class="pixel-prop antenna"></div>
+                                <!-- Communications Array -->
+                                <div class="pixel-prop comms-array">
+                                    <div class="array-panel"></div>
+                                    <div class="signal-bars"></div>
+                                </div>
+                                <!-- Antenna Tower -->
+                                <div class="pixel-prop antenna">
+                                    <div class="antenna-dish"></div>
+                                    <div class="signal-wave"></div>
+                                </div>
+                                <!-- Phone Bank -->
+                                <div class="pixel-prop phone-bank">
+                                    <div class="phone-unit"></div>
+                                    <div class="phone-unit"></div>
+                                </div>
+                                <!-- Encryption Server -->
+                                <div class="pixel-prop encrypter">
+                                    <div class="lock-icon"></div>
+                                </div>
+                                <!-- Message Queue -->
+                                <div class="pixel-prop msg-queue">
+                                    <div class="queue-block"></div>
+                                </div>
+                                <!-- Satellite Dish -->
+                                <div class="pixel-prop sat-dish"></div>
                             </div>
                             <div class="env-layer" id="env-discord">
-                                <div class="pixel-prop gaming-setup"></div>
+                                <!-- Gaming Setup -->
+                                <div class="pixel-prop gaming-setup">
+                                    <div class="monitor"></div>
+                                    <div class="keyboard"></div>
+                                </div>
+                                <!-- Discord Server Rack -->
                                 <div class="pixel-prop server-rack r-blue">
                                     <div class="r-blue-side"></div>
+                                    <div class="server-leds"></div>
                                 </div>
+                                <!-- Stream Setup -->
+                                <div class="pixel-prop stream-deck"></div>
+                                <!-- Chat Queue Display -->
+                                <div class="pixel-prop chat-display">
+                                    <div class="chat-scroll"></div>
+                                </div>
+                                <!-- Voice Channel Indicator -->
+                                <div class="pixel-prop voice-indicator">
+                                    <div class="voice-bars"></div>
+                                </div>
+                                <!-- Bot Command Console -->
+                                <div class="pixel-prop bot-console"></div>
                             </div>
                             <div class="env-layer" id="env-boss">
-                                <div class="pixel-prop boss-desk"></div>
-                                <div class="pixel-prop throne"></div>
-                                <div class="pixel-prop red-screen s1"></div>
-                                <div class="pixel-prop red-screen s2"></div>
+                                <!-- Boss Desk -->
+                                <div class="pixel-prop boss-desk">
+                                    <div class="desk-computer"></div>
+                                    <div class="desk-items"></div>
+                                </div>
+                                <!-- Throne -->
+                                <div class="pixel-prop throne">
+                                    <div class="throne-back"></div>
+                                </div>
+                                <!-- Red Screens -->
+                                <div class="pixel-prop red-screen s1">
+                                    <div class="screen-content"></div>
+                                </div>
+                                <div class="pixel-prop red-screen s2">
+                                    <div class="screen-content"></div>
+                                </div>
+                                <!-- Power Core -->
+                                <div class="pixel-prop power-core">
+                                    <div class="core-glow"></div>
+                                </div>
+                                <!-- Security Terminal -->
+                                <div class="pixel-prop security-terminal">
+                                    <div class="terminal-screen"></div>
+                                </div>
+                                <!-- Warning Signs -->
+                                <div class="pixel-prop warning-sign"></div>
                             </div>
 
                             <div class="room-sprites">

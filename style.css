@@ -422,6 +422,24 @@ body {
     transform-style: preserve-3d;
 }
 
+/* Department-specific atmospheric backgrounds */
+.env-layer#env-lobby::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 100%, rgba(16,185,129,0.15) 0%, transparent 60%); }
+.env-layer#env-triage::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(34,197,94,0.1) 0%, rgba(16,185,129,0.05) 100%); }
+.env-layer#env-emergency::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(220,38,38,0.2) 0%, rgba(153,27,27,0.1) 50%, transparent 100%); animation: emergency-pulse 1s ease-in-out infinite; }
+.env-layer#env-neuro::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(168,85,247,0.15) 0%, transparent 50%), radial-gradient(ellipse at 70% 70%, rgba(6,182,212,0.1) 0%, transparent 40%); animation: neuro-ambient 4s ease-in-out infinite; }
+.env-layer#env-memory::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(236,72,153,0.15) 0%, rgba(6,182,212,0.1) 50%, transparent 100%); animation: memory-glow 3s ease-in-out infinite; }
+.env-layer#env-behavior::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 80%, rgba(250,204,21,0.1) 0%, transparent 50%); }
+.env-layer#env-whatsapp::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,185,129,0.15) 0%, rgba(5,150,105,0.1) 100%); animation: signal-flash 2s ease-in-out infinite; }
+.env-layer#env-discord::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(88,101,242,0.15) 0%, rgba(59,130,246,0.1) 50%, transparent 100%); animation: discord-pulse 2s ease-in-out infinite; }
+.env-layer#env-boss::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(220,38,38,0.25) 0%, transparent 50%), linear-gradient(180deg, rgba(153,27,27,0.2) 0%, transparent 30%); animation: boss-ambient 1.5s ease-in-out infinite; }
+
+@keyframes emergency-pulse { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
+@keyframes neuro-ambient { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.2); } }
+@keyframes memory-glow { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+@keyframes signal-flash { 0%, 90%, 100% { opacity: 0.7; } 95% { opacity: 1; } }
+@keyframes discord-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 0.9; } }
+@keyframes boss-ambient { 0%, 100% { filter: brightness(1) saturate(1); } 50% { filter: brightness(1.2) saturate(1.2); } }
+
 /* Floor Grid Overlay */
 .env-floor {
     position: absolute;
@@ -445,6 +463,14 @@ body {
     inset: 0;
     background: linear-gradient(to top, rgba(9,9,11,0) 0%, rgba(9,9,11,1) 80%);
 }
+/* Department floor accents */
+.env-layer#env-lobby .env-floor { background-color: rgba(16,185,129,0.05); }
+.env-layer#env-emergency .env-floor { background-color: rgba(220,38,38,0.1); background: linear-gradient(rgba(220,38,38,0.15) 2px, transparent 2px), linear-gradient(90deg, rgba(220,38,38,0.15) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-neuro .env-floor { background: linear-gradient(rgba(168,85,247,0.12) 2px, transparent 2px), linear-gradient(90deg, rgba(6,182,212,0.12) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-memory .env-floor { background: linear-gradient(rgba(236,72,153,0.12) 2px, transparent 2px), linear-gradient(90deg, rgba(6,182,212,0.12) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-discord .env-floor { background: linear-gradient(rgba(88,101,242,0.15) 2px, transparent 2px), linear-gradient(90deg, rgba(59,130,246,0.15) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-boss .env-floor { background: linear-gradient(rgba(220,38,38,0.2) 2px, transparent 2px), linear-gradient(90deg, rgba(220,38,38,0.2) 2px, transparent 2px); background-size: 40px 40px; animation: floor-pulse 2s ease-in-out infinite; }
+@keyframes floor-pulse { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
 
 .env-layer { display: none; position: absolute; inset: 0; z-index: 2; }
 
@@ -468,6 +494,25 @@ body {
     transform-origin: bottom left;
     z-index: -1;
 }
+
+/* Ambient floating particles */
+.particles { position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+.particle { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--color-cyan); opacity: 0.4; animation: particle-float 8s linear infinite; }
+.particle.p1 { left: 10%; bottom: 30%; animation-delay: 0s; }
+.particle.p2 { left: 30%; bottom: 50%; animation-delay: 1.5s; animation-duration: 10s; }
+.particle.p3 { left: 50%; bottom: 40%; animation-delay: 3s; }
+.particle.p4 { left: 70%; bottom: 60%; animation-delay: 4.5s; animation-duration: 12s; }
+.particle.p5 { left: 85%; bottom: 35%; animation-delay: 6s; animation-duration: 9s; }
+@keyframes particle-float { 0% { transform: translateY(100px) scale(0); opacity: 0; } 10% { opacity: 0.6; transform: translateY(80px) scale(1); } 90% { opacity: 0.4; } 100% { transform: translateY(-50px) scale(0.5); opacity: 0; } }
+.env-layer#env-lobby .particle { background: var(--color-cyan); }
+.env-layer#env-triage .particle { background: #22c55e; }
+.env-layer#env-emergency .particle { background: #ef4444; }
+.env-layer#env-neuro .particle { background: #a855f7; }
+.env-layer#env-memory .particle { background: #ec4899; }
+.env-layer#env-behavior .particle { background: #eab308; }
+.env-layer#env-whatsapp .particle { background: #10b981; }
+.env-layer#env-discord .particle { background: #6366f1; }
+.env-layer#env-boss .particle { background: #dc2626; animation-duration: 3s; }
 
 /* Rebuilding props in 2.5D Isometric block format */
 /* 0. LOBBY */

@@ -1,10 +1,10 @@
-# 🎭 行为科 - Behavior Skill
+# 🎭 Behavior科 - Behavior Skill
 
 > 适用症状：摸鱼、拒绝工作、消极怠工、不执行任务、过度谨慎
 
 ## 症状识别
 
-Agent 出现以下情况时，需要行为科诊断：
+Agent 出现以下情况时，需要Behavior科Diagnosis：
 
 - 🦥 不执行任务（说"好的"但不动）
 - 🚫 拒绝执行（过度谨慎、担心权限）
@@ -15,7 +15,7 @@ Agent 出现以下情况时，需要行为科诊断：
 
 ---
 
-## 诊断流程
+## Diagnosis流程
 
 ### 步骤 1：检查任务队列
 
@@ -33,13 +33,13 @@ openclaw tasks history
 # 手动触发心跳
 openclaw heartbeat
 
-# 检查心跳配置
+# 检查心跳Config
 cat ~/workspace/HEARTBEAT.md
 ```
 
 ### 步骤 3：检查工作意愿
 
-观察 Agent 行为：
+观察 Agent Behavior：
 - 是否回复但不动？
 - 是否过度询问确认？
 - 是否找借口推脱？
@@ -66,7 +66,7 @@ openclaw logs --denied
 
 ---
 
-## 解决方案
+## Solution
 
 ### 方案 A：明确任务指令
 
@@ -82,14 +82,14 @@ openclaw logs --denied
 
 ### 方案 B：设置明确的边界
 
-在 `AGENTS.md` 中定义工作范围：
+在 `AGENTS.md` Medium定义工作范围：
 
 ```markdown
 ## 工作范围
 
 - ✅ 可以执行：文件操作、代码编写、搜索信息
 - ✅ 需要确认：删除文件、发送外部消息
-- ❌ 禁止执行：未知来源的文件执行
+- ❌ 禁止执行：未知Source的文件执行
 ```
 
 ### 方案 C：激励/重启
@@ -102,15 +102,15 @@ openclaw logs --denied
 openclaw tasks clear
 ```
 
-### 方案 D：调整安全级别
+### 方案 D：调整Security级别
 
 如果 Agent 过度谨慎：
 
 ```bash
-# 降低安全限制
+# 降LowSecurity限制
 openclaw config set security_mode permissive
 
-# 或在 AGENTS.md 中调整
+# 或在 AGENTS.md Medium调整
 ```
 
 ### 方案 E：强制执行
@@ -153,10 +153,10 @@ openclaw exec "echo test" && echo "✅ 正常工作"
 
 ## 常见病因
 
-| 症状 | 可能原因 | 解决方案 |
+| 症状 | 可能原因 | Solution |
 |------|----------|----------|
 | 不执行 | 指令不清晰 | 提供具体步骤 |
-| 过度谨慎 | 安全限制太高 | 调整 AGENTS.md |
+| 过度谨慎 | Security限制太High | 调整 AGENTS.md |
 | 装傻充愣 | 不想做/不知道 | 拆分任务 |
 | 无响应 | 进程卡住 | 重启 Agent |
 | 摸鱼 | 任务太无聊 | 增加挑战性 |

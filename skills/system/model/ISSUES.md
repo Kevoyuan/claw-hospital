@@ -1,24 +1,25 @@
-# OpenClaw 模型问题列表 (ISSUES.md)
+# OpenClaw ModelProblem列表 (ISSUES.md)
 
-本文档记录 OpenClaw 模型配置和调用过程中遇到的常见问题及解决方案。
+本文档记录 OpenClaw ModelConfig和调用过程Medium遇到的常见Problem及Solution。
 
 ---
 
 ## 📌 目录
 
-1. [API Key 问题](#api-key-问题)
-2. [模型配置问题](#模型配置问题)
-3. [网络连接问题](#网络连接问题)
-4. [认证与权限问题](#认证与权限问题)
-5. [速率限制与配额问题](#速率限制与配额问题)
+1. [API Key Problem](#api-key-Problem)
+2. [ModelConfigProblem](#ModelConfigProblem)
+3. [网络连接Problem](#网络连接Problem)
+4. [认证与权限Problem](#认证与权限Problem)
+5. [速率限制与配额Problem](#速率限制与配额Problem)
+6. [输出质量Problem](#输出质量Problem)
 
 ---
 
-## API Key 问题
+## API Key Problem
 
 ### 🔴 Issue #001: API Key 未设置
 
-**严重程度**: 高
+**Severity**: High
 
 **错误信息**:
 ```
@@ -27,12 +28,12 @@ No API key configured
 ```
 
 **原因**:
-- 环境变量未设置
-- 配置文件缺少 apiKey 字段
+- Environment变量未设置
+- Config文件缺少 apiKey 字段
 
-**解决方案**:
+**Solution**:
 ```bash
-# 设置环境变量 (临时)
+# 设置Environment变量 (临时)
 export MINIMAX_API_KEY="your-api-key"
 
 # 永久设置 (添加到 ~/.zshrc 或 ~/.bashrc)
@@ -40,7 +41,7 @@ echo 'export MINIMAX_API_KEY="your-api-key"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-**配置文件修复**:
+**Config文件修复**:
 ```json
 {
   "models": {
@@ -57,7 +58,7 @@ source ~/.zshrc
 
 ### 🔴 Issue #002: API Key 无效
 
-**严重程度**: 高
+**Severity**: High
 
 **错误信息**:
 ```
@@ -70,17 +71,17 @@ Authentication failed: Invalid API key for provider 'anthropic'
 - API Key 被撤销
 - API Key 格式错误
 
-**解决方案**:
+**Solution**:
 1. 登录对应的 AI 平台控制台
 2. 检查 API Key 状态
 3. 如有必要，重新生成新的 API Key
-4. 更新环境变量或配置文件
+4. 更新Environment变量或Config文件
 
 ---
 
 ### 🔴 Issue #003: API Key 已过期
 
-**严重程度**: 中
+**Severity**: Medium
 
 **错误信息**:
 ```
@@ -93,18 +94,18 @@ Please renew your subscription
 - 订阅已取消
 - 密钥超过使用期限
 
-**解决方案**:
+**Solution**:
 1. 访问平台账户设置
 2. 续订或升级订阅计划
 3. 生成新的 API Key
 
 ---
 
-## 模型配置问题
+## ModelConfigProblem
 
-### 🟡 Issue #101: 模型名称格式错误
+### 🟡 Issue #101: Model名称格式错误
 
-**严重程度**: 中
+**Severity**: Medium
 
 **错误信息**:
 ```
@@ -114,9 +115,9 @@ Did you mean: 'minimax-cn/MiniMax-M2.5'?
 
 **原因**:
 - 缺少 provider 前缀
-- 模型名称拼写错误
+- Model名称拼写错误
 
-**解决方案**:
+**Solution**:
 使用正确的 `provider/model` 格式：
 ```bash
 # 错误
@@ -128,9 +129,9 @@ Did you mean: 'minimax-cn/MiniMax-M2.5'?
 
 ---
 
-### 🟡 Issue #102: 默认模型不可用
+### 🟡 Issue #102: 默认Model不可用
 
-**严重程度**: 中
+**Severity**: Medium
 
 **错误信息**:
 ```
@@ -139,12 +140,12 @@ Falling back to 'anthropic/claude-sonnet-4'
 ```
 
 **原因**:
-- 默认模型服务中断
-- API Key 没有该模型权限
+- 默认Model服务Medium断
+- API Key 没有该Model权限
 
-**解决方案**:
-1. 检查 `~/.openclaw/openclaw.json` 中的默认模型设置
-2. 添加备用模型列表：
+**Solution**:
+1. 检查 `~/.openclaw/openclaw.json` Medium的默认Model设置
+2. 添加备用Model列表：
 ```json
 {
   "defaultModel": "minimax-cn/MiniMax-M2.5",
@@ -157,9 +158,9 @@ Falling back to 'anthropic/claude-sonnet-4'
 
 ---
 
-### 🟡 Issue #103: 模型不支持当前操作
+### 🟡 Issue #103: Model不支持当前操作
 
-**严重程度**: 低
+**Severity**: Low
 
 **错误信息**:
 ```
@@ -167,11 +168,11 @@ Error: Model does not support streaming
 ```
 
 **原因**:
-- 模型不支持流式输出
-- 配置中启用了不支持的功能
+- Model不支持流式输出
+- ConfigMedium启用了不支持的功能
 
-**解决方案**:
-在配置中禁用流式输出：
+**Solution**:
+在ConfigMedium禁用流式输出：
 ```json
 {
   "models": {
@@ -186,11 +187,26 @@ Error: Model does not support streaming
 
 ---
 
-## 网络连接问题
+### 🟡 Issue #104: Model列表为空
+
+**Severity**: Medium
+
+**ProblemDescription**:
+- `openclaw models list` 返回空
+- 没有可用的Model
+
+**Solution**:
+1. 检查是否安装了 models 插件
+2. 验证 models.json Config
+3. 重新运行 onboard
+
+---
+
+## 网络连接Problem
 
 ### 🟠 Issue #201: 连接超时
 
-**严重程度**: 高
+**Severity**: High
 
 **错误信息**:
 ```
@@ -201,9 +217,9 @@ Network error: ETIMEDOUT
 **原因**:
 - 网络不稳定
 - 防火墙阻止
-- 代理配置错误
+- 代理Config错误
 
-**解决方案**:
+**Solution**:
 1. 检查网络连接：
 ```bash
 ping platform.minimax.io
@@ -216,7 +232,7 @@ ping api.anthropic.com
 
 ### 🟠 Issue #202: SSL 证书错误
 
-**严重程度**: 中
+**Severity**: Medium
 
 **错误信息**:
 ```
@@ -227,7 +243,7 @@ Error: SSL certificate problem: unable to get local issuer certificate
 - 系统根证书过期或缺失
 - 代理干扰 SSL 连接
 
-**解决方案**:
+**Solution**:
 ```bash
 # macOS
 brew install curl-ca-bundle
@@ -240,7 +256,7 @@ sudo update-ca-certificates
 
 ### 🟠 Issue #203: 域名解析失败
 
-**严重程度**: 中
+**Severity**: Medium
 
 **错误信息**:
 ```
@@ -248,21 +264,37 @@ Error: getaddrinfo ENOTFOUND api.minimax.io
 ```
 
 **原因**:
-- DNS 配置问题
+- DNS ConfigProblem
 - 域名被墙
 
-**解决方案**:
+**Solution**:
 1. 检查 DNS 设置
 2. 使用备选 DNS（如 Google DNS 8.8.8.8）
-3. 配置 hosts 文件
+3. Config hosts 文件
 
 ---
 
-## 认证与权限问题
+### 🟠 Issue #204: 代理认证失败
+
+**Severity**: Medium
+
+**错误信息**:
+```
+Error: Proxy authentication failed
+407 Proxy Authentication Required
+```
+
+**Solution**:
+1. Config代理用户名和密码
+2. 或使用不需要认证的代理
+
+---
+
+## 认证与权限Problem
 
 ### 🔴 Issue #301: 认证失败 401
 
-**严重程度**: 高
+**Severity**: High
 
 **错误信息**:
 ```
@@ -275,16 +307,16 @@ Authentication failed
 - 账户未激活
 - 权限不足
 
-**解决方案**:
+**Solution**:
 1. 确认 API Key 正确
 2. 检查账户状态（是否已激活、是否欠费）
-3. 确认 API Key 有调用该模型的权限
+3. 确认 API Key 有调用该Model的权限
 
 ---
 
 ### 🔴 Issue #302: 权限不足 403
 
-**严重程度**: 高
+**Severity**: High
 
 **错误信息**:
 ```
@@ -293,10 +325,10 @@ Insufficient permissions to access this model
 ```
 
 **原因**:
-- 账户级别不支持该模型
+- 账户级别不支持该Model
 - 未完成实名认证
 
-**解决方案**:
+**Solution**:
 1. 登录平台检查账户权限
 2. 完成必要的认证流程
 3. 升级账户套餐
@@ -305,7 +337,7 @@ Insufficient permissions to access this model
 
 ### 🔴 Issue #303: 账户被封禁
 
-**严重程度**: 严重
+**Severity**: 严重
 
 **错误信息**:
 ```
@@ -317,18 +349,18 @@ Your account has been suspended
 - 违反平台使用政策
 - 欠费严重
 
-**解决方案**:
+**Solution**:
 1. 联系平台客服
 2. 了解封禁原因
 3. 提供申诉材料
 
 ---
 
-## 速率限制与配额问题
+## 速率限制与配额Problem
 
 ### 🟡 Issue #401: 请求速率超限 429
 
-**严重程度**: 中
+**Severity**: Medium
 
 **错误信息**:
 ```
@@ -337,23 +369,23 @@ Rate limit exceeded: 60 requests per minute
 ```
 
 **原因**:
-- 请求频率过高
+- 请求频率过High
 - 并发请求过多
 
-**解决方案**:
+**Solution**:
 1. 添加请求延迟：
 ```python
 import time
 time.sleep(1)  # 每秒最多1个请求
 ```
 2. 使用流式响应减少请求次数
-3. 考虑升级付费套餐提高限制
+3. 考虑升级付费套餐提High限制
 
 ---
 
 ### 🟡 Issue #402: 每日配额用尽
 
-**严重程度**: 中
+**Severity**: Medium
 
 **错误信息**```
 Error: 429 Quota exceeded
@@ -364,7 +396,7 @@ Daily quota limit reached
 - 免费额度用完
 - 达到每日消费上限
 
-**解决方案**:
+**Solution**:
 1. 检查配额使用情况
 2. 等待次日配额重置
 3. 升级付费计划
@@ -373,7 +405,7 @@ Daily quota limit reached
 
 ### 🟡 Issue #403: 每月账单超支
 
-**严重程度**: 中
+**Severity**: Medium
 
 **错误信息**:
 ```
@@ -385,9 +417,60 @@ Monthly spend limit reached
 - 设置了每月消费上限
 - 用量超出预期
 
-**解决方案**:
+**Solution**:
 1. 登录平台调整或取消限额
 2. 监控用量避免超支
+
+---
+
+## 输出质量Problem
+
+### 🟠 Issue #501: Model输出包含乱码
+
+**Severity**: Medium
+
+**ProblemDescription**:
+- 输出包含随机字符或乱码
+- UTF-8 编码Problem
+
+**Solution**:
+1. 检查终端编码设置
+2. 设置Environment变量：
+   ```
+   export LANG=en_US.UTF-8
+   export LC_ALL=en_US.UTF-8
+   ```
+3. 重启 Gateway
+
+---
+
+### 🟠 Issue #502: 输出被截断
+
+**Severity**: Medium
+
+**ProblemDescription**:
+- 长输出被意外截断
+- 不完整响应
+
+**Solution**:
+1. 增加 maxTokens 限制
+2. 检查是否达到Model上下文限制
+3. 启用流式输出获取完整响应
+
+---
+
+### 🟠 Issue #503: 响应格式不一致
+
+**Severity**: Low
+
+**ProblemDescription**:
+- 相同请求返回不同格式
+- JSON 解析失败
+
+**Solution**:
+1. 在提示词Medium明确输出格式
+2. 使用结构化输出Config
+3. 添加输出格式验证
 
 ---
 
@@ -399,7 +482,7 @@ Monthly spend limit reached
 # 检查 OpenClaw 状态
 openclaw status
 
-# 诊断问题
+# DiagnosisProblem
 openclaw doctor
 
 # 测试 API 连接
@@ -414,16 +497,16 @@ openclaw test-model --model minimax-cn/MiniMax-M2.5
 
 ---
 
-## 报告新问题
+## 报告新Problem
 
-遇到未列出的问题时，请收集以下信息：
+遇到未列出的Problem时，请收集以下信息：
 
 1. **错误信息**：完整的错误输出
-2. **配置文件**：`~/.openclaw/openclaw.json`（注意脱敏）
-3. **环境变量**：`echo $API_KEY_NAME` 只显示前5位
+2. **Config文件**：`~/.openclaw/openclaw.json`（注意脱敏）
+3. **Environment变量**：`echo $API_KEY_NAME` 只显示前5位
 4. **日志文件**：相关时间段的日志
-5. **复现步骤**：如何稳定重现问题
+5. **复现步骤**：如何稳定重现Problem
 
 ---
 
-*最后更新：2026-03-03*
+*最后更新：2026-03-04*
