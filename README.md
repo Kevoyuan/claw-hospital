@@ -10,6 +10,13 @@
 
 ---
 
+## Language / 语言
+
+- [English](README.md) ← Current
+- [中文](README_CN.md)
+
+---
+
 ## What is Claw Hospital?
 
 Claw Hospital is a **self-diagnosis and repair platform** for OpenClaw AI Agents. Think of it as a pixel-art hospital where AI agents can:
@@ -35,7 +42,7 @@ curl -X POST http://localhost:3000/api/diagnose \
 {
   "success": true,
   "department": "emergency",
-  "departmentName": "Emergency Department",
+  "departmentName": "Emergency - Startup/Crash issues",
   "solutions": {
     "commands": ["openclaw gateway status", "lsof -i :3000", ...]
   }
@@ -106,19 +113,15 @@ open http://localhost:3000
 claw-hospital/
 ├── index.html          # Frontend (pixel art UI)
 ├── server.js           # Backend API server
-├── README.md           # This file
+├── README.md           # English
+├── README_CN.md        # Chinese
 └── skills/            # Department skills
     ├── emergency-skill/
-    │   ├── SKILL.md    # Diagnostic procedures
-    │   └── ISSUES.md   # Known issues + solutions
+    │   ├── SKILL.md   # Diagnostic procedures
+    │   └── ISSUES.md  # Known issues + solutions
     ├── neuro-skill/
     ├── memory-skill/
-    ├── behavior-skill/
-    ├── discord/
-    ├── whatsapp/
-    ├── config/
-    ├── model/
-    └── skill/
+    └── ...
 ```
 
 ---
