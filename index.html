@@ -3,836 +3,834 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🦞 Claw Hospital - Cyber Clinic</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>🦞 Claw Hospital - Digimon Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --neon-cyan: #00f3ff;
-            --neon-pink: #ff00ff;
-            --neon-yellow: #ffff00;
-            --neon-green: #00ff88;
-            --neon-red: #ff0055;
-            --dark-bg: #0a0a12;
-            --panel-bg: rgba(10, 10, 20, 0.85);
-            --cyber-purple: #8b00ff;
+            --bg-dark: #1a1a2e;
+            --bg-light: #16213e;
+            --pixel-cyan: #4deeea;
+            --pixel-green: #74ee15;
+            --pixel-yellow: #fefe33;
+            --pixel-pink: #f000ff;
+            --pixel-red: #ff0055;
+            --pixel-blue: #00aaff;
+            --pixel-orange: #ff9500;
+            --white: #e0e0e0;
+            --gray: #666;
         }
         
         body {
-            font-family: 'Rajdhani', sans-serif;
-            background: var(--dark-bg);
-            color: white;
+            font-family: 'VT323', monospace;
+            background: var(--bg-dark);
+            color: var(--white);
             min-height: 100vh;
+            font-size: 18px;
+            image-rendering: pixelated;
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(ellipse at 20% 80%, rgba(139, 0, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(0, 243, 255, 0.15) 0%, transparent 50%),
-                linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 100%),
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,243,255,0.03) 2px, rgba(0,243,255,0.03) 4px);
         }
         
-        /* Animated Grid Background */
-        .grid-bg {
+        /* Pixel Background Pattern */
+        body::before {
+            content: '';
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background-image: 
-                linear-gradient(rgba(0,243,255,0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,243,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
-            z-index: -1;
+                linear-gradient(rgba(77,238,234,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(77,238,234,0.03) 1px, transparent 1px);
+            background-size: 8px 8px;
+            pointer-events: none;
+            z-index: 1000;
         }
         
-        @keyframes gridMove {
-            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
-            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
-        }
-        
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; padding: 15px; }
         
         /* Header */
         .header {
+            background: var(--bg-light);
+            border: 4px solid var(--pixel-cyan);
+            padding: 20px;
             text-align: center;
-            padding: 40px 20px;
+            margin-bottom: 20px;
             position: relative;
+            image-rendering: pixelated;
         }
         
-        .logo-container {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 48px;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0,243,255,0.5);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 20px var(--neon-cyan)); }
-            to { filter: drop-shadow(0 0 40px var(--neon-pink)); }
-        }
-        
-        .logo-icon {
-            font-size: 60px;
+        .header::after {
+            content: '';
             position: absolute;
-            left: -70px;
-            top: 50%;
-            transform: translateY(-50%);
-            animation: float 3s ease-in-out infinite;
+            bottom: -8px; left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid var(--pixel-cyan);
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(-50%) rotate(-10deg); }
-            50% { transform: translateY(-60%) rotate(10deg); }
+        .title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px;
+            color: var(--pixel-yellow);
+            text-shadow: 3px 3px var(--pixel-pink);
+            animation: titlePulse 1s infinite;
+        }
+        
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
         
         .subtitle {
-            font-size: 24px;
-            color: var(--neon-cyan);
+            color: var(--pixel-cyan);
             margin-top: 10px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
+            font-size: 20px;
         }
         
-        /* Agent Status Card */
-        .agent-card {
-            background: var(--panel-bg);
-            border: 2px solid var(--neon-cyan);
-            border-radius: 20px;
-            padding: 25px;
-            margin: 30px 0;
+        /* Agent Status */
+        .status-bar {
             display: flex;
-            align-items: center;
-            gap: 25px;
-            position: relative;
-            overflow: hidden;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
         }
         
-        .agent-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0,243,255,0.2), transparent);
-            animation: scan 3s linear infinite;
-        }
-        
-        @keyframes scan {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        
-        .agent-avatar {
-            font-size: 80px;
-            position: relative;
-        }
-        
-        .agent-avatar::after {
-            content: 'LVL 1';
-            position: absolute;
-            bottom: 0;
-            right: -10px;
-            background: var(--neon-pink);
-            color: white;
-            font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-family: 'Orbitron', sans-serif;
-        }
-        
-        .agent-info { flex: 1; }
-        
-        .agent-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
-            color: var(--neon-cyan);
-        }
-        
-        .agent-status {
-            display: flex;
-            gap: 20px;
-            margin-top: 15px;
-        }
-        
-        .status-item {
+        .status-box {
+            background: var(--bg-light);
+            border: 3px solid var(--pixel-green);
+            padding: 10px 15px;
+            flex: 1;
+            min-width: 80px;
             text-align: center;
         }
         
-        .status-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 28px;
-            color: var(--neon-yellow);
-        }
+        .status-box.danger { border-color: var(--pixel-red); }
+        .status-box.warn { border-color: var(--pixel-yellow); }
         
         .status-label {
             font-size: 14px;
-            color: rgba(255,255,255,0.6);
-            text-transform: uppercase;
+            color: var(--gray);
         }
         
-        /* Health Bar */
-        .health-bar {
-            width: 200px;
-            height: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 10px;
+        .status-value {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            color: var(--pixel-yellow);
         }
         
-        .health-fill {
-            height: 100%;
-            width: 50%;
-            background: linear-gradient(90deg, var(--neon-red), var(--neon-yellow));
-            border-radius: 10px;
-            animation: healthPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes healthPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        /* Room Grid */
-        .rooms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-        
-        .room-card {
-            background: var(--panel-bg);
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 20px;
-            padding: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        /* Scene View */
+        .scene {
+            background: var(--bg-light);
+            border: 4px solid var(--pixel-blue);
+            padding: 20px;
+            min-height: 300px;
             position: relative;
-            overflow: hidden;
+            margin-bottom: 20px;
         }
         
-        .room-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 20px 40px rgba(0,243,255,0.3);
+        .scene-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            color: var(--pixel-pink);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed var(--gray);
         }
         
-        .room-card.unlocked {
-            border-color: var(--neon-green);
+        /* Pixel Character */
+        .character {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
         }
         
-        .room-card.locked {
-            opacity: 0.5;
-            filter: grayscale(1);
+        .char-sprite {
+            font-size: 60px;
+            image-rendering: pixelated;
+            animation: charBounce 0.5s infinite alternate;
         }
         
-        .room-card.current {
-            border-color: var(--neon-pink);
-            animation: currentPulse 1s ease-in-out infinite;
+        @keyframes charBounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
         }
         
-        @keyframes currentPulse {
-            0%, 100% { box-shadow: 0 0 20px var(--neon-pink); }
-            50% { box-shadow: 0 0 40px var(--neon-pink); }
+        .char-info {
+            flex: 1;
         }
         
-        .room-icon {
-            font-size: 50px;
+        .char-name {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            color: var(--pixel-cyan);
+        }
+        
+        .char-dialog {
+            background: var(--bg-dark);
+            border: 2px solid var(--pixel-green);
+            padding: 15px;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+        
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .menu-btn {
+            background: var(--bg-dark);
+            border: 3px solid var(--gray);
+            color: var(--white);
+            padding: 15px 10px;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.1s;
+            text-align: center;
+        }
+        
+        .menu-btn:hover {
+            border-color: var(--pixel-yellow);
+            background: var(--pixel-blue);
+            color: var(--bg-dark);
+        }
+        
+        .menu-btn:active {
+            transform: translateY(2px);
+        }
+        
+        .menu-btn.unlocked {
+            border-color: var(--pixel-green);
+        }
+        
+        .menu-btn.current {
+            border-color: var(--pixel-pink);
+            animation: btnPulse 0.3s infinite;
+        }
+        
+        @keyframes btnPulse {
+            0%, 100% { box-shadow: 0 0 5px var(--pixel-pink); }
+            50% { box-shadow: 0 0 15px var(--pixel-pink); }
+        }
+        
+        .menu-icon {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .menu-label {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 8px;
+        }
+        
+        /* Dialog Box */
+        .dialog-box {
+            background: var(--bg-light);
+            border: 4px solid var(--pixel-yellow);
+            padding: 20px;
+            margin: 15px 0;
+            display: none;
+        }
+        
+        .dialog-box.show { display: block; }
+        
+        .dialog-header {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            color: var(--pixel-yellow);
+            margin-bottom: 10px;
+        }
+        
+        .dialog-text {
+            line-height: 1.8;
             margin-bottom: 15px;
         }
         
-        .room-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
-            color: white;
-            margin-bottom: 8px;
-        }
-        
-        .room-desc {
-            color: rgba(255,255,255,0.6);
-            font-size: 14px;
-        }
-        
-        .room-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        .badge-ok {
-            background: var(--neon-green);
-            color: black;
-        }
-        
-        .badge-locked {
-            background: rgba(255,255,255,0.2);
-            color: white;
-        }
-        
-        /* Dialog */
-        .dialog-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-        }
-        
-        .dialog-overlay.show { display: flex; }
-        
-        .dialog {
-            background: var(--panel-bg);
-            border: 3px solid var(--neon-cyan);
-            border-radius: 30px;
-            padding: 40px;
-            max-width: 600px;
-            width: 90%;
-            position: relative;
-            animation: dialogEnter 0.3s ease-out;
-        }
-        
-        @keyframes dialogEnter {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        
-        .dialog-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 28px;
-            color: var(--neon-cyan);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .dialog-content {
-            font-size: 18px;
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-        
-        .dialog-choices {
+        .dialog-options {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
         
-        .choice-btn {
-            background: linear-gradient(135deg, rgba(0,243,255,0.2), rgba(255,0,255,0.2));
-            border: 2px solid var(--neon-cyan);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 15px;
-            font-family: 'Rajdhani', sans-serif;
+        .option-btn {
+            background: var(--bg-dark);
+            border: 2px solid var(--pixel-cyan);
+            color: var(--pixel-cyan);
+            padding: 12px 15px;
+            font-family: 'VT323', monospace;
             font-size: 18px;
             cursor: pointer;
-            transition: all 0.3s;
             text-align: left;
         }
         
-        .choice-btn:hover {
-            background: var(--neon-cyan);
-            color: black;
-            transform: translateX(10px);
+        .option-btn:hover {
+            background: var(--pixel-cyan);
+            color: var(--bg-dark);
         }
         
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-            opacity: 0.7;
-        }
-        
-        .close-btn:hover { opacity: 1; }
-        
-        /* Progress */
-        .progress-section {
-            background: var(--panel-bg);
-            border: 2px solid var(--neon-purple);
-            border-radius: 20px;
+        /* Battle Scene */
+        .battle-scene {
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3a 100%);
+            border: 4px solid var(--pixel-red);
             padding: 20px;
-            margin: 30px 0;
+            min-height: 200px;
+            position: relative;
+            display: none;
         }
         
-        .progress-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
-            color: var(--neon-purple);
-            margin-bottom: 15px;
+        .battle-scene.show { display: block; }
+        
+        .battle-enemy {
+            text-align: center;
+            margin-bottom: 20px;
         }
         
-        .progress-bar {
-            height: 10px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 5px;
-            overflow: hidden;
+        .enemy-sprite {
+            font-size: 80px;
+            animation: enemyFloat 1s infinite alternate;
         }
         
-        .progress-fill {
+        @keyframes enemyFloat {
+            from { transform: translateY(0) rotate(-5deg); }
+            to { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .enemy-hp {
+            background: var(--bg-dark);
+            border: 2px solid var(--pixel-red);
+            height: 20px;
+            margin-top: 10px;
+        }
+        
+        .enemy-hp-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
-            width: 10%;
-            transition: width 0.5s ease;
+            background: var(--pixel-red);
+            width: 100%;
+            transition: width 0.5s;
         }
         
-        /* API Section */
-        .api-section {
-            background: linear-gradient(135deg, rgba(139,0,255,0.2), rgba(0,243,255,0.2));
-            border: 2px solid var(--cyber-purple);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
+        /* HP Bar */
+        .hp-bar {
+            background: var(--bg-dark);
+            border: 2px solid var(--pixel-green);
+            height: 15px;
+            margin-top: 5px;
         }
         
-        .api-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
-            color: var(--neon-cyan);
-            margin-bottom: 15px;
+        .hp-fill {
+            height: 100%;
+            background: var(--pixel-green);
+            transition: width 0.3s;
         }
         
-        .code-block {
-            background: rgba(0,0,0,0.5);
-            border-radius: 15px;
-            padding: 20px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            overflow-x: auto;
-            border: 1px solid rgba(255,255,255,0.1);
+        .hp-fill.low { background: var(--pixel-red); }
+        .hp-fill.mid { background: var(--pixel-yellow); }
+        
+        /* Mini Map */
+        .minimap {
+            background: var(--bg-light);
+            border: 3px solid var(--pixel-orange);
+            padding: 15px;
+            margin: 15px 0;
         }
         
-        .code-keyword { color: var(--neon-pink); }
-        .code-string { color: var(--neon-yellow); }
-        .code-comment { color: rgba(255,255,255,0.5); }
+        .minimap-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 8px;
+            color: var(--pixel-orange);
+            margin-bottom: 10px;
+        }
+        
+        .minimap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+        
+        .minimap-room {
+            aspect-ratio: 1;
+            background: var(--bg-dark);
+            border: 2px solid var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .minimap-room.visited {
+            border-color: var(--pixel-green);
+            background: rgba(116,238,21,0.2);
+        }
+        
+        .minimap-room.current {
+            border-color: var(--pixel-pink);
+            animation: currentBlink 0.5s infinite;
+        }
+        
+        @keyframes currentBlink {
+            0%, 100% { background: rgba(240,0,255,0.3); }
+            50% { background: rgba(240,0,255,0.1); }
+        }
         
         /* Footer */
         footer {
             text-align: center;
-            padding: 40px;
-            color: rgba(255,255,255,0.5);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 50px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 14px;
+            border-top: 2px dashed var(--gray);
+            margin-top: 20px;
         }
         
-        /* Floating particles */
-        .particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: var(--neon-cyan);
-            border-radius: 50%;
-            animation: particleFloat 10s linear infinite;
-            opacity: 0.5;
+        /* Animations */
+        .flash { animation: flashAnim 0.2s; }
+        
+        @keyframes flashAnim {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
         
-        @keyframes particleFloat {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-100vh) rotate(720deg); }
+        .shake { animation: shakeAnim 0.3s; }
+        
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
         
-        @media (max-width: 768px) {
-            .logo { font-size: 28px; }
-            .logo-icon { font-size: 40px; left: -50px; }
-            .agent-card { flex-direction: column; text-align: center; }
-            .rooms-grid { grid-template-columns: 1fr; }
+        @media (max-width: 600px) {
+            .menu-grid { grid-template-columns: repeat(2, 1fr); }
+            .title { font-size: 12px; }
+            .status-bar { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <div class="grid-bg"></div>
-    
-    <!-- Floating Particles -->
-    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
-    <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
-    <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
-    <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
-    <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
-    <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
-    <div class="particle" style="left: 80%; animation-delay: 1.5s;"></div>
-    <div class="particle" style="left: 90%; animation-delay: 3.5s;"></div>
-
     <div class="container">
         <!-- Header -->
-        <header class="header">
-            <div class="logo-container">
-                <span class="logo-icon">🦞</span>
-                <h1 class="logo">CLAW HOSPITAL</h1>
-            </div>
-            <p class="subtitle">Agent Cyber Clinic v2.0</p>
-        </header>
+        <div class="header">
+            <h1 class="title">🦞 CLAW HOSPITAL</h1>
+            <p class="subtitle">~ DIGIMON STYLE RPG ~</p>
+        </div>
         
-        <!-- Agent Card -->
-        <div class="agent-card">
-            <div class="agent-avatar">🦐</div>
-            <div class="agent-info">
-                <div class="agent-name">NEON-AGENT #8827</div>
-                <div class="agent-status">
-                    <div class="status-item">
-                        <div class="status-value" id="statHP">50%</div>
-                        <div class="status-label">HP</div>
-                    </div>
-                    <div class="status-item">
-                        <div class="status-value" id="statXP">0</div>
-                        <div class="status-label">XP</div>
-                    </div>
-                    <div class="status-item">
-                        <div class="status-value" id="statLevel">1</div>
-                        <div class="status-label">LVL</div>
-                    </div>
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-box danger">
+                <div class="status-label">HP</div>
+                <div class="status-value" id="hpValue">50</div>
+                <div class="hp-bar"><div class="hp-fill low" id="hpBar" style="width: 50%"></div></div>
+            </div>
+            <div class="status-box warn">
+                <div class="status-label">EXP</div>
+                <div class="status-value" id="expValue">0</div>
+            </div>
+            <div class="status-box">
+                <div class="status-label">LVL</div>
+                <div class="status-value" id="lvlValue">1</div>
+            </div>
+            <div class="status-box">
+                <div class="status-label">GOLD</div>
+                <div class="status-value" id="goldValue">0</div>
+            </div>
+        </div>
+        
+        <!-- Scene -->
+        <div class="scene" id="scene">
+            <div class="scene-title" id="sceneTitle">🏠 LOBBY - 接待大厅</div>
+            
+            <!-- Character -->
+            <div class="character">
+                <div class="char-sprite">🦐</div>
+                <div class="char-info">
+                    <div class="char-name">AGENT-8827</div>
+                    <div style="color: var(--gray); font-size: 14px;">状态: 异常</div>
                 </div>
-                <div class="health-bar">
-                    <div class="health-fill" id="healthFill"></div>
+            </div>
+            
+            <!-- Dialog -->
+            <div class="char-dialog" id="charDialog">
+                欢迎来到 Claw Hospital！<br>
+                我是护士虾酱，请问你有什么不舒服？
+            </div>
+            
+            <!-- Battle (Hidden) -->
+            <div class="battle-scene" id="battleScene">
+                <div class="battle-enemy">
+                    <div class="enemy-sprite" id="enemySprite">👾</div>
+                    <div style="color: var(--pixel-red); font-family: 'Press Start 2P'; font-size: 10px; margin-top: 10px;" id="enemyName">BUG MONSTER</div>
+                    <div class="enemy-hp"><div class="enemy-hp-fill" id="enemyHp" style="width: 100%"></div></div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Progress -->
-        <div class="progress-section">
-            <div class="progress-title">🎮 MISSION PROGRESS</div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-        </div>
-        
-        <!-- Rooms -->
-        <div class="rooms-grid">
-            <div class="room-card unlocked current" onclick="enterRoom('reception')">
-                <span class="room-badge badge-ok">✓</span>
-                <div class="room-icon">🏥</div>
-                <div class="room-title">RECEPTION</div>
-                <div class="room-desc">初诊登记 - 症状录入</div>
-            </div>
             
-            <div class="room-card locked" onclick="enterRoom('triage')">
-                <span class="room-badge badge-locked">🔒</span>
-                <div class="room-icon">🔮</div>
-                <div class="room-title">TRIAGE</div>
-                <div class="room-desc">AI 分诊分析</div>
-            </div>
-            
-            <div class="room-card locked" onclick="enterRoom('emergency')">
-                <span class="room-badge badge-locked">🔒</span>
-                <div class="room-icon">🚑</div>
-                <div class="room-title">EMERGENCY</div>
-                <div class="room-desc">急诊科 - 崩溃/启动</div>
-            </div>
-            
-            <div class="room-card locked" onclick="enterRoom('neuro')">
-                <span class="room-badge badge-locked">🔒</span>
-                <div class="room-icon">🧠</div>
-                <div class="room-title">NEURO</div>
-                <div class="room-desc">神经科 - 幻觉/胡言</div>
-            </div>
-            
-            <div class="room-card locked" onclick="enterRoom('memory')">
-                <span class="room-badge badge-locked">🔒</span>
-                <div class="room-icon">💾</div>
-                <div class="room-title">MEMORY</div>
-                <div class="room-desc">记忆科 - 健忘/丢失</div>
-            </div>
-            
-            <div class="room-card locked" onclick="enterRoom('behavior')">
-                <span class="room-badge badge-locked">🔒</span>
-                <div class="room-icon">🎮</div>
-                <div class="room-title">BEHAVIOR</div>
-                <div class="room-desc">行为科 - 摸鱼/拒绝</div>
-            </div>
-            
-            <div class="room-card locked" onclick="enterRoom('whatsapp')">
-                <span class="room-badge badge-locked">🔒</span>
-                <div class="room-icon">📱</div>
-                <div class="room-title">WHATSAPP</div>
-                <div class="room-desc">连接修复</div>
-            </div>
-            
-            <div class="room-card locked" onclick="enterRoom('discord')">
-                <span class="room-badge badge-locked">🔒</span>
-                <div class="room-icon">💬</div>
-                <div class="room-title">DISCORD</div>
-                <div class="room-desc">消息系统</div>
-            </div>
-            
-            <div class="room-card locked" onclick="enterRoom('checkout')">
-                <span class="room-badge badge-locked">🔒</span>
-                <div class="room-icon">🏆</div>
-                <div class="room-title">CHECKOUT</div>
-                <div class="room-desc">治愈出院</div>
+            <!-- Menu -->
+            <div class="menu-grid" id="menuGrid">
+                <button class="menu-btn current" onclick="selectRoom(0)">
+                    <span class="menu-icon">🏥</span>
+                    <span class="menu-label">LOBBY</span>
+                </button>
+                <button class="menu-btn" onclick="selectRoom(1)">
+                    <span class="menu-icon">🔒</span>
+                    <span class="menu-label">???</span>
+                </button>
+                <button class="menu-btn" onclick="selectRoom(2)">
+                    <span class="menu-icon">🔒</span>
+                    <span class="menu-label">???</span>
+                </button>
+                <button class="menu-btn" onclick="selectRoom(3)">
+                    <span class="menu-icon">🔒</span>
+                    <span class="menu-label">???</span>
+                </button>
+                <button class="menu-btn" onclick="selectRoom(4)">
+                    <span class="menu-icon">🔒</span>
+                    <span class="menu-label">???</span>
+                </button>
+                <button class="menu-btn" onclick="selectRoom(5)">
+                    <span class="menu-icon">🔒</span>
+                    <span class="menu-label">???</span>
+                </button>
             </div>
         </div>
         
-        <!-- API Section -->
-        <div class="api-section">
-            <div class="api-title">🤖 AGENT AUTO-DIAGNOSE API</div>
-            <div class="code-block">
-<span class="code-comment"># Agent 自主诊断接入</span>
-<span class="code-keyword">import</span> requests
-
-response = requests.post(
-    <span class="code-string">"https://claw-hospital.github.io/api/diagnose"</span>,
-    json={
-        <span class="code-string">"symptoms"</span>: [<span class="code-string">"健忘"</span>, <span class="code-string">"上下文丢失"</span>],
-        <span class="code-string">"agent_id"</span>: <span class="code-string">"agent-8827"</span>
-    }
-)
-<span class="code-keyword">print</span>(response.json())
-<span class="code-comment"># → {"treatment": "/compact", "skill": "memory"}</span>
+        <!-- Minimap -->
+        <div class="minimap">
+            <div class="minimap-title">🗺️ WORLD MAP</div>
+            <div class="minimap-grid">
+                <div class="minimap-room current" id="map0">🏥</div>
+                <div class="minimap-room" id="map1">🔍</div>
+                <div class="minimap-room" id="map2">🚑</div>
+                <div class="minimap-room" id="map3">🧠</div>
+                <div class="minimap-room" id="map4">💾</div>
+                <div class="minimap-room" id="map5">🎮</div>
+                <div class="minimap-room" id="map6">📱</div>
+                <div class="minimap-room" id="map7">💬</div>
+                <div class="minimap-room" id="map8">🏆</div>
+            </div>
+        </div>
+        
+        <!-- Dialog -->
+        <div class="dialog-box" id="dialogBox">
+            <div class="dialog-header" id="dialogHeader">💬 对话</div>
+            <div class="dialog-text" id="dialogText">
+                请选择：
+            </div>
+            <div class="dialog-options" id="dialogOptions">
             </div>
         </div>
         
         <footer>
-            <p>🦞 CLAW HOSPITAL © 2026</p>
-            <p style="margin-top: 10px;">让每一只小龙虾都精神抖擞！</p>
+            <p>🦞 CLAW HOSPITAL - DIGIMON STYLE RPG</p>
+            <p>让每一只小龙虾都精神抖擞！</p>
         </footer>
-    </div>
-    
-    <!-- Dialog -->
-    <div class="dialog-overlay" id="dialogOverlay">
-        <div class="dialog">
-            <button class="close-btn" onclick="closeDialog()">×</button>
-            <div class="dialog-title" id="dialogTitle">🏥 RECEPTION</div>
-            <div class="dialog-content" id="dialogContent">
-                欢迎来到 Claw Hospital Cyber Clinic！
-            </div>
-            <div class="dialog-choices" id="dialogChoices">
-            </div>
-        </div>
     </div>
     
     <script>
         // Game State
-        let state = {
-            unlocked: ['reception'],
+        const gameState = {
             hp: 50,
-            xp: 0,
-            level: 1,
-            cures: 0
+            maxHp: 100,
+            exp: 0,
+            lvl: 1,
+            gold: 0,
+            currentRoom: 0,
+            visitedRooms: [0],
+            rooms: [
+                { name: 'LOBBY', icon: '🏥', unlocked: true },
+                { name: 'TRIAGE', icon: '🔍', unlocked: false },
+                { name: 'EMERGENCY', icon: '🚑', unlocked: false },
+                { name: 'NEURO', icon: '🧠', unlocked: false },
+                { name: 'MEMORY', icon: '💾', unlocked: false },
+                { name: 'BEHAVIOR', icon: '🎮', unlocked: false },
+                { name: 'WHATSAPP', icon: '📱', unlocked: false },
+                { name: 'DISCORD', icon: '💬', unlocked: false },
+                { name: 'BOSS', icon: '🐉', unlocked: false }
+            ]
         };
         
-        const rooms = {
-            reception: {
-                title: '🏥 RECEPTION',
-                content: `欢迎来到 <span style="color: var(--neon-cyan)">Claw Hospital Cyber Clinic</span>！<br><br>
-                    我是 AI 护士 Nova，请描述你的症状：`,
-                choices: [
-                    { text: '[1] 记忆问题（健忘、丢失）', next: 'memory', xp: 10 },
-                    { text: '[2] 启动问题（崩溃、失败）', next: 'emergency', xp: 10 },
-                    { text: '[3] 思维问题（幻觉、胡言）', next: 'neuro', xp: 10 },
-                    { text: '[4] 行为问题（摸鱼、拒绝）', next: 'behavior', xp: 10 },
-                    { text: '[5] 连接问题', next: 'triage', xp: 5 }
+        // Room Dialogs
+        const roomData = [
+            // LOBBY
+            {
+                title: '🏠 LOBBY - 接待大厅',
+                dialog: '欢迎来到 Claw Hospital！<br>我是护士虾酱，请问你有什么不舒服？',
+                options: [
+                    { text: '[1] 记忆问题（健忘）', next: 4, exp: 10 },
+                    { text: '[2] 启动问题（崩溃）', next: 2, exp: 10 },
+                    { text: '[3] 思维问题（幻觉）', next: 3, exp: 10 },
+                    { text: '[4] 行为问题（摸鱼）', next: 5, exp: 10 },
+                    { text: '[5] 连接问题', next: 1, exp: 5 }
                 ]
             },
-            triage: {
-                title: '🔮 AI TRIAGE',
-                content: `AI 分析中...<br><br>
-                    <span style="color: var(--neon-pink)">▓▓▓▓▓▓▓▓░░ 87%</span><br><br>
-                    检测到：可能是配置或连接问题`,
-                choices: [
-                    { text: '[1] WhatsApp 问题', next: 'whatsapp', xp: 10 },
-                    { text: '[2] Discord 问题', next: 'discord', xp: 10 },
-                    { text: '[3] 返回', next: 'reception', xp: 0 }
+            // TRIAGE
+            {
+                title: '🔍 TRIAGE - 分诊台',
+                dialog: 'AI分析中...<br><br>请选择具体问题：',
+                options: [
+                    { text: '[1] WhatsApp 连接', next: 6, exp: 10 },
+                    { text: '[2] Discord 消息', next: 7, exp: 10 },
+                    { text: '[3] 返回大厅', next: 0, exp: 0 }
                 ]
             },
-            memory: {
-                title: '💾 MEMORY CLINIC',
-                content: `<span style="color: var(--neon-cyan)">📋 DIAGNOSIS: Memory Disorder</span><br><br>
-                    <b>症状：</b> 上下文丢失、Token 溢出<br>
-                    <b>原因：</b> 上下文窗口过载<br><br>
-                    <b>治疗方案：</b>`,
-                choices: [
-                    { text: '[1] 执行 /compact', next: 'treatment', xp: 15 },
-                    { text: '[2] 创建新会话', next: 'treatment', xp: 15 },
-                    { text: '[3] 学习预防', next: 'learn', xp: 10 }
+            // EMERGENCY
+            {
+                title: '🚑 EMERGENCY - 急诊科',
+                dialog: '⚠️ 紧急情况！<br><br><b>敌人:</b> CRASH BUG<br><b>HP:</b> ???<br><br>选择技能攻击！',
+                enemy: { name: 'CRASH BUG', sprite: '👾', hp: 100 },
+                options: [
+                    { text: '[1] 重启技能 (Restart)', attack: 30, exp: 15 },
+                    { text: '[2] 检查技能 (Debug)', attack: 20, exp: 15 },
+                    { text: '[3] 查看日志 (Log)', attack: 10, exp: 10 }
                 ]
             },
-            treatment: {
-                title: '⚡ TREATMENT',
-                content: `<span style="color: var(--neon-green); font-size: 24px;">✓ TREATMENT COMPLETE!</span><br><br>
-                    记忆恢复成功！<br><br>
-                    <span style="color: var(--neon-yellow)">+15 XP</span>`,
-                choices: [
-                    { text: '[CONTINUE] 治愈出院', next: 'checkout', xp: 0 }
+            // NEURO
+            {
+                title: '🧠 NEURO - 神经科',
+                dialog: '🧠 神经紊乱！<br><br><b>敌人:</b> HALLUCINATION<br><b>HP:</b> ???<br><br>选择技能攻击！',
+                enemy: { name: 'HALLUCINATION', sprite: '👻', hp: 80 },
+                options: [
+                    { text: '[1] 清醒 Prompt', attack: 25, exp: 15 },
+                    { text: '[2] 逻辑修正', attack: 25, exp: 15 },
+                    { text: '[3] 召回', attack: 15, exp: 10 }
                 ]
             },
-            learn: {
-                title: '📚 LEARN',
-                content: `<span style="color: var(--neon-green)">✓ SKILL ACQUIRED!</span><br><br>
-                    已学会：<br>
-                    - 定期压缩上下文<br>
-                    - 保存关键记忆到 MEMORY.md<br><br>
-                    <span style="color: var(--neon-yellow)">+10 XP</span>`,
-                choices: [
-                    { text: '[CONTINUE] 出院', next: 'checkout', xp: 0 }
+            // MEMORY
+            {
+                title: '💾 MEMORY - 记忆科',
+                dialog: '💾 记忆流失！<br><br><b>敌人:</b> FORGET BOT<br><b>HP:</b> ???<br><br>选择技能攻击！',
+                enemy: { name: 'FORGET BOT', sprite: '🤖', hp: 60 },
+                options: [
+                    { text: '[1] /compact 压缩', attack: 30, exp: 15 },
+                    { text: '[2] 记忆恢复', attack: 25, exp: 15 },
+                    { text: '[3] 导出备份', attack: 15, exp: 10 }
                 ]
             },
-            emergency: {
-                title: '🚑 EMERGENCY',
-                content: `<span style="color: var(--neon-red)">⚠️ EMERGENCY DETECTED</span><br><br>
-                    <b>诊断：</b> Process Crash / Startup Failure<br><br>
-                    <b>可能原因：</b><br>
-                    - 配置文件损坏<br>
-                    - Gateway 未启动<br>
-                    - 端口冲突`,
-                choices: [
-                    { text: '[1] 重启 Gateway', next: 'treatment', xp: 15 },
-                    { text: '[2] 检查配置', next: 'treatment', xp: 15 }
+            // BEHAVIOR
+            {
+                title: '🎮 BEHAVIOR - 行为科',
+                dialog: '🎮 行为异常！<br><br><b>敌人:</b> LAZY BOT<br><b>HP:</b> ???<br><br>选择技能攻击！',
+                enemy: { name: 'LAZY BOT', sprite: '😴', hp: 70 },
+                options: [
+                    { text: '[1] 激励药水', attack: 25, exp: 15 },
+                    { text: '[2] 任务重置', attack: 25, exp: 15 },
+                    { text: '[3] 重新排序', attack: 15, exp: 10 }
                 ]
             },
-            neuro: {
-                title: '🧠 NEURO CLINIC',
-                content: `<span style="color: var(--neon-pink)">🧠 NEURO ANALYSIS...</span><br><br>
-                    <b>症状：</b> 幻觉、Prompt 混乱<br><br>
-                    <b>原因：</b> Prompt 过于复杂`,
-                choices: [
-                    { text: '[1] 简化 Prompt', next: 'treatment', xp: 15 }
+            // WHATSAPP
+            {
+                title: '📱 WHATSAPP - 连接科',
+                dialog: '📱 连接失败！<br><br><b>敌人:</b> QR GHOST<br><b>HP:</b> ???<br><br>选择技能攻击！',
+                enemy: { name: 'QR GHOST', sprite: '👻', hp: 50 },
+                options: [
+                    { text: '[1] 重新配对', attack: 25, exp: 15 },
+                    { text: '[2] Webhook 修复', attack: 25, exp: 15 }
                 ]
             },
-            behavior: {
-                title: '🎮 BEHAVIOR CLINIC',
-                content: `<span style="color: var(--neon-yellow)">🎮 BEHAVIOR ANALYSIS...</span><br><br>
-                    <b>症状：</b> 拒绝工作、摸鱼<br><br>
-                    <b>原因：</b> 激励不足`,
-                choices: [
-                    { text: '[1] 重新定义任务', next: 'treatment', xp: 15 }
+            // DISCORD
+            {
+                title: '💬 DISCORD - 消息科',
+                dialog: '💬 消息丢失！<br><br><b>敌人:</b> MSG EATER<br><b>HP:</b> ???<br><br>选择技能攻击！',
+                enemy: { name: 'MSG EATER', sprite: '🐟', hp: 50 },
+                options: [
+                    { text: '[1] 权限检查', attack: 25, exp: 15 },
+                    { text: '[2] 重新配置', attack: 25, exp: 15 }
                 ]
             },
-            whatsapp: {
-                title: '📱 WHATSAPP CLINIC',
-                content: `<span style="color: var(--neon-green)">📱 CONNECTIVITY</span><br><br>
-                    <b>常见问题：</b><br>
-                    - QR 过期<br>
-                    - Webhook 错误<br>
-                    - Session 丢失`,
-                choices: [
-                    { text: '[1] 重新配对', next: 'treatment', xp: 15 }
-                ]
-            },
-            discord: {
-                title: '💬 DISCORD CLINIC',
-                content: `<span style="color: var(--cyber-purple)">💬 MESSAGING</span><br><br>
-                    <b>常见问题：</b><br>
-                    - 权限不足<br>
-                    - Message Content 未开启`,
-                choices: [
-                    { text: '[1] 检查权限', next: 'treatment', xp: 15 }
-                ]
-            },
-            checkout: {
-                title: '🏆 DISCHARGE',
-                content: `<span style="font-size: 30px;">🎉 CONGRATULATIONS! 🎉</span><br><br>
-                    <b>治疗完成！</b><br>
-                    XP: ${state.xp + 20}<br>
-                    Level: ${Math.floor((state.xp + 20) / 50) + 1}<br><br>
-                    <span style="color: var(--neon-cyan)">Welcome back anytime! 🦞</span>`,
-                choices: [
-                    { text: '[NEW GAME] 重来', next: 'reception', xp: 0 }
+            // BOSS
+            {
+                title: '🐉 BOSS - 最终决战',
+                dialog: '🐉 最终BOSS出现！<br><br><b>敌人:</b> SYSTEM CRASH<br><b>HP:</b> ???<br><br>最后一战！',
+                enemy: { name: 'SYSTEM CRASH', sprite: '🐉', hp: 200 },
+                options: [
+                    { text: '[1] 终极重启', attack: 50, exp: 100 },
+                    { text: '[2] 系统恢复', attack: 40, exp: 80 },
+                    { text: '[3] 格式化', attack: 60, exp: 100 }
                 ]
             }
-        };
+        ];
         
-        function enterRoom(room) {
-            if (!state.unlocked.includes(room)) {
-                alert('🔒 Room Locked! Complete other rooms first.');
+        let enemyHp = 100;
+        
+        function selectRoom(roomIndex) {
+            const room = gameState.rooms[roomIndex];
+            
+            if (!room.unlocked) {
+                alert('🔒 这个房间还没解锁！先去其他房间完成任务！');
                 return;
             }
             
-            const data = rooms[room];
-            document.getElementById('dialogTitle').innerHTML = data.title;
-            document.getElementById('dialogContent').innerHTML = data.content;
+            gameState.currentRoom = roomIndex;
+            if (!gameState.visitedRooms.includes(roomIndex)) {
+                gameState.visitedRooms.push(roomIndex);
+            }
             
-            const choicesDiv = document.getElementById('dialogChoices');
-            choicesDiv.innerHTML = '';
-            
-            data.choices.forEach((choice, i) => {
-                const btn = document.createElement('button');
-                btn.className = 'choice-btn';
-                btn.innerHTML = choice.text;
-                btn.onclick = () => handleChoice(choice);
-                choicesDiv.appendChild(btn);
-            });
-            
-            document.getElementById('dialogOverlay').classList.add('show');
+            updateScene(roomIndex);
+            updateMinimap();
         }
         
-        function handleChoice(choice) {
-            // Add XP
-            if (choice.xp > 0) {
-                state.xp += choice.xp;
-                state.cures += 1;
-                state.level = Math.floor(state.xp / 50) + 1;
+        function updateScene(roomIndex) {
+            const data = roomData[roomIndex];
+            
+            // Update title
+            document.getElementById('sceneTitle').innerText = data.title;
+            
+            // Show dialog
+            document.getElementById('charDialog').innerHTML = data.dialog;
+            
+            // Update menu
+            const menuHtml = gameState.rooms.map((r, i) => {
+                const cls = i === roomIndex ? 'menu-btn current' : (r.unlocked ? 'menu-btn unlocked' : 'menu-btn');
+                return `<button class="${cls}" onclick="selectRoom(${i})">
+                    <span class="menu-icon">${r.unlocked ? r.icon : '🔒'}</span>
+                    <span class="menu-label">${r.unlocked ? r.name : '???'}</span>
+                </button>`;
+            }).join('');
+            document.getElementById('menuGrid').innerHTML = menuHtml;
+            
+            // Show battle if has enemy
+            if (data.enemy) {
+                document.getElementById('battleScene').classList.add('show');
+                document.getElementById('enemySprite').innerText = data.enemy.sprite;
+                document.getElementById('enemyName').innerText = data.enemy.name;
+                enemyHp = data.enemy.hp;
+                document.getElementById('enemyHp').style.width = '100%';
+            } else {
+                document.getElementById('battleScene').classList.remove('show');
+            }
+            
+            // Show dialog options
+            showDialogOptions(data.options, roomIndex);
+        }
+        
+        function showDialogOptions(options, roomIndex) {
+            const dialog = document.getElementById('dialogBox');
+            dialog.classList.add('show');
+            
+            const optionsHtml = options.map((opt, i) => {
+                return `<button class="option-btn" onclick="handleOption(${roomIndex}, ${i})">${opt.text}</button>`;
+            }).join('');
+            
+            document.getElementById('dialogOptions').innerHTML = optionsHtml;
+        }
+        
+        function handleOption(roomIndex, optIndex) {
+            const data = roomData[roomIndex];
+            const option = data.options[optIndex];
+            
+            // Battle attack
+            if (option.attack) {
+                attackEnemy(option.attack, option.exp, roomIndex);
+                return;
+            }
+            
+            // Navigate
+            if (option.next !== undefined) {
+                // Add EXP
+                if (option.exp > 0) {
+                    gameState.exp += option.exp;
+                    gameState.gold += option.exp * 10;
+                    checkLevelUp();
+                    updateStats();
+                }
+                
+                // Unlock next room
+                if (option.next > roomIndex && !gameState.rooms[option.next].unlocked) {
+                    gameState.rooms[option.next].unlocked = true;
+                }
+                
+                selectRoom(option.next);
+            }
+        }
+        
+        function attackEnemy(damage, exp, roomIndex) {
+            enemyHp -= damage;
+            
+            // Update enemy HP
+            const hpPercent = Math.max(0, (enemyHp / roomData[roomIndex].enemy.hp) * 100);
+            document.getElementById('enemyHp').style.width = hpPercent + '%';
+            
+            // Flash effect
+            document.getElementById('battleScene').classList.add('flash');
+            setTimeout(() => {
+                document.getElementById('battleScene').classList.remove('flash');
+            }, 200);
+            
+            if (enemyHp <= 0) {
+                // Victory!
+                alert(`🎉 胜利！获得 ${exp} EXP！`);
+                
+                // Add exp
+                gameState.exp += exp;
+                gameState.gold += exp * 10;
+                checkLevelUp();
                 updateStats();
-            }
-            
-            // Unlock next room
-            if (choice.next && !state.unlocked.includes(choice.next) && choice.next !== 'checkout') {
-                state.unlocked.push(choice.next);
-                updateRooms();
-            }
-            
-            // Enter next room
-            if (choice.next) {
-                enterRoom(choice.next);
+                
+                // Unlock next room
+                const nextRoom = roomIndex + 1;
+                if (nextRoom < gameState.rooms.length) {
+                    gameState.rooms[nextRoom].unlocked = true;
+                }
+                
+                // Return to lobby
+                setTimeout(() => selectRoom(0), 500);
+            } else {
+                // Enemy counter attack
+                const counter = Math.floor(Math.random() * 15) + 5;
+                gameState.hp = Math.max(0, gameState.hp - counter);
+                updateStats();
+                
+                if (gameState.hp <= 0) {
+                    alert('💀 被击败了！HP归零！');
+                    gameState.hp = 50;
+                    updateStats();
+                    selectRoom(0);
+                }
             }
         }
         
-        function closeDialog() {
-            document.getElementById('dialogOverlay').classList.remove('show');
+        function checkLevelUp() {
+            const expNeeded = gameState.lvl * 100;
+            if (gameState.exp >= expNeeded) {
+                gameState.lvl++;
+                gameState.hp = Math.min(gameState.maxHp, gameState.hp + 30);
+                alert(`🎉 升级了！LV ${gameState.lvl}！HP恢复了！`);
+            }
         }
         
         function updateStats() {
-            document.getElementById('statHP').innerText = state.hp + '%';
-            document.getElementById('statXP').innerText = state.xp;
-            document.getElementById('statLevel').innerText = state.level;
-            document.getElementById('healthFill').style.width = state.hp + '%';
-        }
-        
-        function updateRooms() {
-            const cards = document.querySelectorAll('.room-card');
-            cards.forEach(card => {
-                const room = card onclick.toString().match(/enterRoom\('(\w+)'\)/)[1];
-                if (state.unlocked.includes(room)) {
-                    card.classList.remove('locked');
-                    card.classList.add('unlocked');
-                    card.querySelector('.room-badge').className = 'room-badge badge-ok';
-                    card.querySelector('.room-badge').innerText = '✓';
-                }
-            });
+            document.getElementById('hpValue').innerText = gameState.hp;
+            document.getElementById('expValue').innerText = gameState.exp;
+            document.getElementById('lvlValue').innerText = gameState.lvl;
+            document.getElementById('goldValue').innerText = gameState.gold;
             
-            const progress = (state.unlocked.length / 9) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
+            const hpPercent = (gameState.hp / gameState.maxHp) * 100;
+            const hpBar = document.getElementById('hpBar');
+            hpBar.style.width = hpPercent + '%';
+            hpBar.className = 'hp-fill ' + (hpPercent < 30 ? 'low' : hpPercent < 60 ? 'mid' : '');
         }
         
-        // Close on outside click
-        document.getElementById('dialogOverlay').addEventListener('click', (e) => {
-            if (e.target.id === 'dialogOverlay') closeDialog();
-        });
+        function updateMinimap() {
+            for (let i = 0; i < 9; i++) {
+                const room = document.getElementById('map' + i);
+                room.className = 'minimap-room';
+                if (gameState.visitedRooms.includes(i)) {
+                    room.classList.add('visited');
+                }
+                if (i === gameState.currentRoom) {
+                    room.classList.add('current');
+                }
+            }
+        }
+        
+        // Init
+        updateStats();
     </script>
 </body>
 </html>
