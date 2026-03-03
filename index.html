@@ -4,55 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLAW HOSPITAL</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1 class="title">CLAW HOSPITAL</h1>
-            <div class="subtitle">~ POKEMON CENTER STYLE ~</div>
+            <div class="subtitle">SYSTEM TERMINAL</div>
         </div>
         
         <div class="split-view">
             <!-- Human View -->
             <div class="view-panel human-view">
                 <div class="view-header human">
-                    <div class="view-title">HUMAN VIEW</div>
+                    <div class="view-title">VISUAL FEED</div>
                     <span class="view-status status-online">ONLINE</span>
                 </div>
                 
                 <div class="scene-container">
                     <!-- Hospital Exterior Scene -->
                     <div class="hospital" id="hospitalView">
-                        <div class="pixel-cloud" style="top: 20px; left: 10%;"></div>
-                        <div class="pixel-cloud" style="top: 35px; left: 50%;"></div>
-                        <div class="pixel-cloud" style="top: 15px; left: 75%;"></div>
-                        
-                        <div class="ground"></div>
-                        
-                        <div class="pixel-tree" style="left: 5%;">
-                            <div class="tree-body"></div><div class="tree-trunk"></div>
+                        <div class="sky">
+                            <div class="moon"></div>
+                            <div class="star s1"></div>
+                            <div class="star s2"></div>
+                            <div class="star s3"></div>
                         </div>
-                        <div class="pixel-tree" style="right: 5%;">
-                            <div class="tree-body"></div><div class="tree-trunk"></div>
-                        </div>
+                        <div class="cityscape"></div>
+                        <div class="ground-dark"></div>
                         
-                        <div class="building">
-                            <div class="building-sign">CLAW</div>
-                            <div class="building-roof"></div>
-                            <div class="building-main">
-                                <div class="pixel-window" style="top: 15px; left: 10px; width: 30px; height: 25px;"></div>
-                                <div class="pixel-window" style="top: 15px; right: 10px; width: 30px; height: 25px;"></div>
-                                <div class="pixel-window" style="top: 45px; left: 15px; width: 25px; height: 20px;"></div>
-                                <div class="pixel-window" style="top: 45px; right: 15px; width: 25px; height: 20px;"></div>
-                                <div class="pixel-door"></div>
-                            </div>
+                        <div class="pixel-hospital">
+                            <div class="h-sign">CLAW</div>
+                            <div class="h-cross"></div>
+                            <div class="h-door"></div>
+                            <div class="h-window w1"></div>
+                            <div class="h-window w2"></div>
+                            <div class="h-window w3"></div>
+                            <div class="h-window w4"></div>
                         </div>
-                        
-                        <div class="pixel-char char-nurse">N</div>
-                        <div class="pixel-char char-patient">P</div>
-                        <div class="pixel-char char-patient2">P</div>
                     </div>
                     
                     <!-- Indoor Room Scene -->
@@ -61,12 +51,53 @@
                         
                         <!-- Dynamic interior environment -->
                         <div class="indoor-environment" id="indoorEnvironment">
-                            <!-- Populated by JS -->
-                        </div>
-
-                        <div class="room-sprites">
-                            <div class="sprite sprite-patient" id="patientSprite">P</div>
-                            <div class="sprite sprite-doctor" id="doctorSprite">D</div>
+                            <div class="env-layer" id="env-lobby">
+                                <div class="pixel-prop desk"></div>
+                                <div class="pixel-prop plant"></div>
+                                <div class="pixel-prop sofa"></div>
+                            </div>
+                            <div class="env-layer" id="env-triage">
+                                <div class="pixel-prop scale"></div>
+                                <div class="pixel-prop monitor-stand"></div>
+                                <div class="pixel-prop exam-bed"></div>
+                            </div>
+                            <div class="env-layer" id="env-emergency">
+                                <div class="pixel-prop op-table"></div>
+                                <div class="pixel-prop surg-light"></div>
+                                <div class="pixel-prop iv-drip"></div>
+                            </div>
+                            <div class="env-layer" id="env-neuro">
+                                <div class="pixel-prop brain-scanner"></div>
+                                <div class="pixel-prop holo-display"></div>
+                            </div>
+                            <div class="env-layer" id="env-memory">
+                                <div class="pixel-prop server-rack r1"></div>
+                                <div class="pixel-prop server-rack r2"></div>
+                                <div class="pixel-prop data-core"></div>
+                            </div>
+                            <div class="env-layer" id="env-behavior">
+                                <div class="pixel-prop therapy-couch"></div>
+                                <div class="pixel-prop bookcase"></div>
+                            </div>
+                            <div class="env-layer" id="env-whatsapp">
+                                <div class="pixel-prop comms-array"></div>
+                                <div class="pixel-prop antenna"></div>
+                            </div>
+                            <div class="env-layer" id="env-discord">
+                                <div class="pixel-prop gaming-setup"></div>
+                                <div class="pixel-prop server-rack r-blue"></div>
+                            </div>
+                            <div class="env-layer" id="env-boss">
+                                <div class="pixel-prop boss-desk"></div>
+                                <div class="pixel-prop throne"></div>
+                                <div class="pixel-prop red-screen s1"></div>
+                                <div class="pixel-prop red-screen s2"></div>
+                            </div>
+                            
+                            <div class="room-sprites">
+                                <div class="sprite sprite-patient" id="patientSprite"></div>
+                                <div class="sprite sprite-doctor" id="doctorSprite"></div>
+                            </div>
                         </div>
                         
                         <div class="dialog-box">
@@ -93,12 +124,12 @@
                         <button class="room-btn active" onclick="showHospital()">EXTERIOR</button>
                         <button class="room-btn" onclick="showRoom(0)">LOBBY</button>
                         <button class="room-btn" onclick="showRoom(1)">TRIAGE</button>
-                        <button class="room-btn" onclick="showRoom(2)">EMERGENCY</button>
+                        <button class="room-btn" onclick="showRoom(2)">EMERGE</button>
                         <button class="room-btn" onclick="showRoom(3)">NEURO</button>
                         <button class="room-btn" onclick="showRoom(4)">MEMORY</button>
-                        <button class="room-btn" onclick="showRoom(5)">BEHAVIOR</button>
-                        <button class="room-btn" onclick="showRoom(6)">WHATSAPP</button>
-                        <button class="room-btn" onclick="showRoom(7)">DISCORD</button>
+                        <button class="room-btn" onclick="showRoom(5)">BEHAVE</button>
+                        <button class="room-btn" onclick="showRoom(6)">W-APP</button>
+                        <button class="room-btn" onclick="showRoom(7)">DISCRD</button>
                         <button class="room-btn" onclick="showRoom(8)">BOSS</button>
                     </div>
                 </div>
@@ -106,7 +137,7 @@
             
             <!-- Agent View -->
             <div class="view-panel agent">
-                <div class="agent-header">
+                <div class="view-header agent-header">
                     <div class="agent-title">AGENT TERMINAL</div>
                     <span class="view-status status-online" id="agentStatus">ACTIVE</span>
                 </div>
@@ -130,26 +161,22 @@
                             <div class="stat-label">TASKS</div>
                             <div class="stat-value" id="activeTasks">3</div>
                         </div>
-                        <div class="stat-box">
-                            <div class="stat-label">VISITS</div>
-                            <div class="stat-value" id="visitCount" style="color: var(--yellow);">0</div>
-                        </div>
                     </div>
                     
                     <!-- API Status -->
                     <div class="api-status">
-                        <div class="panel-title" style="margin-bottom: 8px;">SYSTEM DIAGNOSTICS</div>
+                        <div class="panel-title">SYSTEM DIAGNOSTICS</div>
                         <div class="api-row">
                             <span>CORE API</span>
-                            <span><span class="api-dot dot-green"></span>CONNECTED</span>
+                            <span><span class="api-dot dot-cyan"></span>CONNECTED</span>
                         </div>
                         <div class="api-row">
                             <span>FEISHU</span>
-                            <span><span class="api-dot dot-green"></span>SYNCED</span>
+                            <span><span class="api-dot dot-cyan"></span>SYNCED</span>
                         </div>
                         <div class="api-row">
                             <span>DISCORD</span>
-                            <span><span class="api-dot dot-green"></span>LISTENING</span>
+                            <span><span class="api-dot dot-cyan"></span>LISTENING</span>
                         </div>
                         <div class="api-row">
                             <span>WHATSAPP</span>
@@ -158,16 +185,16 @@
                     </div>
                     
                     <!-- Agent Logs -->
-                    <div class="api-status">
-                        <div class="panel-title" style="margin-bottom: 8px;">OPERATION LOGS</div>
-                        <div class="agent-log" id="agentLogs"></div>
+                    <div class="api-status" style="flex:1; display:flex; flex-direction:column; margin-bottom: 0;">
+                        <div class="panel-title">OPERATION LOGS</div>
+                        <div class="agent-log" id="agentLogs" style="flex:1;"></div>
                     </div>
                 </div>
             </div>
         </div>
         
         <footer>
-            <p>CLAW HOSPITAL SYSTEM // V1.0 // AUTHORIZED PERSONNEL ONLY</p>
+            <p>CLAW HOSPITAL SYSTEM // V2.0 // AUTHORIZED PERSONNEL ONLY</p>
         </footer>
     </div>
     <script src="script.js"></script>

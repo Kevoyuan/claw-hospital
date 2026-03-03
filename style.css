@@ -1,263 +1,275 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 :root {
-    --bg-dark: #0a0c10;
-    --bg-light: #161b22;
-    --cyan: #33e5f4;
-    --green: #4ade80;
-    --yellow: #facc15;
-    --red: #f87171;
-    --pink: #f472b6;
-    --blue: #60a5fa;
-    --orange: #fb923c;
-    --purple: #c084fc;
-    --white: #f8fafc;
-    --pixel-green: #22c55e;
-    --border-color: #334155;
-    --terminal-bg: #020617;
+    --bg-base: #000000;
+    --bg-panel: #000000;
+    --bg-header: #000000;
+    --border-main: #FFFFFF;
+    
+    --text-main: #FFFFFF;
+    --text-muted: #888888;
+    
+    --color-cyan: #00FFFF;
+    --color-pink: #FF00FF;
+    --color-green: #00FF00;
+    --color-yellow: #FFFF00;
+    --color-red: #FF0000;
+    --color-purple: #AA00FF;
+    --color-blue: #0000FF;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: 'VT323', monospace;
-    background: var(--bg-dark);
-    color: var(--white);
-    font-size: 18px;
-    min-height: 100vh;
-    overflow-x: hidden;
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: 'Press Start 2P', cursive, monospace;
+    font-size: 10px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    line-height: 1.4;
 }
 
-/* Scanlines for retro feel */
-body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
-    pointer-events: none;
-    z-index: 1000;
+/* Hard edges, no blur, no border-radius */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1;
 }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 10px; }
-
-/* Header */
 .header {
-    background: var(--bg-light);
-    border: 4px solid var(--border-color);
-    border-radius: 0;
-    padding: 15px;
+    background: var(--bg-header);
+    border: 4px solid var(--border-main);
+    padding: 20px;
     text-align: center;
-    margin-bottom: 10px;
-    box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+    position: relative;
 }
-.title { font-family: 'Press Start 2P'; font-size: 16px; color: var(--white); text-shadow: 2px 2px var(--blue); letter-spacing: 1px; }
-.subtitle { color: var(--cyan); margin-top: 10px; font-size: 18px; letter-spacing: 2px;}
 
-/* Split View */
+/* Pixel corners for header */
+.header::before, .header::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--color-cyan);
+}
+.header::before { top: -4px; left: -4px; }
+.header::after { bottom: -4px; right: -4px; }
+
+.title {
+    font-size: 24px;
+    color: var(--text-main);
+    /* Hard blocky text shadow */
+    text-shadow: 4px 4px 0px var(--color-blue);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--color-yellow);
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
 .split-view {
     display: flex;
-    gap: 15px;
-    height: calc(100vh - 140px);
+    gap: 20px;
+    height: 65vh;
 }
 
 .view-panel {
     flex: 1;
     display: flex;
     flex-direction: column;
-    background: var(--bg-light);
-    border: 4px solid var(--border-color);
-    box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
-    overflow: hidden;
+    background: var(--bg-panel);
+    border: 4px solid var(--border-main);
+    position: relative;
 }
 
 .view-panel.agent {
-    background: var(--terminal-bg);
-    border-color: var(--purple);
+    border-color: var(--color-purple);
 }
 
 .view-header {
-    padding: 10px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 4px solid var(--border-color);
+    padding: 10px 15px;
+    border-bottom: 4px solid var(--border-main);
+    background: #111;
 }
 
-.view-header.human {
-    background: #0f172a;
+.agent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 4px solid var(--color-purple);
+    background: #111;
 }
 
-.view-header.agent {
-    background: #1e1b4b;
-    border-bottom-color: var(--purple);
+.view-title, .agent-title {
+    font-size: 12px;
 }
-
-.view-title {
-    font-family: 'Press Start 2P';
-    font-size: 10px;
-}
-
-.view-header.human .view-title { color: var(--cyan); }
-.view-header.agent .view-title { color: var(--pink); }
+.view-title { color: var(--color-cyan); }
+.agent-title { color: var(--color-pink); }
 
 .view-status {
-    font-size: 12px;
-    padding: 4px 10px;
-    border-radius: 0;
-    font-family: 'Press Start 2P';
     font-size: 8px;
+    padding: 4px 8px;
+    background: #003300;
+    color: var(--color-green);
+    border: 2px solid var(--color-green);
 }
 
-.status-online { background: var(--green); color: #000; }
-.status-busy { background: var(--orange); color: #000; }
-.status-offline { background: var(--red); color: #fff; }
-
-/* Scene Container */
 .scene-container {
     flex: 1;
-    overflow-y: auto;
     padding: 15px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
-/* Hospital Scene */
+/* HOSPITAL EXTERIOR */
 .hospital {
     position: relative;
-    height: 300px;
-    background: #0f172a;
-    border: 4px solid var(--border-color);
-    margin-bottom: 15px;
+    height: 280px;
+    background: #000033; /* solid dark blue instead of gradient */
+    border: 4px solid var(--border-main);
     overflow: hidden;
-    image-rendering: pixelated;
+    margin-bottom: 15px;
 }
 
-/* Pixel Clouds */
-.pixel-cloud {
+.sky { position: absolute; inset: 0; }
+.moon {
     position: absolute;
-    width: 40px;
-    height: 15px;
-    background: #334155;
+    top: 20px; right: 40px;
+    width: 40px; height: 40px;
+    background: #FFFFFF;
+    /* make it look like a pixel circle using blocky clipping or box shadow */
+    clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
 }
-.pixel-cloud::before {
+/* pixel shadows inside moon */
+.moon::after {
     content: '';
     position: absolute;
-    width: 20px; height: 15px; top: -10px; left: 10px;
-    background: #334155;
+    bottom: 0; left: 0;
+    width: 100%; height: 12px;
+    background: #CCCCCC;
 }
 
-/* Ground */
-.ground {
+.star {
     position: absolute;
-    bottom: 0; left: 0; right: 0; height: 50px;
-    background: #064e3b;
-    border-top: 4px solid #047857;
+    width: 4px; height: 4px;
+    background: #FFFFFF;
+}
+.star.s1 { top: 30px; left: 50px; animation: twinkle 1s steps(2, end) infinite; }
+.star.s2 { top: 70px; left: 180px; animation: twinkle 1.5s steps(2, end) infinite 0.5s; }
+.star.s3 { top: 40px; left: 300px; animation: twinkle 0.8s steps(2, end) infinite 1s; }
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
-/* Trees */
-.pixel-tree {
+.cityscape {
     position: absolute;
-    bottom: 40px;
+    bottom: 40px; left: 0; right: 0; height: 100px;
+    /* Using blocky box-shadows to draw the city */
+    background: transparent;
 }
-.tree-body {
-    width: 30px; height: 40px;
-    background: #15803d;
-    position: relative;
-    left: -11px;
-}
-.tree-trunk {
-    width: 8px; height: 15px;
-    background: #78350f;
-    margin: 0 auto;
+.cityscape::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 30px; height: 60px;
+    background: #111133;
+    box-shadow: 
+        40px -20px 0 #111133,
+        80px 10px 0 #111133,
+        120px -40px 0 #111133,
+        160px -10px 0 #111133,
+        200px -30px 0 #111133,
+        250px 0px 0 #111133,
+        300px -50px 0 #111133,
+        340px 10px 0 #111133,
+        380px -20px 0 #111133,
+        420px -60px 0 #111133;
 }
 
-/* Hospital Building */
-.building {
+.ground-dark {
     position: absolute;
-    bottom: 45px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 0; left: 0; right: 0; height: 40px;
+    background: #000000;
+    border-top: 4px solid var(--color-cyan);
 }
-.building-main {
-    width: 140px; height: 90px;
-    background: #cbd5e1;
-    border: 4px solid #000;
-    position: relative;
-}
-.building-roof {
+
+.pixel-hospital {
     position: absolute;
-    bottom: 90px; left: -10px;
-    width: 160px; height: 30px;
-    background: #dc2626;
-    border: 4px solid #000;
+    bottom: 40px; left: 50%; transform: translateX(-50%);
+    width: 180px; height: 160px;
+    background: #222222;
+    border: 4px solid var(--border-main);
     border-bottom: none;
 }
-.building-sign {
+.pixel-hospital::before {
+    content: '';
     position: absolute;
-    top: -20px; left: 50%; transform: translateX(-50%);
-    background: var(--yellow);
-    color: #000;
-    padding: 4px 8px;
-    font-family: 'Press Start 2P';
-    font-size: 8px;
-    border: 4px solid #000;
-    z-index: 10;
+    top: -24px; left: -12px; right: -12px; height: 20px;
+    background: #333333;
+    border: 4px solid var(--border-main);
 }
-.pixel-window {
+.h-sign {
     position: absolute;
-    background: #bae6fd;
-    border: 4px solid #000;
+    top: -48px; left: 50%; transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--color-cyan);
+    border: 4px solid var(--color-cyan);
+    padding: 6px;
+    background: #000;
 }
-.pixel-door {
+.h-cross {
+    position: absolute;
+    top: 20px; left: 50%; transform: translateX(-50%);
+    width: 24px; height: 24px;
+    background: var(--color-red);
+    clip-path: polygon(33% 0, 66% 0, 66% 33%, 100% 33%, 100% 66%, 66% 66%, 66% 100%, 33% 100%, 33% 66%, 0 66%, 0 33%, 33% 33%);
+}
+.h-door {
     position: absolute;
     bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 30px; height: 40px;
-    background: #b45309;
-    border: 4px solid #000;
+    width: 48px; height: 60px;
+    background: #000000;
+    border: 4px solid var(--color-cyan);
     border-bottom: none;
 }
-
-/* Characters */
-.pixel-char {
+.h-window {
     position: absolute;
-    width: 20px; height: 24px;
-    background: var(--pink);
-    border: 3px solid #000;
-    animation: bounce 0.6s step-end infinite alternate;
-    font-size: 0; /* Hide text */
+    width: 36px; height: 36px;
+    background: #000000;
+    border: 4px solid #555555;
 }
-.pixel-char::after {
-    content: '';
-    position: absolute;
-    top: 4px; left: 4px; width: 4px; height: 4px; background: #000;
-    box-shadow: 6px 0 0 #000;
-}
-.char-nurse { bottom: 20px; left: 30%; background: #f472b6; }
-.char-patient { bottom: 30px; left: 60%; background: #60a5fa; }
-.char-patient2 { bottom: 15px; left: 75%; background: #fb923c; }
-
-@keyframes bounce { 
-    0% { transform: translateY(0); } 
-    50% { transform: translateY(-4px); } 
+.h-window.w1 { top: 60px; left: 20px; }
+.h-window.w2 { top: 60px; right: 20px; }
+.h-window.w3 { top: 110px; left: 20px; }
+.h-window.w4 { top: 110px; right: 20px; }
+.h-window.w1, .h-window.w4 {
+    background: #004444;
+    border-color: var(--color-cyan);
 }
 
-/* Room Navigation */
-.room-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: auto;
-}
-.room-btn {
-    background: #1e293b;
-    border: 4px solid var(--border-color);
-    padding: 8px 12px;
-    color: var(--white);
-    font-family: 'Press Start 2P';
-    font-size: 8px;
-    cursor: pointer;
-    transition: all 0.1s;
-}
-.room-btn:hover { border-color: var(--cyan); background: #334155; }
-.room-btn.active { border-color: var(--yellow); background: #475569; color: var(--yellow); }
-
-/* Room Scene */
+/* ROOM SCENES */
 .room-scene {
     display: none;
     flex-direction: column;
@@ -266,191 +278,407 @@ body::after {
 .room-scene.active { display: flex; }
 
 .room-title {
-    font-family: 'Press Start 2P';
     font-size: 12px;
-    color: var(--white);
-    margin-bottom: 15px;
     text-align: center;
-    text-transform: uppercase;
+    margin-bottom: 12px;
 }
 
-/* Indoor Environments */
 .indoor-environment {
     flex: 1;
-    background: #0f172a;
-    border: 4px solid var(--border-color);
+    background: #111111;
+    border: 4px solid var(--border-main);
     position: relative;
     margin-bottom: 15px;
-    image-rendering: pixelated;
     min-height: 180px;
     overflow: hidden;
 }
 
-/* Environment Props */
-.env-prop {
-    position: absolute;
-    border: 4px solid #000;
-}
-.env-desk {
-    bottom: 20px; left: 50%; transform: translateX(-50%);
-    width: 120px; height: 40px; background: #78350f;
-}
-.env-monitor {
-    bottom: 60px; left: 50%; transform: translateX(-50%);
-    width: 40px; height: 30px; background: #334155;
-}
-.env-monitor::after {
-    content: ''; position: absolute; inset: 4px; background: var(--cyan);
-}
-.env-bed {
-    bottom: 30px; left: 20%;
-    width: 80px; height: 40px; background: #cbd5e1;
-}
-.env-server {
-    bottom: 20px; right: 20%;
-    width: 40px; height: 80px; background: #1e293b;
-}
-.env-server-light {
-    position: absolute; top: 10px; left: 10px; width: 8px; height: 8px; background: var(--green);
-    box-shadow: 0 16px 0 var(--green), 0 32px 0 var(--red);
-}
-
-.room-sprites {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin: 10px 0 20px 0;
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-}
-.sprite {
-    width: 32px; height: 36px;
-    border: 4px solid #000;
-    position: relative;
-    animation: bounce 0.6s step-end infinite alternate;
-}
-.sprite::after {
+/* A simple solid floor instead of a gradient */
+.indoor-environment::after {
     content: '';
     position: absolute;
-    top: 6px; left: 6px; width: 4px; height: 4px; background: #000;
-    box-shadow: 10px 0 0 #000;
+    bottom: 0; left: 0; right: 0; height: 40px;
+    background: #222222;
+    border-top: 4px solid #444444;
 }
-.sprite-patient { background: #fb7185; }
-.sprite-doctor { background: #38bdf8; }
 
-/* Dialog Box */
+.env-layer {
+    display: none;
+    position: absolute;
+    inset: 0;
+}
+
+/* LOBBY */
+.desk {
+    position: absolute;
+    bottom: 40px; left: 50%; transform: translateX(-50%);
+    width: 160px; height: 60px; 
+    background: #333333; 
+    border: 4px solid var(--color-cyan);
+    z-index: 2;
+}
+.desk::before {
+    content: ''; position: absolute; top: 8px; left: 8px; right: 8px; height: 4px; background: var(--color-cyan);
+}
+.plant {
+    position: absolute;
+    bottom: 40px; left: 30px;
+    width: 32px; height: 48px;
+    background: #006600;
+    border: 4px solid var(--color-green);
+    z-index: 2;
+}
+/* Making the plant blocky */
+.plant::before {
+    content: '';
+    position: absolute;
+    top: -20px; left: 4px;
+    width: 16px; height: 20px;
+    background: #008800;
+    border: 4px solid var(--color-green);
+    border-bottom: none;
+}
+.sofa {
+    position: absolute;
+    bottom: 40px; right: 30px;
+    width: 80px; height: 40px; 
+    background: #880000; 
+    border: 4px solid #FF0000;
+    z-index: 2;
+}
+
+/* TRIAGE */
+.scale {
+    position: absolute;
+    bottom: 40px; left: 40px; width: 48px; height: 12px; background: #333; border: 4px solid #777; z-index: 2;
+}
+.scale::after { content: ''; position: absolute; bottom: 8px; left: 16px; width: 8px; height: 64px; background: #777; }
+.monitor-stand {
+    position: absolute;
+    bottom: 60px; right: 50px; width: 56px; height: 48px; background: #222; border: 4px solid var(--color-green); z-index: 2;
+}
+.monitor-stand::after {
+    content: ''; position: absolute; top: 8px; left: 8px; right: 8px; height: 16px;
+    background: var(--color-green);
+}
+.exam-bed {
+    position: absolute;
+    bottom: 40px; left: 50%; transform: translateX(-50%); width: 120px; height: 32px; background: #003366; border: 4px solid #0055AA; z-index: 2;
+}
+
+/* EMERGENCY */
+.op-table {
+    position: absolute;
+    bottom: 40px; left: 50%; transform: translateX(-50%); width: 136px; height: 48px; background: #222; border: 4px solid var(--color-red); z-index: 2;
+}
+.surg-light {
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 24px; background: #444; border: 4px solid #888; border-top: none;
+}
+.surg-light::after {
+    content: ''; position: absolute; bottom: -12px; left: 16px; width: 40px; height: 8px; background: #FFF; 
+}
+.iv-drip {
+    position: absolute;
+    bottom: 40px; left: 30px; width: 8px; height: 100px; background: #888; z-index: 2;
+}
+.iv-drip::after {
+    content: ''; position: absolute; top: 12px; left: -12px; width: 32px; height: 40px; border: 4px solid var(--color-red); background: #330000;
+}
+
+/* NEURO */
+.brain-scanner {
+    position: absolute;
+    bottom: 40px; right: 30px; width: 120px; height: 110px; background: #222; border: 4px solid var(--color-purple); 
+    clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 100%, 0% 100%, 0% 20%);
+    z-index: 2;
+}
+.holo-display {
+    position: absolute;
+    bottom: 70px; left: 50px; width: 64px; height: 64px; border: 4px dashed var(--color-cyan);
+    animation: spin 4s steps(4) infinite;
+    z-index: 2;
+}
+
+/* MEMORY */
+.server-rack {
+    position: absolute;
+    bottom: 40px; width: 64px; height: 120px; background: #111; border: 4px solid var(--color-pink);
+    z-index: 2;
+}
+.server-rack::after {
+    content: ''; position: absolute; top: 8px; left: 8px; width: 40px; height: 8px; background: var(--color-pink);
+    box-shadow: 0 16px 0 var(--color-pink), 0 32px 0 var(--color-pink), 0 48px 0 var(--color-pink), 0 64px 0 var(--color-pink);
+}
+.r1 { left: 30px; }
+.r2 { right: 30px; }
+.data-core {
+    position: absolute;
+    bottom: 40px; left: 50%; transform: translateX(-50%); width: 80px; height: 80px; background: #222; border: 4px solid var(--color-pink);
+    clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+    z-index: 2;
+}
+.data-core::after {
+    content: ''; position: absolute; top: 20px; left: 20px; width: 32px; height: 32px; background: var(--color-pink);
+}
+
+/* BEHAVIOR */
+.therapy-couch {
+    position: absolute;
+    bottom: 40px; left: 50px; width: 120px; height: 48px; background: #333; border: 4px solid var(--color-yellow);
+    z-index: 2;
+}
+.bookcase {
+    position: absolute;
+    bottom: 40px; right: 50px; width: 64px; height: 120px; background: #222; border: 4px solid #555;
+    z-index: 2;
+}
+.bookcase::after {
+    content: ''; position: absolute; top: 20px; left: 0; width: 56px; height: 4px; background: #555;
+    box-shadow: 0 24px 0 #555, 0 48px 0 #555, 0 72px 0 #555;
+}
+
+/* WHATSAPP */
+.comms-array {
+    position: absolute;
+    bottom: 40px; left: 50%; transform: translateX(-50%); width: 160px; height: 64px; background: #111; border: 4px solid var(--color-green);
+    z-index: 2;
+}
+.comms-array::after {
+    content: ''; position: absolute; top: 8px; left: 8px; width: 40px; height: 40px; background: var(--color-green);
+}
+.antenna {
+    position: absolute;
+    top: 15px; right: 30px; width: 48px; height: 48px; border: 4px solid var(--color-green); border-bottom: none; border-left: none; border-right: none;
+    clip-path: polygon(0 0, 100% 0, 80% 50%, 20% 50%);
+}
+
+/* DISCORD */
+.gaming-setup {
+    position: absolute;
+    bottom: 40px; left: 40px; width: 64px; height: 96px; background: #111; border: 4px solid var(--color-blue);
+    z-index: 2;
+}
+.gaming-setup::after {
+    content: ''; position: absolute; top: 16px; left: 8px; width: 40px; height: 24px; background: var(--color-blue);
+}
+.r-blue {
+    position: absolute;
+    bottom: 40px; right: 40px; width: 64px; height: 120px; background: #111; border: 4px solid var(--color-blue); z-index: 2;
+}
+.r-blue::after {
+    content: ''; position: absolute; top: 8px; left: 8px; width: 40px; height: 8px; background: var(--color-blue);
+    box-shadow: 0 16px 0 var(--color-blue), 0 32px 0 var(--color-blue), 0 48px 0 var(--color-blue);
+}
+
+/* BOSS */
+.boss-desk {
+    position: absolute;
+    bottom: 40px; left: 50%; transform: translateX(-50%); width: 192px; height: 64px; background: #111; border: 4px solid var(--color-red);
+    z-index: 3;
+}
+.throne {
+    position: absolute;
+    bottom: 104px; left: 50%; transform: translateX(-50%); width: 80px; height: 88px; background: #222; border: 4px solid var(--color-red); border-bottom: none;
+    z-index: 2;
+}
+.red-screen {
+    position: absolute;
+    background: #330000; border: 4px solid var(--color-red);
+    z-index: 2;
+}
+.red-screen.s1 { bottom: 120px; left: 30px; width: 48px; height: 48px; }
+.red-screen.s2 { bottom: 120px; right: 30px; width: 48px; height: 48px; }
+
+@keyframes spin {
+    0% { transform: scaleX(1); }
+    50% { transform: scaleX(-1); }
+    100% { transform: scaleX(1); }
+}
+
+/* Sprites */
+.room-sprites {
+    position: absolute;
+    bottom: 40px; left: 0; width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    z-index: 10;
+}
+/* Sharp pixel characters */
+.sprite {
+    width: 32px; height: 32px;
+    position: relative;
+    background: transparent;
+}
+
+/* Patient Sprite */
+.sprite-patient { 
+    /* A small blocky person */
+    box-shadow: 
+        8px 0 0 #FFF, 12px 0 0 #FFF, 16px 0 0 #FFF, 20px 0 0 #FFF,
+        8px 4px 0 #FFF, 12px 4px 0 #FFF, 16px 4px 0 #FFF, 20px 4px 0 #FFF,
+        12px 8px 0 #FFF, 16px 8px 0 #FFF,
+        4px 12px 0 #FFF, 8px 12px 0 #FFF, 12px 12px 0 #FFF, 16px 12px 0 #FFF, 20px 12px 0 #FFF, 24px 12px 0 #FFF,
+        4px 16px 0 #FFF, 8px 16px 0 #FFF, 12px 16px 0 #FFF, 16px 16px 0 #FFF, 20px 16px 0 #FFF, 24px 16px 0 #FFF,
+        4px 20px 0 #FFF, 12px 20px 0 #FFF, 16px 20px 0 #FFF, 24px 20px 0 #FFF,
+        12px 24px 0 #FFF, 16px 24px 0 #FFF,
+        8px 28px 0 #FFF, 12px 28px 0 #FFF, 16px 28px 0 #FFF, 20px 28px 0 #FFF;
+    animation: bounce 0.8s steps(2, end) infinite alternate; 
+}
+
+/* Doctor Sprite */
+.sprite-doctor { 
+    box-shadow: 
+        8px 0 0 var(--color-cyan), 12px 0 0 var(--color-cyan), 16px 0 0 var(--color-cyan), 20px 0 0 var(--color-cyan),
+        8px 4px 0 var(--color-cyan), 12px 4px 0 var(--color-cyan), 16px 4px 0 var(--color-cyan), 20px 4px 0 var(--color-cyan),
+        12px 8px 0 var(--color-cyan), 16px 8px 0 var(--color-cyan),
+        4px 12px 0 var(--color-cyan), 8px 12px 0 var(--color-cyan), 12px 12px 0 var(--color-cyan), 16px 12px 0 var(--color-cyan), 20px 12px 0 var(--color-cyan), 24px 12px 0 var(--color-cyan),
+        4px 16px 0 var(--color-cyan), 8px 16px 0 var(--color-cyan), 12px 16px 0 var(--color-cyan), 16px 16px 0 var(--color-cyan), 20px 16px 0 var(--color-cyan), 24px 16px 0 var(--color-cyan),
+        4px 20px 0 var(--color-cyan), 12px 20px 0 var(--color-cyan), 16px 20px 0 var(--color-cyan), 24px 20px 0 var(--color-cyan),
+        12px 24px 0 var(--color-cyan), 16px 24px 0 var(--color-cyan),
+        8px 28px 0 var(--color-cyan), 12px 28px 0 var(--color-cyan), 16px 28px 0 var(--color-cyan), 20px 28px 0 var(--color-cyan);
+    animation: bounce 0.8s steps(2, end) infinite alternate-reverse; 
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px); }
+}
+
+/* Dialog */
 .dialog-box {
-    background: #000;
-    border: 4px solid var(--white);
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
+    background: #000000;
+    border: 4px solid var(--border-main);
+    padding: 16px;
     min-height: 80px;
+    margin-bottom: 15px;
 }
 .npc-name {
-    color: var(--yellow);
-    font-family: 'Press Start 2P';
     font-size: 10px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
+    color: var(--color-yellow);
+    margin-bottom: 12px;
 }
 .dialog-text {
-    font-size: 20px;
-    line-height: 1.4;
-    color: var(--white);
+    font-size: 12px;
+    color: var(--text-main);
+    line-height: 1.5;
 }
 
 /* Info Grid */
 .info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 15px;
 }
 .info-item {
-    background: #1e293b;
-    border: 4px solid var(--border-color);
-    padding: 10px;
+    background: #000000;
+    border: 4px solid var(--border-main);
+    padding: 12px;
 }
-.info-label { color: var(--cyan); font-family: 'Press Start 2P'; font-size: 8px; margin-bottom: 5px; }
-.info-value { font-size: 18px; text-transform: uppercase; }
+.info-label {
+    font-size: 8px;
+    color: var(--color-cyan);
+    margin-bottom: 8px;
+}
+.info-value { font-size: 10px; }
 
-/* Agent View Specific */
+/* Navigation */
+.room-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+.room-btn {
+    background: #000000;
+    border: 4px solid var(--border-main);
+    color: var(--text-muted);
+    font-family: 'Press Start 2P', cursive, monospace;
+    font-size: 8px;
+    padding: 12px;
+    cursor: pointer;
+    flex: 1;
+    min-width: 90px;
+    text-transform: uppercase;
+}
+.room-btn:hover {
+    border-color: var(--text-main);
+    color: var(--text-main);
+    background: #222222;
+}
+.room-btn.active {
+    background: var(--color-cyan);
+    border-color: var(--color-cyan);
+    color: #000;
+}
+
+/* Agent View */
 .agent-stats {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-bottom: 15px;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 .stat-box {
-    background: #000;
-    border: 4px solid var(--purple);
-    padding: 10px;
-    text-align: left;
+    background: #000000;
+    border: 4px solid var(--color-purple);
+    padding: 12px;
 }
 .stat-label {
-    font-family: 'Press Start 2P';
     font-size: 8px;
-    color: var(--purple);
-    margin-bottom: 5px;
+    color: var(--color-purple);
+    margin-bottom: 8px;
 }
 .stat-value {
-    font-size: 24px;
-    color: var(--cyan);
+    font-size: 16px;
+    color: var(--color-pink);
 }
 
 .api-status {
-    background: #000;
-    border: 4px solid #334155;
-    padding: 15px;
-    margin-bottom: 15px;
+    background: #000000;
+    border: 4px solid var(--color-purple);
+    padding: 16px;
+    margin-bottom: 20px;
 }
 .panel-title {
-    font-family: 'Press Start 2P';
     font-size: 10px;
-    color: var(--yellow);
-    margin-bottom: 15px;
-    border-bottom: 2px solid #334155;
-    padding-bottom: 5px;
+    color: var(--color-yellow);
+    margin-bottom: 16px;
+    border-bottom: 4px solid var(--color-purple);
+    padding-bottom: 8px;
 }
 .api-row {
     display: flex;
     justify-content: space-between;
-    padding: 6px 0;
-    font-size: 16px;
-    text-transform: uppercase;
+    font-size: 10px;
+    padding: 8px 0;
 }
 .api-dot {
-    width: 10px; height: 10px;
     display: inline-block;
+    width: 8px; height: 8px;
     margin-right: 8px;
 }
+.dot-cyan { background: var(--color-cyan); }
+.dot-yellow { background: var(--color-yellow); }
 
 .agent-log {
-    background: #000;
-    font-family: 'VT323', monospace;
-    font-size: 16px;
-    height: 180px;
     overflow-y: auto;
-    border: 4px solid #334155;
-    padding: 10px;
+    font-size: 10px;
+    line-height: 1.6;
 }
-.log-entry { padding: 2px 0; }
-.log-time { color: var(--pink); margin-right: 10px; }
-.log-msg { color: var(--white); }
-.log-warn { color: var(--yellow); }
-.log-error { color: var(--red); }
+.log-entry { padding: 4px 0; }
+.log-time { color: var(--color-purple); margin-right: 8px; }
+.log-msg { color: var(--text-main); }
+.log-warn { color: var(--color-yellow); }
+.log-error { color: var(--color-red); }
 
 footer {
     text-align: center;
-    padding: 15px;
-    color: #64748b;
-    font-family: 'Press Start 2P';
+    color: var(--text-muted);
     font-size: 8px;
 }
 
 @media (max-width: 900px) {
     .split-view { flex-direction: column; height: auto; }
-    .view-panel { min-height: 500px; }
 }
