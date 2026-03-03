@@ -11,19 +11,21 @@ const rooms = [
 ];
 
 const apiData = {
-    agent: {
-        memory: 87,
-        cpu: 42,
-        health: 94,
-        tasks: 3
+    stats: {
+        totalVisits: 0,
+        todayVisits: 0,
+        departments: {
+            emergency: 0,
+            neuro: 0,
+            memory: 0,
+            behavior: 0,
+            discord: 0,
+            whatsapp: 0,
+            config: 0,
+            model: 0
+        }
     },
-    logs: [
-        { time: '07:52:31', msg: 'HEARTBEAT CHECK COMPLETED', type: 'info' },
-        { time: '07:52:15', msg: 'NEW MESSAGE FROM DISCORD', type: 'info' },
-        { time: '07:51:58', msg: 'FEISHU API SYNC COMPLETE', type: 'info' },
-        { time: '07:51:42', msg: 'MEMORY CLEANUP TRIGGERED', type: 'warn' },
-        { time: '07:50:30', msg: 'TASK QUEUE: 3 PENDING', type: 'info' }
-    ]
+    recentCalls: []
 };
 
 function showHospital() {
@@ -96,10 +98,10 @@ function updateAgentView() {
     apiData.agent.cpu = Math.max(10, Math.min(90, apiData.agent.cpu + Math.floor(Math.random() * 10) - 5));
     apiData.agent.health = Math.max(70, Math.min(100, apiData.agent.health + Math.floor(Math.random() * 3) - 1));
     
-    document.getElementById('memUsage').innerText = apiData.agent.memory + '%';
-    document.getElementById('cpuUsage').innerText = apiData.agent.cpu + '%';
-    document.getElementById('healthScore').innerText = apiData.agent.health;
-    document.getElementById('activeTasks').innerText = apiData.agent.tasks;
+    document.getElementById('memUsage').innerText = apiData.stats.totalVisits;
+    document.getElementById('cpuUsage').innerText = apiData.stats.todayVisits;
+    document.getElementById('healthScore').innerText = Object.keys(apiData.stats.departments).length;
+    document.getElementById('activeTasks').innerText = apiData.recentCalls.length;
     
     const randomLog = generateRandomLog();
     if(Math.random() > 0.5) {
