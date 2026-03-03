@@ -1,27 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
 :root {
-    --bg-base: #080812;
-    --bg-panel: #111122;
-    --bg-header: #0d1326;
+    --bg-base: #09090b; /* Zinc 950 base */
+    --bg-panel: #18181b; /* Zinc 900 panel */
+    --bg-header: #09090b;
     
-    --border-main: #39ff14; /* Neon Green */
-    --border-dim: #1a4314;
+    --border-main: #10b981; /* Emerald/Cyber Green Accent */
+    --border-dim: #064e3b;
     
-    --text-main: #ffffff;
-    --text-muted: #667788;
+    --text-main: #f4f4f5;
+    --text-muted: #71717a;
     
-    --color-cyan: #00ffff;
-    --color-cyan-glow: rgba(0, 255, 255, 0.4);
-    --color-pink: #ff00ff;
-    --color-pink-glow: rgba(255, 0, 255, 0.4);
-    --color-green: #39ff14;
-    --color-green-glow: rgba(57, 255, 20, 0.4);
-    --color-yellow: #ffea00;
-    --color-red: #ff3333;
-    --color-purple: #9d00ff;
-    --color-blue: #0055ff;
-    --color-warm-accent: #ff2a7a;
+    --color-cyan: #06b6d4; /* Electric Cyan */
+    --color-cyan-glow: rgba(6, 182, 212, 0.4);
+    --color-pink: #ec4899; /* Deep Rose, no bright purples */
+    --color-pink-glow: rgba(236, 72, 153, 0.4);
+    --color-green: #10b981;
+    --color-green-glow: rgba(16, 185, 129, 0.4);
+    --color-yellow: #f59e0b;
+    --color-red: #ef4444;
+    --color-purple: #8b5cf6; /* Only for specific boss/brand elements */
+    --color-blue: #3b82f6;
+    --color-warm-accent: #f43f5e;
     
     --font-pixel: 'Press Start 2P', cursive, monospace;
     --font-term: 'VT323', monospace;
@@ -412,275 +412,252 @@ body {
 
 .indoor-environment {
     flex: 1;
-    background: #0d1326;
+    background: #09090b;
     border: 4px solid var(--border-main);
     position: relative;
     margin-bottom: 15px;
-    min-height: 180px;
+    min-height: 220px;
     overflow: hidden;
-    box-shadow: inset -4px -4px 10px rgba(0,0,0,0.7), 0 0 10px var(--color-green-glow);
+    perspective: 800px; /* 2.5D setup */
+    transform-style: preserve-3d;
 }
 
-.indoor-environment::after {
+/* Floor Grid Overlay */
+.env-floor {
+    position: absolute;
+    bottom: -100px;
+    left: -50px;
+    right: -50px;
+    height: 300px;
+    background: 
+        linear-gradient(rgba(16,185,129,0.1) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(16,185,129,0.1) 2px, transparent 2px);
+    background-size: 40px 40px;
+    background-position: center bottom;
+    transform: rotateX(60deg) translateZ(-50px);
+    border-top: 4px solid var(--border-main);
+    z-index: 0;
+    pointer-events: none;
+}
+.env-floor::after {
     content: '';
     position: absolute;
-    bottom: 0; left: 0; right: 0; height: 40px;
-    background: #061122;
-    border-top: 4px solid #00e0ff;
-    box-shadow: 0 -2px 10px var(--color-cyan-glow);
+    inset: 0;
+    background: linear-gradient(to top, rgba(9,9,11,0) 0%, rgba(9,9,11,1) 80%);
 }
 
-.env-layer { display: none; position: absolute; inset: 0; }
+.env-layer { display: none; position: absolute; inset: 0; z-index: 2; }
 
-/* --- ROOM SCENES: HIGH DETAIL PROPS --- */
-.pixel-prop { z-index: 2; }
+/* Sort props by dynamic Y-index inside env-layer directly using absolute positioning relative to floor */
+.pixel-prop { 
+    position: absolute;
+    transform-style: preserve-3d;
+}
 
+/* Add drop shadow for depth to all props */
+.pixel-prop::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    right: -10px;
+    height: 15px;
+    background: rgba(0,0,0,0.6);
+    filter: blur(2px);
+    transform: skewX(-45deg);
+    transform-origin: bottom left;
+    z-index: -1;
+}
+
+/* Rebuilding props in 2.5D Isometric block format */
 /* 0. LOBBY */
 .desk {
-    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    bottom: 30px; left: 50%; transform: translateX(-50%);
     width: 140px; height: 50px; 
-    background: #4e342e; border: 4px solid #271c19;
-    box-shadow: inset 0 -10px 0 rgba(0,0,0,0.3);
-}
-.desk::before {
-    content: ''; position: absolute; top: 0; left: -4px; right: -4px; height: 12px;
-    background: #6d4c41; border: 4px solid #271c19;
+    background: #27272a; border: 4px solid #3f3f46;
 }
 .desk::after {
-    content: 'RECEPTION'; position: absolute; top: 20px; left: 0; width: 100%;
-    text-align: center; color: var(--color-yellow); font-size: 8px; opacity: 0.8;
+    content: ''; position: absolute; top: -20px; left: -4px; width: 140px; height: 20px;
+    background: #52525b; border: 4px solid #3f3f46; transform: skewX(45deg); transform-origin: bottom right;
+}
+/* Side edge for desk */
+.desk-side {
+    position: absolute; top: -20px; right: -24px; width: 20px; height: 50px;
+    background: #18181b; border: 4px solid #3f3f46; border-left: none; transform: skewY(45deg); transform-origin: top left;
 }
 .plant {
-    position: absolute; bottom: 40px; left: 30px; width: 24px; height: 32px;
-    background: #558b2f; border: 4px solid #33691e; border-top: none; border-bottom: none;
+    bottom: 60px; left: 20%; width: 24px; height: 32px;
+    background: #059669; border: 4px solid #064e3b;
 }
-.plant::before {
-    content: ''; position: absolute; top: -30px; left: -16px;
-    width: 48px; height: 40px; background: #8bc34a;
-    border: 4px solid #33691e; border-radius: 8px;
-    box-shadow: inset -8px -8px 0 #689f38;
+/* Side for plant */
+.plant::after {
+    content: ''; position: absolute; top: -10px; right: -12px; width: 10px; height: 32px;
+    background: #047857; border: 4px solid #064e3b; transform: skewY(45deg); transform-origin: bottom left;
 }
 .sofa {
-    position: absolute; bottom: 40px; right: 30px; width: 70px; height: 35px; 
-    background: #e91e63; border: 4px solid #880e4f;
-    border-radius: 8px 8px 0 0;
-    box-shadow: inset 0 -8px 0 rgba(0,0,0,0.2);
-}
-.sofa::before {
-    content: ''; position: absolute; top: -15px; left: -4px; width: 24px; height: 50px;
-    background: #c2185b; border: 4px solid #880e4f; border-radius: 4px;
-}
-.sofa::after {
-    content: ''; position: absolute; top: -15px; right: -4px; width: 24px; height: 50px;
-    background: #c2185b; border: 4px solid #880e4f; border-radius: 4px;
+    bottom: 40px; right: 20%; width: 70px; height: 35px; 
+    bottom: 40px; right: 20%; width: 70px; height: 35px;
+    background: #3f3f46; border: 4px solid #18181b;
 }
 
 /* 1. TRIAGE */
 .scale {
-    position: absolute; bottom: 40px; left: 40px; width: 40px; height: 10px;
-    background: #37474f; border: 4px solid #263238;
+    bottom: 60px; left: 20%; width: 40px; height: 8px;
+    background: #52525b; border: 4px solid #18181b;
 }
 .scale::after {
     content: ''; position: absolute; bottom: 8px; left: 12px; width: 8px; height: 70px;
-    background: #78909c; border: 4px solid #263238;
-}
-.scale::before {
-    content: ''; position: absolute; bottom: 70px; left: -4px; width: 32px; height: 24px;
-    background: #cfd8dc; border: 4px solid #263238; border-radius: 4px;
-    box-shadow: inset 0 0 10px var(--color-cyan);
+    background: #71717a; border: 4px solid #18181b;
 }
 .monitor-stand {
-    position: absolute; bottom: 40px; right: 50px; width: 12px; height: 50px;
-    background: #546e7a; border: 4px solid #263238;
-}
-.monitor-stand::after {
-    content: ''; position: absolute; top: -30px; left: -20px; width: 44px; height: 32px;
-    background: #111122; border: 4px solid #263238; border-radius: 4px;
-    box-shadow: inset 0 0 15px var(--color-green-glow);
+    bottom: 50px; right: 20%; width: 12px; height: 50px;
+    background: #3f3f46; border: 4px solid #18181b;
 }
 .exam-bed {
-    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); width: 100px; height: 25px;
-    background: #cfd8dc; border: 4px solid #263238;
+    bottom: 40px; left: 50%; transform: translateX(-50%); width: 100px; height: 25px;
+    background: #e4e4e7; border: 4px solid #52525b;
 }
 .exam-bed::after {
-    content: ''; position: absolute; top: -15px; right: -4px; width: 30px; height: 15px;
-    background: #90a4ae; border: 4px solid #263238; border-radius: 4px 4px 0 0;
+    content: ''; position: absolute; top: -15px; left: -4px; width: 100px; height: 15px;
+    background: #ffffff; border: 4px solid #52525b; transform: skewX(45deg); transform-origin: bottom right;
+}
+.exam-bed-side {
+    position: absolute; top: -15px; right: -15px; width: 15px; height: 25px;
+    background: #a1a1aa; border: 4px solid #52525b; transform: skewY(45deg); transform-origin: top left;
 }
 
 /* 2. EMERGENCY */
 .op-table {
-    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); width: 120px; height: 30px;
-    background: #37474f; border: 4px solid #1c313a; box-shadow: 0 0 20px rgba(255,51,51,0.2);
+    bottom: 50px; left: 50%; transform: translateX(-50%); width: 120px; height: 30px;
+    background: #27272a; border: 4px solid #18181b;
 }
-.op-table::before {
-    content: ''; position: absolute; bottom: -4px; left: 40px; width: 32px; height: 15px;
-    background: #263238;
+.op-table::after {
+    content: ''; position: absolute; top: -15px; left: -4px; width: 120px; height: 15px;
+    background: #52525b; border: 4px solid #18181b; transform: skewX(45deg); transform-origin: bottom right;
 }
 .surg-light {
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 10px; height: 40px;
-    background: #78909c; border: 4px solid #37474f; border-top: none;
-}
-.surg-light::after {
-    content: ''; position: absolute; bottom: -20px; left: -40px; width: 80px; height: 20px;
-    background: #cfd8dc; border: 4px solid #37474f; border-radius: 50px 50px 0 0;
-    box-shadow: 0 30px 40px rgba(255,255,255,0.7);
+    top: -10px; left: 50%; transform: translateX(-50%); width: 10px; height: 60px;
+    background: #71717a; border: 4px solid #18181b; z-index: 5;
 }
 .iv-drip {
-    position: absolute; bottom: 40px; left: 30px; width: 6px; height: 90px;
-    background: #90a4ae; border: 2px solid #546e7a;
-}
-.iv-drip::after {
-    content: ''; position: absolute; top: 10px; left: -10px; width: 22px; height: 35px;
-    background: rgba(255, 51, 51, 0.4); border: 2px solid var(--color-red);
-    border-radius: 4px; box-shadow: inset 0 -10px 0 rgba(255,0,0,0.6);
+    bottom: 40px; left: 20%; width: 6px; height: 90px;
+    background: #d4d4d8; border: 2px solid #52525b;
 }
 
 /* 3. NEURO */
 .brain-scanner {
-    position: absolute; bottom: 40px; right: 30px; width: 100px; height: 100px;
-    background: #111122; border: 4px solid var(--color-purple);
-    border-radius: 50px 50px 0 0;
-    box-shadow: inset -10px 0 20px rgba(0,0,0,0.8), 0 0 20px var(--color-purple);
+    bottom: 50px; right: 20%; width: 100px; height: 80px;
+    background: #18181b; border: 4px solid var(--color-cyan);
 }
 .brain-scanner::after {
-    content: ''; position: absolute; top: 20px; left: 20px; width: 52px; height: 40px;
-    background: #000; border: 4px solid var(--color-cyan);
-    border-radius: 20px 20px 0 0; box-shadow: inset 0 0 15px var(--color-cyan-glow);
+    content: ''; position: absolute; top: -20px; left: -4px; width: 100px; height: 20px;
+    background: #27272a; border: 4px solid var(--color-cyan); transform: skewX(45deg); transform-origin: bottom right;
 }
 .holo-display {
-    position: absolute; bottom: 50px; left: 50px; width: 50px; height: 60px;
-    background: transparent; border: 2px dashed var(--color-cyan);
-    border-radius: 50%; box-shadow: 0 0 15px var(--color-cyan);
-    animation: spin 3s linear infinite;
+    bottom: 60px; left: 20%; width: 50px; height: 10px;
+    background: #18181b; border: 4px solid var(--border-main);
 }
 .holo-display::after {
-    content: ''; position: absolute; top: 20px; left: 10px; width: 26px; height: 20px;
-    background: var(--color-cyan-glow); border-radius: 50%; filter: blur(4px);
+    content: ''; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+    width: 60px; height: 80px; background: var(--color-cyan-glow);
+    border: 2px dashed var(--color-cyan); border-radius: 5px; animation: flicker 2s infinite;
 }
 
 /* 4. MEMORY */
 .server-rack {
-    position: absolute; bottom: 40px; width: 50px; height: 110px;
-    background: #1a1a2e; border: 4px solid var(--color-pink);
-    box-shadow: inset -5px 0 10px rgba(0,0,0,0.8);
+    bottom: 50px; width: 50px; height: 110px;
+    background: #18181b; border: 4px solid var(--color-pink);
 }
-.server-rack::before {
-    content: ''; position: absolute; top: 10px; left: 8px; width: 26px; height: 80px;
-    background: repeating-linear-gradient(
-        to bottom,
-        #111, #111 6px,
-        var(--color-pink) 6px, var(--color-pink) 8px
-    );
+.server-rack::after {
+    content: ''; position: absolute; top: -20px; left: -4px; width: 50px; height: 20px;
+    background: #27272a; border: 4px solid var(--color-pink); transform: skewX(45deg); transform-origin: bottom right;
 }
-.r1 { left: 40px; } 
-.r2 { right: 40px; }
+.server-rack-side {
+    position: absolute; top: -20px; right: -24px; width: 20px; height: 110px;
+    background: #09090b; border: 4px solid var(--color-pink); transform: skewY(45deg); transform-origin: top left;
+}
+.r1 { left: 20%; }
+.r2 { right: 20%; }
 .data-core {
-    position: absolute; bottom: 50px; left: 50%; width: 60px; height: 60px;
-    background: #000; border: 4px solid var(--color-cyan);
-    transform: translateX(-50%) rotate(45deg);
-    box-shadow: 0 0 30px var(--color-cyan-glow);
-}
-.data-core::after {
-    content: ''; position: absolute; top: 10px; left: 10px; width: 32px; height: 32px;
-    background: var(--color-pink); box-shadow: 0 0 20px var(--color-pink);
-    animation: pulse 1s infinite alternate;
+    bottom: 60px; left: 50%; width: 40px; height: 60px;
+    background: #09090b; border: 4px solid var(--color-cyan);
+    transform: translateX(-50%);
 }
 
 /* 5. BEHAVIOR */
 .therapy-couch {
-    position: absolute; bottom: 40px; left: 40px; width: 100px; height: 35px;
-    background: #795548; border: 4px solid #3e2723;
-    border-radius: 10px 4px 0 0;
+    bottom: 50px; left: 15%; width: 100px; height: 30px;
+    background: #3f3f46; border: 4px solid #18181b;
 }
 .therapy-couch::after {
-    content: ''; position: absolute; top: -15px; left: -4px; width: 30px; height: 20px;
-    background: #5d4037; border: 4px solid #3e2723; border-radius: 10px 0 0 0;
+    content: ''; position: absolute; top: -20px; left: -4px; width: 100px; height: 20px;
+    background: #52525b; border: 4px solid #18181b; transform: skewX(45deg); transform-origin: bottom right;
 }
 .bookcase {
-    position: absolute; bottom: 40px; right: 50px; width: 60px; height: 110px;
-    background: #4e342e; border: 4px solid #271c19;
-}
-.bookcase::before {
-    content: ''; position: absolute; top: 15px; left: 0; width: 52px; height: 80px;
-    background: #271c19;
+    bottom: 50px; right: 15%; width: 60px; height: 110px;
+    background: #18181b; border: 4px solid #09090b;
 }
 .bookcase::after {
-    content: ''; position: absolute; top: 25px; left: 0; width: 52px; height: 4px;
-    background: #6d4c41; box-shadow: 0 25px 0 #6d4c41, 0 50px 0 #6d4c41;
+    content: ''; position: absolute; top: -15px; left: -4px; width: 60px; height: 15px;
+    background: #27272a; border: 4px solid #09090b; transform: skewX(45deg); transform-origin: bottom right;
 }
 
 /* 6. WHATSAPP */
 .comms-array {
-    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); width: 140px; height: 50px;
-    background: #112211; border: 4px solid var(--color-green);
-    box-shadow: 0 0 20px var(--color-green-glow);
+    bottom: 50px; left: 50%; transform: translateX(-50%); width: 140px; height: 50px;
+    background: #064e3b; border: 4px solid var(--border-main);
 }
-.comms-array::before {
-    content: ''; position: absolute; top: 10px; left: 10px; width: 30px; height: 22px;
-    background: var(--color-green); box-shadow: 40px 0 0 var(--color-green), 80px 0 0 #114411;
+.comms-array::after {
+    content: ''; position: absolute; top: -20px; left: -4px; width: 140px; height: 20px;
+    background: #047857; border: 4px solid var(--border-main); transform: skewX(45deg); transform-origin: bottom right;
 }
 .antenna {
-    position: absolute; top: 20px; right: 40px; width: 40px; height: 40px;
-    border: 4px solid var(--color-green); border-radius: 50%;
-    border-bottom-color: transparent; border-left-color: transparent;
-    transform: rotate(45deg);
-}
-.antenna::after {
-    content: ''; position: absolute; top: 10px; right: 10px; width: 12px; height: 12px;
-    background: var(--color-green); border-radius: 50%; box-shadow: 0 0 10px var(--color-green);
-    animation: blink 1s infinite;
+    top: 20px; right: 20%; width: 4px; height: 60px; background: var(--border-main);
 }
 
 /* 7. DISCORD */
 .gaming-setup {
-    position: absolute; bottom: 40px; left: 40px; width: 50px; height: 80px;
-    background: #1a1a2e; border: 4px solid var(--color-blue);
-    box-shadow: 0 0 15px rgba(0,85,255,0.4);
+    bottom: 50px; left: 20%; width: 60px; height: 40px;
+    background: #27272a; border: 4px solid var(--color-blue);
 }
 .gaming-setup::after {
-    content: ''; position: absolute; top: 10px; left: 6px; width: 30px; height: 20px;
-    background: #000; border: 2px solid var(--color-cyan);
-    box-shadow: inset 0 0 10px var(--color-cyan-glow);
+    content: ''; position: absolute; top: -20px; left: -4px; width: 60px; height: 20px;
+    background: #3f3f46; border: 4px solid var(--color-blue); transform: skewX(45deg); transform-origin: bottom right;
 }
 .r-blue {
-    position: absolute; bottom: 40px; right: 40px; width: 50px; height: 110px;
-    background: #111122; border: 4px solid var(--color-blue);
+    bottom: 50px; right: 20%; width: 50px; height: 110px;
+    background: #18181b; border: 4px solid var(--color-blue);
 }
-.r-blue::before {
-    content: ''; position: absolute; top: 10px; left: 8px; width: 26px; height: 80px;
-    background: repeating-linear-gradient(
-        to bottom,
-        #111, #111 6px,
-        var(--color-blue) 6px, var(--color-blue) 8px
-    );
+.r-blue::after {
+    content: ''; position: absolute; top: -20px; left: -4px; width: 50px; height: 20px;
+    background: #27272a; border: 4px solid var(--color-blue); transform: skewX(45deg); transform-origin: bottom right;
+}
+.r-blue-side {
+    position: absolute; top: -20px; right: -24px; width: 20px; height: 110px;
+    background: #09090b; border: 4px solid var(--color-blue); transform: skewY(45deg); transform-origin: top left;
 }
 
 /* 8. BOSS */
 .boss-desk {
-    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); width: 160px; height: 50px;
-    background: #1a0505; border: 4px solid var(--color-red);
-    box-shadow: 0 -10px 30px rgba(255,0,0,0.4); z-index: 3;
+    bottom: 50px; left: 50%; transform: translateX(-50%); width: 160px; height: 50px;
+    background: #18181b; border: 4px solid var(--color-red); z-index: 3;
 }
-.boss-desk::before {
-    content: 'SYSTEM OVERRIDE'; position: absolute; top: 15px; left: 0; width: 100%;
-    text-align: center; color: var(--color-red); font-size: 8px; animation: glitch 2s infinite;
+.boss-desk::after {
+    content: ''; position: absolute; top: -20px; left: -4px; width: 160px; height: 20px;
+    background: #27272a; border: 4px solid var(--color-red); transform: skewX(45deg); transform-origin: bottom right;
 }
 .throne {
-    position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); width: 60px; height: 80px;
-    background: #0d0000; border: 4px solid var(--color-red); border-bottom: none;
-    border-radius: 20px 20px 0 0;
+    bottom: 100px; left: 50%; width: 50px; height: 80px; margin-left: -25px; /* absolute centering with flex */
+    background: #09090b; border: 4px solid var(--color-red); border-bottom: none;
 }
 .red-screen {
     position: absolute; background: #220000; border: 4px solid var(--color-red);
-    box-shadow: 0 0 20px rgba(255,0,0,0.6);
 }
-.red-screen.s1 { bottom: 100px; left: 40px; width: 40px; height: 30px; transform: rotate(-15deg); }
-.red-screen.s2 { bottom: 100px; right: 40px; width: 40px; height: 30px; transform: rotate(15deg); }
-.red-screen::after {
-    content: ''; position: absolute; top: 2px; left: 2px; right: 2px; bottom: 2px;
-    background: repeating-linear-gradient(to bottom, transparent, transparent 2px, rgba(255,0,0,0.2) 2px, rgba(255,0,0,0.2) 4px);
-}
+.red-screen.s1 { bottom: 120px; left: 20%; width: 40px; height: 30px; }
+.red-screen.s2 { bottom: 120px; right: 20%; width: 40px; height: 30px; }
 
+/* Remove previous animations that affect left/top for performance as per skill */
+/* 2.5D Sprites Sorting */
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @keyframes flicker { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; } }
 
