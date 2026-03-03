@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLAW HOSPITAL - Pokemon Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-dark: #1a1c2c;
+            --bg-light: #262b44;
+            --cyan: #33e5f4;
+            --green: #7bed9f;
+            --yellow: #f9f871;
+            --red: #ff6b6b;
+            --pink: #ff85c2;
+            --blue: #5fc9f8;
+            --orange: #ffb347;
+            --purple: #a29bfe;
+            --white: #f8f8f2;
+            --pixel-green: #4b692f;
+        }
+        body {
+            font-family: 'VT323', monospace;
+            background: var(--bg-dark);
+            color: var(--white);
+            font-size: 18px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Scanlines */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .container { max-width: 100%; margin: 0; padding: 10px; }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, #2d1b4e 0%, #1a1c2c 100%);
+            border: 4px solid var(--purple);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 20px rgba(162, 155, 254, 0.3);
+        }
+        .title { font-family: 'Press Start 2P'; font-size: 14px; color: var(--yellow); text-shadow: 2px 2px var(--red); }
+        .subtitle { color: var(--cyan); margin-top: 8px; font-size: 16px; }
+        
+        /* Split View */
+        .split-view {
+            display: flex;
+            gap: 10px;
+            height: calc(100vh - 120px);
+        }
+        
+        .view-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-light);
+            border: 4px solid var(--pixel-green);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .view-panel.agent {
+            border-color: var(--purple);
+        }
+        
+        .view-header {
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        
+        .view-header.human {
+            background: linear-gradient(90deg, #1a3a2a, #2d4a3a);
+        }
+        
+        .view-header.agent {
+            background: linear-gradient(90deg, #2d1b4e, #3d2b5e);
+        }
+        
+        .view-title {
+            font-family: 'Press Start 2P';
+            font-size: 10px;
+        }
+        
+        .view-header.human .view-title { color: var(--green); }
+        .view-header.agent .view-title { color: var(--pink); }
+        
+        .view-status {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+        
+        .status-online { background: var(--green); color: #000; }
+        .status-busy { background: var(--orange); color: #000; }
+        .status-offline { background: var(--red); color: #fff; }
+        
+        /* Scene Container */
+        .scene-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        /* Hospital Scene */
+        .hospital {
+            position: relative;
+            height: 280px;
+            background: linear-gradient(180deg, #1a3a4a 0%, #0d1f2a 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        /* Pixel Clouds (CSS) */
+        .pixel-cloud {
+            position: absolute;
+            width: 40px;
+            height: 20px;
+            background: var(--white);
+            border-radius: 10px;
+            opacity: 0.7;
+        }
+        .pixel-cloud::before, .pixel-cloud::after {
+            content: '';
+            position: absolute;
+            background: var(--white);
+            border-radius: 50%;
+        }
+        .pixel-cloud::before { width: 20px; height: 20px; top: -10px; left: 5px; }
+        .pixel-cloud::after { width: 25px; height: 25px; top: -12px; right: 5px; }
+        
+        /* Ground */
+        .ground {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(180deg, #2d4a3a 0%, #1a2f28 100%);
+        }
+        
+        .ground::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #3d5a4a;
+        }
+        
+        /* Trees */
+        .pixel-tree {
+            position: absolute;
+            bottom: 50px;
+        }
+        
+        .tree-body {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 40px solid #228b22;
+        }
+        
+        .tree-body::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: -12px;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 30px solid #32cd32;
+        }
+        
+        .tree-trunk {
+            width: 8px;
+            height: 15px;
+            background: #8b4513;
+            margin: 0 auto;
+        }
+        
+        /* Hospital Building */
+        .building {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .building-main {
+            width: 120px;
+            height: 80px;
+            background: linear-gradient(180deg, #e8e8e8 0%, #c0c0c0 100%);
+            border: 3px solid #333;
+            position: relative;
+        }
+        
+        .building-roof {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 30px;
+            background: var(--red);
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        }
+        
+        .building-sign {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--yellow);
+            color: #333;
+            padding: 5px 10px;
+            font-family: 'Press Start 2P';
+            font-size: 6px;
+            border: 2px solid #333;
+            white-space: nowrap;
+        }
+        
+        /* Windows */
+        .pixel-window {
+            position: absolute;
+            background: var(--blue);
+            border: 2px solid #333;
+            box-shadow: inset 0 0 8px rgba(255,255,255,0.4);
+        }
+        
+        .pixel-window::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #333;
+        }
+        
+        /* Door */
+        .pixel-door {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 40px;
+            background: linear-gradient(180deg, #8b4513 0%, #654321 100%);
+            border: 2px solid #333;
+        }
+        
+        .pixel-door::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 4px;
+            width: 3px;
+            height: 3px;
+            background: gold;
+        }
+        
+        /* Characters */
+        .pixel-char {
+            position: absolute;
+            font-size: 24px;
+            font-family: 'Press Start 2P';
+            line-height: 1;
+            animation: bounce 0.6s ease-in-out infinite alternate;
+            filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.4));
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .pixel-char:hover { transform: scale(1.1); }
+        
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-6px); } }
+        
+        .char-nurse { 
+            bottom: 20px; 
+            left: 25%; 
+            animation-delay: 0s;
+            color: #ffb6c1;
+        }
+        
+        .char-patient { 
+            bottom: 30px; 
+            left: 55%; 
+            animation-delay: 0.2s;
+            color: #87ceeb;
+        }
+        
+        .char-patient2 { 
+            bottom: 15px; 
+            left: 70%; 
+            animation-delay: 0.4s;
+            color: #ffa07a;
+        }
+        
+        /* Room Navigation */
+        .room-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .room-btn {
+            background: rgba(0,0,0,0.4);
+            border: 2px solid #444;
+            border-radius: 4px;
+            padding: 8px 12px;
+            color: var(--white);
+            font-family: 'VT323';
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .room-btn:hover { border-color: var(--green); background: rgba(123, 237, 159, 0.15); }
+        .room-btn.active { border-color: var(--yellow); background: rgba(249, 248, 113, 0.2); }
+        
+        /* Room Scene */
+        .room-scene {
+            display: none;
+            background: linear-gradient(180deg, #2a2a3a 0%, #1a1a2a 100%);
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 200px;
+        }
+        
+        .room-scene.active { display: block; }
+        
+        .room-title {
+            font-family: 'Press Start 2P';
+            font-size: 10px;
+            color: var(--yellow);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed rgba(255,255,255,0.2);
+        }
+        
+        /* Pixel Art Characters in Room */
+        .room-sprites {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .sprite {
+            width: 48px;
+            height: 48px;
+            position: relative;
+            animation: spriteBounce 0.4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes spriteBounce { from { transform: translateY(0); } to { transform: translateY(-4px); } }
+        
+        .sprite-patient {
+            background: linear-gradient(135deg, #ff6b6b 0%, #cc4444 100%);
+            border-radius: 8px 8px 4px 4px;
+        }
+        
+        .sprite-doctor {
+            background: linear-gradient(135deg, #5fc9f8 0%, #3399cc 100%);
+            border-radius: 8px;
+        }
+        
+        /* Dialog Box */
+        .dialog-box {
+            background: rgba(0,0,0,0.5);
+            border: 3px solid var(--orange);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .npc-name {
+            color: var(--yellow);
+            font-family: 'Press Start 2P';
+            font-size: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .dialog-text {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .info-item {
+            background: rgba(0,0,0,0.3);
+            padding: 8px;
+            border-radius: 4px;
+        }
+        
+        .info-label { color: var(--cyan); font-size: 12px; }
+        .info-value { font-size: 14px; margin-top: 2px; }
+        
+        /* Side Panel */
+        .side-panel {
+            width: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .panel {
+            background: var(--bg-light);
+            border: 3px solid var(--blue);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .panel-title {
+            font-family: 'Press Start 2P';
+            font-size: 8px;
+            color: var(--yellow);
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed rgba(255,255,255,0.2);
+        }
+        
+        /* Room List */
+        .room-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .room-list-btn {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid #444;
+            border-radius: 3px;
+            padding: 6px 8px;
+            color: var(--white);
+            font-family: 'VT323';
+            font-size: 12px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        .room-list-btn:hover { border-color: var(--green); }
+        
+        /* NPC List */
+        .npc-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 0;
+            font-size: 12px;
+        }
+        
+        .npc-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+        
+        /* Status Panel */
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 12px;
+        }
+        
+        /* Agent View Specific */
+        .agent-view {
+            background: linear-gradient(180deg, #1a1528 0%, #0d0a14 100%);
+        }
+        
+        .agent-header {
+            background: linear-gradient(90deg, #2d1b4e, #3d2b5e);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--purple);
+        }
+        
+        .agent-title {
+            font-family: 'Press Start 2P';
+            font-size: 10px;
+            color: var(--pink);
+        }
+        
+        .agent-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            padding: 10px;
+        }
+        
+        .stat-box {
+            background: rgba(162, 155, 254, 0.1);
+            border: 2px solid var(--purple);
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 10px;
+            color: var(--purple);
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-family: 'Press Start 2P';
+            font-size: 12px;
+            color: var(--cyan);
+        }
+        
+        /* API Status */
+        .api-status {
+            background: rgba(0,0,0,0.4);
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        
+        .api-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+            font-size: 12px;
+        }
+        
+        .api-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+        
+        .dot-green { background: var(--green); }
+        .dot-red { background: var(--red); }
+        .dot-yellow { background: var(--yellow); }
+        
+        /* Agent Logs */
+        .agent-log {
+            background: #0a0a0f;
+            border-radius: 6px;
+            padding: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 11px;
+            font-family: 'VT323', monospace;
+        }
+        
+        .log-entry {
+            padding: 2px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .log-time { color: var(--purple); }
+        .log-msg { color: var(--cyan); }
+        .log-warn { color: var(--orange); }
+        .log-error { color: var(--red); }
+        
+        /* Footer */
+        footer { 
+            text-align: center; 
+            padding: 10px; 
+            color: #666; 
+            font-size: 12px; 
+        }
+        
+        @media (max-width: 900px) {
+            .split-view { flex-direction: column; height: auto; }
+            .view-panel { min-height: 500px; }
+            .side-panel { width: 100%; flex-direction: row; flex-wrap: wrap; }
+            .panel { flex: 1; min-width: 150px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">CLAW HOSPITAL</h1>
+            <div class="subtitle">~ Pokemon Hospital Scene ~</div>
+        </div>
+        
+        <div class="split-view">
+            <!-- Human View -->
+            <div class="view-panel human-view">
+                <div class="view-header human">
+                    <div class="view-title">HUMAN VIEW</div>
+                    <span class="view-status status-online">ONLINE</span>
+                </div>
+                
+                <div class="scene-container">
+                    <!-- Hospital Scene -->
+                    <div class="hospital" id="hospitalView">
+                        <div class="pixel-cloud" style="top: 20px; left: 10%;"></div>
+                        <div class="pixel-cloud" style="top: 35px; left: 50%;"></div>
+                        <div class="pixel-cloud" style="top: 15px; left: 75%;"></div>
+                        
+                        <div class="ground"></div>
+                        
+                        <div class="pixel-tree" style="left: 5%;">
+                            <div class="tree-body"></div>
+                            <div class="tree-trunk"></div>
+                        </div>
+                        <div class="pixel-tree" style="right: 5%;">
+                            <div class="tree-body"></div>
+                            <div class="tree-trunk"></div>
+                        </div>
+                        
+                        <div class="building">
+                            <div class="building-sign">CLAW</div>
+                            <div class="building-roof"></div>
+                            <div class="building-main">
+                                <div class="pixel-window" style="top: 15px; left: 10px; width: 30px; height: 25px;"></div>
+                                <div class="pixel-window" style="top: 15px; right: 10px; width: 30px; height: 25px;"></div>
+                                <div class="pixel-window" style="top: 45px; left: 15px; width: 25px; height: 20px;"></div>
+                                <div class="pixel-window" style="top: 45px; right: 15px; width: 25px; height: 20px;"></div>
+                                <div class="pixel-door"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="pixel-char char-nurse">N</div>
+                        <div class="pixel-char char-patient">P</div>
+                        <div class="pixel-char char-patient2">P</div>
+                    </div>
+                    
+                    <!-- Room Scene -->
+                    <div class="room-scene" id="roomScene">
+                        <div class="room-title" id="roomTitle">LOBBY - 接待大厅</div>
+                        
+                        <div class="room-sprites">
+                            <div class="sprite sprite-patient">P</div>
+                            <div class="sprite sprite-doctor">D</div>
+                        </div>
+                        
+                        <div class="dialog-box">
+                            <div class="npc-name" id="npcName">NURSE PIXEL</div>
+                            <div class="dialog-text" id="dialogText">
+                                欢迎来到 CLAW HOSPITAL！
+                            </div>
+                        </div>
+                        
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">DEPT</div>
+                                <div class="info-value" id="roomDept">综合科</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">DOCTOR</div>
+                                <div class="info-value" id="roomDoctor">Dr. Welcome</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation -->
+                    <div class="room-nav">
+                        <button class="room-btn active" onclick="showHospital()">HOSPITAL</button>
+                        <button class="room-btn" onclick="showRoom(0)">LOBBY</button>
+                        <button class="room-btn" onclick="showRoom(1)">TRIAGE</button>
+                        <button class="room-btn" onclick="showRoom(2)">EMERGENCY</button>
+                        <button class="room-btn" onclick="showRoom(3)">NEURO</button>
+                        <button class="room-btn" onclick="showRoom(4)">MEMORY</button>
+                        <button class="room-btn" onclick="showRoom(5)">BEHAVIOR</button>
+                        <button class="room-btn" onclick="showRoom(6)">WHATSAPP</button>
+                        <button class="room-btn" onclick="showRoom(7)">DISCORD</button>
+                        <button class="room-btn" onclick="showRoom(8)">BOSS</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Agent View -->
+            <div class="view-panel agent">
+                <div class="agent-header">
+                    <div class="agent-title">AGENT VIEW</div>
+                    <span class="view-status status-online" id="agentStatus">ACTIVE</span>
+                </div>
+                
+                <div class="scene-container agent-view">
+                    <!-- Agent Stats -->
+                    <div class="agent-stats">
+                        <div class="stat-box">
+                            <div class="stat-label">MEMORY</div>
+                            <div class="stat-value" id="memUsage">87%</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">CPU</div>
+                            <div class="stat-value" id="cpuUsage">42%</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">HEALTH</div>
+                            <div class="stat-value" id="healthScore">94</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">TASKS</div>
+                            <div class="stat-value" id="activeTasks">3</div>
+                        </div>
+                    </div>
+                    
+                    <!-- API Status -->
+                    <div class="api-status">
+                        <div class="panel-title" style="margin-bottom: 8px;">API CONNECTION</div>
+                        <div class="api-row">
+                            <span>OpenClaw API</span>
+                            <span><span class="api-dot dot-green"></span>Connected</span>
+                        </div>
+                        <div class="api-row">
+                            <span>Feishu</span>
+                            <span><span class="api-dot dot-green"></span>OK</span>
+                        </div>
+                        <div class="api-row">
+                            <span>Discord</span>
+                            <span><span class="api-dot dot-green"></span>OK</span>
+                        </div>
+                        <div class="api-row">
+                            <span>WhatsApp</span>
+                            <span><span class="api-dot dot-yellow"></span>Pending</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Agent Logs -->
+                    <div class="api-status">
+                        <div class="panel-title" style="margin-bottom: 8px;">AGENT LOGS</div>
+                        <div class="agent-log" id="agentLogs"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>CLAW HOSPITAL - Pokemon Style Hospital Scene</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Room Data
+        const rooms = [
+            { name: 'LOBBY', dept: '综合科', doctor: 'Dr. Welcome', desc: '欢迎来到 CLAW HOSPITAL！请问有什么可以帮助？', color: '#5fc9f8' },
+            { name: 'TRIAGE', dept: '分诊科', doctor: 'Dr. Triage', desc: '让我分析一下你的问题...', color: '#73eff7' },
+            { name: 'EMERGENCY', dept: '急诊科', doctor: 'Dr. Urgent', desc: '紧急情况！立即处理中！', color: '#ff6b6b' },
+            { name: 'NEURO', dept: '神经科', doctor: 'Dr. Brain', desc: '神经网络扫描中...', color: '#a29bfe' },
+            { name: 'MEMORY', dept: '记忆科', doctor: 'Dr. Memory', desc: '记忆碎片重组中...', color: '#ff85c2' },
+            { name: 'BEHAVIOR', dept: '行为科', doctor: 'Dr. Play', desc: '行为模式校准中...', color: '#7bed9f' },
+            { name: 'WHATSAPP', dept: '连接科', doctor: 'Mr. Whats', desc: 'WhatsApp 连接修复中...', color: '#25D366' },
+            { name: 'DISCORD', dept: '消息科', doctor: 'Ms. Chat', desc: 'Discord 消息处理中...', color: '#5865F2' },
+            { name: 'BOSS', dept: '院长室', doctor: 'The Admin', desc: '最终 BOSS 战准备就绪！', color: '#ffd700' }
+        ];
+        
+        // Mock API Data
+        const apiData = {
+            agent: {
+                name: 'Claws',
+                status: 'active',
+                memory: 87,
+                cpu: 42,
+                health: 94,
+                tasks: 3,
+                uptime: '2d 14h',
+                messages: 1247
+            },
+            connections: {
+                feishu: { status: 'connected', latency: 23 },
+                discord: { status: 'connected', latency: 45 },
+                whatsapp: { status: 'pending', latency: null },
+                github: { status: 'connected', latency: 67 }
+            },
+            logs: [
+                { time: '07:52:31', msg: 'Heartbeat check completed', type: 'info' },
+                { time: '07:52:15', msg: 'New message from Discord', type: 'info' },
+                { time: '07:51:58', msg: 'Feishu API sync complete', type: 'info' },
+                { time: '07:51:42', msg: 'Memory cleanup triggered', type: 'warn' },
+                { time: '07:50:30', msg: 'Task queue: 3 pending', type: 'info' }
+            ]
+        };
+        
+        // Show Hospital
+        function showHospital() {
+            document.getElementById('hospitalView').style.display = 'block';
+            document.getElementById('roomScene').classList.remove('active');
+            updateRoomButtons(-1);
+        }
+        
+        // Show Room
+        function showRoom(index) {
+            const room = rooms[index];
+            
+            document.getElementById('hospitalView').style.display = 'none';
+            document.getElementById('roomScene').classList.add('active');
+            
+            document.getElementById('roomTitle').innerText = `${room.name} - ${room.dept}`;
+            document.getElementById('roomTitle').style.color = room.color;
+            document.getElementById('npcName').innerText = `DR. ${room.doctor.toUpperCase()}`;
+            document.getElementById('dialogText').innerText = room.desc;
+            document.getElementById('roomDept').innerText = room.dept;
+            document.getElementById('roomDoctor').innerText = room.doctor;
+            
+            updateRoomButtons(index);
+        }
+        
+        // Update Room Buttons
+        function updateRoomButtons(activeIndex) {
+            const buttons = document.querySelectorAll('.room-nav .room-btn');
+            buttons.forEach((btn, i) => {
+                btn.classList.toggle('active', i === activeIndex + 1);
+            });
+        }
+        
+        // Update Agent View with API data
+        function updateAgentView() {
+            // Update stats
+            document.getElementById('memUsage').innerText = apiData.agent.memory + '%';
+            document.getElementById('cpuUsage').innerText = apiData.agent.cpu + '%';
+            document.getElementById('healthScore').innerText = apiData.agent.health;
+            document.getElementById('activeTasks').innerText = apiData.agent.tasks;
+            
+            // Update logs
+            const logContainer = document.getElementById('agentLogs');
+            logContainer.innerHTML = apiData.logs.map(log => {
+                const typeClass = log.type === 'warn' ? 'log-warn' : log.type === 'error' ? 'log-error' : 'log-msg';
+                return `<div class="log-entry"><span class="log-time">[${log.time}]</span> <span class="${typeClass}">${log.msg}</span></div>`;
+            }).join('');
+            
+            // Update API status
+            updateApiStatus();
+        }
+        
+        // Update API Connection Status
+        function updateApiStatus() {
+            const connections = [
+                { name: 'Feishu', data: apiData.connections.feishu },
+                { name: 'Discord', data: apiData.connections.discord },
+                { name: 'WhatsApp', data: apiData.connections.whatsapp }
+            ];
+            
+            // Add simulated real-time update
+            const randomLog = generateRandomLog();
+            apiData.logs.unshift(randomLog);
+            if (apiData.logs.length > 8) apiData.logs.pop();
+            
+            // Update random stats slightly
+            apiData.agent.memory = Math.max(60, Math.min(95, apiData.agent.memory + Math.floor(Math.random() * 5) - 2));
+            apiData.agent.cpu = Math.max(20, Math.min(80, apiData.agent.cpu + Math.floor(Math.random() * 10) - 5));
+            apiData.agent.health = Math.max(70, Math.min(100, apiData.agent.health + Math.floor(Math.random() * 3) - 1));
+        }
+        
+        // Generate Random Log
+        function generateRandomLog() {
+            const msgs = [
+                { msg: 'Heartbeat check completed', type: 'info' },
+                { msg: 'Processing queue...', type: 'info' },
+                { msg: 'API latency: ' + (20 + Math.floor(Math.random() * 50)) + 'ms', type: 'info' },
+                { msg: 'Memory usage stable', type: 'info' },
+                { msg: 'New notification received', type: 'warn' }
+            ];
+            const now = new Date();
+            const time = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+            return { time, ...msgs[Math.floor(Math.random() * msgs.length)] };
+        }
+        
+        // Initialize
+        showHospital();
+        updateAgentView();
+        
+        // Simulate real-time updates
+        setInterval(() => {
+            updateAgentView();
+        }, 3000);
+    </script>
+</body>
+</html>
