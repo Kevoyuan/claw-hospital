@@ -6,8 +6,20 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 
-// Visit counter
-let visitCount = 0;
+let totalConsults = 0;
+let todayConsults = 0;
+let currentDay = new Date().toDateString();
+let departmentCounts = {
+  'emergency': 0,
+  'neuro': 0,
+  'memory': 0,
+  'behavior': 0,
+  'discord': 0,
+  'whatsapp': 0,
+  'config': 0,
+  'model': 0
+};
+let totalApiCalls = 0;
 
 const DEPARTMENT_RULES = {
   'emergency': {
@@ -156,8 +168,24 @@ function handleRequest(req, res) {
           return;
         }
         
-        visitCount++;
+        totalApiCalls++;
+        
+        // Reset today's count if it's a new day
+        const today = new Date().toDateString();
+        if (today !== currentDay) {
+          currentDay = today;
+          todayConsults = 0;
+        }
+
         const department = matchDepartment(description);
+        
+        if (department) {
+          totalConsults++;
+          todayConsults++;
+          if (departmentCounts[department] !== undefined) {
+            departmentCounts[department]++;
+          }
+        }
         
         if (!department) {
           res.writeHead(404, { 'Content-Type': 'application/json' });
@@ -266,7 +294,12 @@ function handleRequest(req, res) {
   // 接诊统计
   if (pathname === '/api/stats' && req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ visits: visitCount }));
+    res.end(JSON.stringify({ 
+      totalConsults,
+      todayConsults,
+      departmentCounts,
+      totalApiCalls
+    }));
     return;
   }
   

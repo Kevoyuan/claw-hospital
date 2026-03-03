@@ -756,8 +756,10 @@ body {
     font-family: var(--font-term);
     font-size: 20px;
     color: var(--text-main);
-    line-height: 1.2;
+    line-height: 1.6;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    word-spacing: 2px;
 }
 
 .typewriter-cursor {

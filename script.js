@@ -10,21 +10,7 @@ const rooms = [
     { name: 'BOSS', dept: 'ADMINISTRATION', doctor: 'The Admin', desc: 'Final boss encounter sequence initiated! Prepare yourself!', color: '#ff003c', env: 'boss' }
 ];
 
-const apiData = {
-    totalVisits: 0,
-    todayVisits: 0,
-    departmentStats: {
-        emergency: 0,
-        neuro: 0,
-        memory: 0,
-        behavior: 0,
-        discord: 0,
-        whatsapp: 0,
-        config: 0,
-        model: 0
-    },
-    recentCalls: []
-};
+// State variables removed as we pull from backend
 
 function showHospital() {
     document.getElementById('hospitalView').style.display = 'block';
@@ -45,34 +31,34 @@ function renderEnvironment(envType) {
 
 function showRoom(index) {
     const room = rooms[index];
-    
+
     document.getElementById('hospitalView').style.display = 'none';
     document.getElementById('roomScene').classList.add('active');
-    
+
     document.getElementById('roomTitle').innerText = `${room.name} - ${room.dept}`;
     document.getElementById('roomTitle').style.color = room.color;
     document.getElementById('npcName').innerText = `[ ${room.doctor.toUpperCase()} ]`;
-    
+
     const textElement = document.getElementById('dialogText');
-    textElement.innerText = '';
+    textElement.textContent = '';
     let charIndex = 0;
     clearInterval(window.typewriterInterval);
     window.typewriterInterval = setInterval(() => {
-        if(charIndex < room.desc.length) {
-            textElement.innerText += room.desc.charAt(charIndex);
+        if (charIndex < room.desc.length) {
+            textElement.textContent = room.desc.substring(0, charIndex + 1);
             charIndex++;
         } else {
             clearInterval(window.typewriterInterval);
         }
     }, 30);
-    
+
     document.getElementById('roomDept').innerText = room.dept;
     document.getElementById('roomDoctor').innerText = room.doctor;
-    
+
     document.getElementById('doctorSprite').style.borderColor = room.color;
     document.getElementById('doctorSprite').style.color = room.color;
     document.getElementById('doctorSprite').style.boxShadow = `0 0 15px ${room.color}, inset 0 0 10px ${room.color}`;
-    
+
     renderEnvironment(room.env);
     updateRoomButtons(index);
 }
@@ -91,53 +77,44 @@ function updateRoomButtons(activeIndex) {
     });
 }
 
-function updateAgentView() {
-    apiData.agent.memory = Math.max(60, Math.min(99, apiData.agent.memory + Math.floor(Math.random() * 5) - 2));
-    apiData.agent.cpu = Math.max(10, Math.min(90, apiData.agent.cpu + Math.floor(Math.random() * 10) - 5));
-    apiData.agent.health = Math.max(70, Math.min(100, apiData.agent.health + Math.floor(Math.random() * 3) - 1));
-    
-    document.getElementById('memUsage').innerText = apiData.totalVisits;
-    document.getElementById('cpuUsage').innerText = apiData.todayVisits;
-    
-    // Calculate most common department
-    let depts = Object.entries(apiData.departmentStats);
-    depts.sort((a, b) => b[1] - a[1]);
-    const topDept = depts[0][0];
-    const topCount = depts[0][1];
-    document.getElementById('healthScore').innerText = topDept.toUpperCase() + ' (' + topCount + ')';
-    
-    document.getElementById('activeTasks').innerText = apiData.recentCalls.length;
-    
-    const randomLog = generateRandomLog();
-    if(Math.random() > 0.5) {
-        apiData.logs.unshift(randomLog);
-        if (apiData.logs.length > 8) apiData.logs.pop();
-    }
-    
-    const logContainer = document.getElementById('agentLogs');
-    logContainer.innerHTML = apiData.logs.map(log => {
-        const typeClass = log.type === 'warn' ? 'log-warn' : log.type === 'error' ? 'log-error' : 'log-msg';
-        return `<div class="log-entry"><span class="log-time">[${log.time}]</span><span class="${typeClass}">${log.msg}</span></div>`;
-    }).join('');
-}
+function fetchBackendStats() {
+    fetch('/api/stats')
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById('statTotal').innerText = data.totalConsults || 0;
+            document.getElementById('statToday').innerText = data.todayConsults || 0;
+            document.getElementById('statCalls').innerText = data.totalApiCalls || 0;
 
-function generateRandomLog() {
-    const msgs = [
-        { msg: 'HEARTBEAT OK', type: 'info' },
-        { msg: 'PROCESSING QUEUE...', type: 'info' },
-        { msg: 'API LATENCY: ' + (20 + Math.floor(Math.random() * 50)) + 'MS', type: 'info' },
-        { msg: 'MEMORY USAGE STABLE', type: 'info' },
-        { msg: 'NEW NOTIFICATION RECEIVED', type: 'warn' },
-        { msg: 'ROUTING REQUEST', type: 'info' }
-    ];
-    const now = new Date();
-    const time = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
-    return { time, ...msgs[Math.floor(Math.random() * msgs.length)] };
+            if (data.departmentCounts) {
+                let depts = Object.entries(data.departmentCounts);
+                depts.sort((a, b) => b[1] - a[1]);
+
+                if (data.totalConsults > 0 && depts[0][1] > 0) {
+                    document.getElementById('statTopDept').innerText = depts[0][0].toUpperCase() + ' (' + depts[0][1] + ')';
+
+                    let statsHtml = '';
+                    depts.forEach(([dept, count]) => {
+                        if (count > 0) {
+                            let pct = Math.round((count / data.totalConsults) * 100);
+                            statsHtml += `<div class="api-row" style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 10px;">
+                                <span style="color: #00f3ff;">${dept.toUpperCase()}</span>
+                                <span>${pct}% <span style="opacity: 0.5;">(${count})</span></span>
+                            </div>`;
+                        }
+                    });
+                    document.getElementById('statsContainer').innerHTML = statsHtml;
+                } else {
+                    document.getElementById('statTopDept').innerText = 'NONE';
+                    document.getElementById('statsContainer').innerHTML = '<div style="opacity: 0.5;">NO DATA</div>';
+                }
+            }
+        })
+        .catch(err => console.error('Error fetching stats:', err));
 }
 
 showHospital();
-updateAgentView();
+fetchBackendStats();
 
 setInterval(() => {
-    updateAgentView();
+    fetchBackendStats();
 }, 2000);

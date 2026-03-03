@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <h1 class="title">CLAW HOSPITAL</h1>
             <div class="subtitle">SYSTEM TERMINAL</div>
         </div>
-        
+
         <div class="split-view">
             <!-- Human View -->
             <div class="view-panel human-view">
@@ -21,7 +23,7 @@
                     <div class="view-title">VISUAL FEED</div>
                     <span class="view-status status-online">ONLINE</span>
                 </div>
-                
+
                 <div class="scene-container">
                     <!-- Hospital Exterior Scene -->
                     <div class="hospital" id="hospitalView">
@@ -33,7 +35,7 @@
                         </div>
                         <div class="cityscape"></div>
                         <div class="ground-dark"></div>
-                        
+
                         <div class="pixel-hospital">
                             <div class="h-sign">CLAW</div>
                             <div class="h-cross"></div>
@@ -44,11 +46,11 @@
                             <div class="h-window w4"></div>
                         </div>
                     </div>
-                    
+
                     <!-- Indoor Room Scene -->
                     <div class="room-scene" id="roomScene">
                         <div class="room-title" id="roomTitle">LOBBY - GENERAL</div>
-                        
+
                         <!-- Dynamic interior environment -->
                         <div class="indoor-environment" id="indoorEnvironment">
                             <div class="env-layer" id="env-lobby">
@@ -93,20 +95,20 @@
                                 <div class="pixel-prop red-screen s1"></div>
                                 <div class="pixel-prop red-screen s2"></div>
                             </div>
-                            
+
                             <div class="room-sprites">
                                 <div class="sprite sprite-patient" id="patientSprite"></div>
                                 <div class="sprite sprite-doctor" id="doctorSprite"></div>
                             </div>
                         </div>
-                        
+
                         <div class="dialog-box">
                             <div class="npc-name" id="npcName">NURSE PIXEL</div>
                             <div class="dialog-text" id="dialogText">
                                 Welcome! How can we help you today?
                             </div>
                         </div>
-                        
+
                         <div class="info-grid">
                             <div class="info-item">
                                 <div class="info-label">DEPT</div>
@@ -118,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Navigation -->
                     <div class="room-nav" id="roomNav">
                         <button class="room-btn active" onclick="showHospital()">EXTERIOR</button>
@@ -134,69 +136,51 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Agent View -->
             <div class="view-panel agent">
                 <div class="view-header agent-header">
                     <div class="agent-title">AGENT TERMINAL</div>
                     <span class="view-status status-online" id="agentStatus">ACTIVE</span>
                 </div>
-                
+
                 <div class="scene-container agent-view">
                     <!-- Agent Stats -->
                     <div class="agent-stats">
                         <div class="stat-box">
                             <div class="stat-label">TOTAL</div>
-                            <div class="stat-value" id="memUsage">0</div>
+                            <div class="stat-value" id="statTotal">0</div>
                         </div>
                         <div class="stat-box">
                             <div class="stat-label">TODAY</div>
-                            <div class="stat-value" id="cpuUsage">0</div>
+                            <div class="stat-value" id="statToday">0</div>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-label">DEPT</div>
-                            <div class="stat-value" id="healthScore">8</div>
+                            <div class="stat-label">TOP DEPT</div>
+                            <div class="stat-value" id="statTopDept">NONE</div>
                         </div>
                         <div class="stat-box">
                             <div class="stat-label">CALLS</div>
-                            <div class="stat-value" id="activeTasks">0</div>
+                            <div class="stat-value" id="statCalls">0</div>
                         </div>
                     </div>
-                    
-                    <!-- API Status -->
-                    <div class="api-status">
-                        <div class="panel-title">DASHBOARD</div>
-                        <div class="api-row">
-                            <span>CORE API</span>
-                            
-                        </div>
-                        <div class="api-row">
-                            
-                            <span><span class="api-dot dot-cyan"></span></span>
-                        </div>
-                        <div class="api-row">
-                            
-                            <span><span class="api-dot dot-cyan"></span>LISTENING</span>
-                        </div>
-                        <div class="api-row">
-                            <span>WHATSAPP</span>
-                            <span><span class="api-dot dot-yellow"></span>PENDING</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Agent Logs -->
+
+                    <!-- Statistics -->
                     <div class="api-status" style="flex:1; display:flex; flex-direction:column; margin-bottom: 0;">
                         <div class="panel-title">STATISTICS</div>
-                        <div class="agent-log" id="logContainer" style="flex:1;"></div>
+                        <div class="agent-log" id="statsContainer" style="flex:1; padding-top: 10px;">
+                            <div style="opacity: 0.5;">NO DATA</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <footer>
             <p>CLAW HOSPITAL SYSTEM // V2.0 // AUTHORIZED PERSONNEL ONLY</p>
         </footer>
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
