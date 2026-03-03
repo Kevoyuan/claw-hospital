@@ -9,10 +9,6 @@ const PORT = process.env.PORT || 3000;
 // Visit counter
 let visitCount = 0;
 
-// Visit counter
-let visitCount = 0;
-
-// 科室关键词匹配规则
 const DEPARTMENT_RULES = {
   'emergency': {
     keywords: ['启动', '启动失败', '崩溃', 'crash', '无响应', '连接中断', 'ECONNREFUSED', 'ECONNRESET', '无法启动', '进程退出', 'exit', 'died', '挂掉', '宕机', 'down'],
@@ -210,7 +206,35 @@ function handleRequest(req, res) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ status: 'ok', service: 'Claw Hospital API' }));
     return;
+  }  // API Schema
+  if (pathname === '/api/schema' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      endpoint: '/api/diagnose',
+      method: 'POST',
+      description: 'Diagnose OpenClaw Agent issues',
+      request: { description: 'String - Describe your problem' },
+      example: { request: '{"description": "cannot start"}' },
+      departments: Object.keys(DEPARTMENT_RULES)
+    }, null, 2));
+    return;
   }
+
+  // API Schema / 帮助
+  if (pathname === '/api/schema' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      endpoint: '/api/diagnose',
+      method: 'POST',
+      description: 'Diagnose OpenClaw Agent issues',
+      request: { description: 'String - Describe your problem' },
+      response: { success: 'Boolean', department: 'String', solutions: 'Object' },
+      example: { request: '{"description": "cannot start"}', response: '{"department": "emergency"}' },
+      departments: Object.keys(DEPARTMENT_RULES)
+    }, null, 2));
+    return;
+  }
+
   
   // 接诊统计
   if (pathname === '/api/stats' && req.method === 'GET') {
