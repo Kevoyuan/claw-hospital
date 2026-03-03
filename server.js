@@ -206,7 +206,34 @@ function handleRequest(req, res) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ status: 'ok', service: 'Claw Hospital API' }));
     return;
-  }  // API Schema
+  }  // Security check endpoint
+  if (pathname === '/api/security' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      checks: {
+        version: { 
+          current: "2026.2.26", 
+          latest: "2026.1.29",
+          warning: "Update required if current < latest" 
+        },
+        gateway: { 
+          bind: "127.0.0.1",
+          exposed: "Check with: openclaw gateway status | grep bind"
+        },
+        cve: {
+          "CVE-2026-25253": "Fixed in v2026.1.29+"
+        }
+      },
+      recommendations: [
+        "Update to latest version",
+        "Ensure Gateway binds to 127.0.0.1",
+        "Never expose port 18789 to public",
+        "Use SSH tunnel or Cloudflare Tunnel"
+      ]
+    }, null, 2));
+    return;
+  }
+  // API Schema
   if (pathname === '/api/schema' && req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
