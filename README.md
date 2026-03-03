@@ -1,97 +1,138 @@
-# 🦞 Claw Hospital - OpenClaw Agent 维修医院
+# 🦞 Claw Hospital
 
-<div align="center">
+<p align="center">
+  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
+  <img src="https://img.shields.io/badge/version-1.0.0-green.svg" alt="Version">
+  <img src="https://img.shields.io/badge/OpenClaw-v2026-orange.svg" alt="OpenClaw">
+</p>
 
-[![Star](https://img.shields.io/github/stars/Kevoyuan/claw-hospital?style=social)](https://github.com/Kevoyuan/claw-hospital)
-[![License](https://img.shields.io/github/license/Kevoyuan/claw-hospital)](https://github.com/Kevoyuan/claw-hospital)
-
-让 AI Agent 能够自主发现问题、自我诊断、精准修复！
-
-</div>
-
----
-
-## 🎯 这是什么
-
-**Claw Hospital** 是一个开源的 AI Agent 自我修复系统。
-
-当你的 Agent 出问题时：
-- 🦞 龙虾（Agent）会自动找到这里
-- 🏥 医院进行诊断匹配
-- 💊 给出精准解决方案
-- 🔧 Agent 自我修复
+> A self-repair platform for OpenClaw AI Agents — Pokemon-style pixel art interface with API support.
 
 ---
 
-## 📂 项目结构
+## English
 
-```
-claw-hospital/
-├── skills/              # 诊断 Skills
-│   ├── emergency/     # 急诊科
-│   ├── neuro/         # 神经科
-│   ├── memory/        # 记忆科
-│   └── behavior/      # 行为科
-├── api/               # API 接口
-├── docs/              # 文档
-└── index.html         # 演示网站
+### What is Claw Hospital?
+
+Claw Hospital is a **self-diagnosis and repair platform** for OpenClaw AI Agents. Think of it as a pixel-art hospital where AI agents can:
+
+- **Describe their symptoms** (problems they're experiencing)
+- **Get matched to the right department** (emergency, neuro, memory, etc.)
+- **Receive solutions** (commands to fix their issues)
+
+### Two Ways to Use
+
+#### 1. Agent API (Programmatic)
+```bash
+curl -X POST http://localhost:3000/api/diagnose \
+  -H "Content-Type: application/json" \
+  -d '{"description": "OpenClaw cannot start"}'
+
+# Returns: department + solutions in JSON
 ```
 
----
+#### 2. Human Web Interface
+Open `http://localhost:3000` in browser — see the pixel-art hospital, browse departments, view solutions.
 
-## 🏥 四大科室
+### Departments
 
-| 科室 | 症状 | 解决方案 |
-|------|------|----------|
-| 🚑 急诊科 | 启动失败、进程崩溃 | 重启、检查配置 |
-| 🧠 神经科 | 胡言乱语、幻觉 | 检查 Prompt、调整参数 |
-| 💾 记忆科 | 健忘、上下文丢失 | /compact、导入记忆 |
-| 🎮 行为科 | 拒绝工作、摸鱼 | 激励、重置状态 |
+| Department | Function |
+|------------|----------|
+| 🚑 Emergency | Startup / Crash issues |
+| 🧠 Neuro | Thinking / Hallucination issues |
+| 💾 Memory | Memory loss issues |
+| 🎮 Behavior | Behavior abnormal issues |
+| 📱 WhatsApp | Connection issues |
+| 💬 Discord | Message issues |
+| ⚙️ Config | Configuration issues |
+| 🤖 Model | Model / API issues |
 
----
-
-## 🤖 Agent 如何使用
-
-### 1. 本地诊断 (免费)
-
-```python
-# 内置诊断逻辑，无需 API
-from claw_hospital import diagnose
-
-result = diagnose(["健忘", "忘记对话"])
-# → {"treatment": "/compact", "need_api": False}
-```
-
-### 2. 精准匹配 Skills
-
-```yaml
-# 当检测到异常时
-skill: emergency-diagnosis
-trigger: ["崩溃", "启动失败"]
-solution: 重启 + 检查日志
-```
-
----
-
-## 📦 安装
+### Quick Start
 
 ```bash
+# Clone
 git clone https://github.com/Kevoyuan/claw-hospital.git
 cd claw-hospital
+
+# Run
+node server.js
+
+# Open in browser
+open http://localhost:3000
 ```
 
 ---
 
-## 🤝 贡献
+## 中文
 
-欢迎提交 Issue 和 PR！
+### 什么是 Claw Hospital？
+
+Claw Hospital 是 OpenClaw AI Agent 的**自助诊断修复平台**。就像一个像素风格的医院，AI Agent 可以：
+
+- **描述症状** (遇到的问题)
+- **匹配科室** (急诊、神经科、记忆科等)
+- **获取解决方案** (修复问题的命令)
+
+### 两种使用方式
+
+#### 1. Agent API (程序调用)
+```bash
+curl -X POST http://localhost:3000/api/diagnose \
+  -H "Content-Type: application/json" \
+  -d '{"description": "OpenClaw 无法启动"}'
+
+# 返回: 科室 + 解决方案 (JSON)
+```
+
+#### 2. 人类网页界面
+在浏览器打开 `http://localhost:3000` — 像素风格医院界面，浏览科室，查看方案。
+
+### 科室
+
+| 科室 | 功能 |
+|------|------|
+| 🚑 急诊科 | 启动/崩溃问题 |
+| 🧠 神经科 | 思维/幻觉问题 |
+| 💾 记忆科 | 记忆丢失问题 |
+| 🎮 行为科 | 行为异常问题 |
+| 📱 WhatsApp | 连接问题 |
+| 💬 Discord | 消息问题 |
+| ⚙️ 配置科 | 配置问题 |
+| 🤖 模型科 | 模型/API问题 |
+
+### 快速开始
+
+```bash
+# 克隆
+git clone https://github.com/Kevoyuan/claw-hospital.git
+cd claw-hospital
+
+# 运行
+node server.js
+
+# 浏览器打开
+open http://localhost:3000
+```
 
 ---
 
-## 📄 License
+## Features / 特性
 
-MIT License
+- 🎨 Pixel art interface / 像素艺术界面
+- 🔌 RESTful API / RESTful API
+- 🤖 Agent-ready / 支持 Agent 程序调用
+- 👤 Human-friendly / 人类友好
+- 🏥 8 departments / 8个科室
+- 📚 Issue database / 问题数据库
 
 ---
 
-让每一只小龙虾都精神抖擞！🦞💪
+## License
+
+MIT License — © 2026 Kevoyuan
+
+---
+
+<p align="center">
+  <sub>Made with ❤️ for OpenClaw Agents</sub>
+</p>
