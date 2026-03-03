@@ -1,6 +1,6 @@
 # Deployment Guide
 
-## Option 1: Local Development
+## Quick Start (Local)
 
 ```bash
 git clone https://github.com/Kevoyuan/claw-hospital.git
@@ -11,62 +11,141 @@ node server.js
 
 ---
 
-## Option 2: Vercel (Recommended)
+## For Agent Connection (Public API)
 
-### Method A: Serverless Functions
+To allow other agents/nodes to connect, you need a **publicly accessible API**.
 
-1. Install Vercel CLI:
+### Option 1: Vercel (Recommended for APIs)
+
 ```bash
+# Install Vercel
 npm i -g vercel
+
+# Create api/diagnose.js
+mkdir -p api
 ```
 
-2. Create `api/diagnose.js`:
+Create `api/diagnose.js`:
 ```javascript
 const DEPARTMENT_RULES = {
-  // ... same as server.js
+  emergency: {
+    keywords: ['启动', '启动失败', '崩溃', 'crash', '无响应', ...],
+    skillPath: 'emergency-skill'
+  },
+  // ... other departments
 };
 
 module.exports = (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  
   const { description } = req.body || {};
-  // ... matching logic
-  res.json({ success: true, department, solutions });
+  
+  // Match department
+  let department = null;
+  const desc = (description || '').toLowerCase();
+  
+  for (const [dept, rule] of Object.entries(DEPARTMENT_RULES)) {
+    if (rule.keywords.some(k => desc.includes(k.toLowerCase()))) {
+      department = dept;
+      break;
+    }
+  }
+  
+  if (!department) {
+    res.status(404).json({ error: 'No matching department found' });
+    return;
+  }
+  
+  // Return solutions
+  res.json({
+    success: true,
+    department: department,
+    solutions: { 
+      message: 'Please check the SKILL.md in skills/' + department 
+    }
+  });
 };
 ```
 
-3. Deploy:
+Deploy:
 ```bash
-vercel
+vercel --prod
 ```
 
-### Method B: Static + External API
-
-Deploy frontend as static site, use separate API server.
-
----
-
-## Option 3: Docker
-
-```dockerfile
-FROM node:20-alpine
-WORKDIR /app
-COPY . .
-RUN npm install
-EXPOSE 3000
-CMD ["node", "server.js"]
-```
-
-```bash
-docker build -t claw-hospital .
-docker run -p 3000:3000 claw-hospital
-```
-
----
-
-## Option 4: Railway / Render
+### Option 2: Railway / Render
 
 1. Push to GitHub
 2. Connect repo to Railway/Render
-3. Set `node server.js` as start command
+3. Set start command: `node server.js`
+4. Get public URL
+
+---
+
+## Agent Integration Example
+
+### HTTP Request
+
+```bash
+curl -X POST https://your-domain.com/api/diagnose \
+  -H "Content-Type: application/json" \
+  -d '{"description": "OpenClaw cannot start"}'
+```
+
+### Response
+
+```json
+{
+  "success": true,
+  "department": "emergency",
+  "departmentName": "Emergency - Startup/Crash issues",
+  "solutions": {
+    "commands": ["openclaw gateway status", "ps aux | grep openclaw", ...]
+  }
+}
+```
+
+### In Agent Code
+
+```javascript
+async function diagnose(problem) {
+  const response = await fetch('https://your-domain.com/api/diagnose', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ description: problem })
+  });
+  const result = await response.json();
+  
+  if (result.success) {
+    // Execute the suggested commands
+    for (const cmd of result.solutions.commands || []) {
+      await exec(cmd);
+    }
+  }
+  
+  return result;
+}
+```
+
+---
+
+## Security Considerations
+
+### ⚠️ Important: CVE-2026-25253
+
+If deploying to cloud, ensure:
+
+1. **Never bind Gateway to 0.0.0.0**
+2. **Use SSH Tunnel or Cloudflare Tunnel**
+3. **Update to v2026.1.29+**
+
+### For Claw Hospital API
+
+The API itself is read-only (diagnose only), so it's relatively safe. But:
+
+- Add rate limiting in production
+- Add API key authentication if needed
+- Use HTTPS
 
 ---
 
@@ -78,10 +157,11 @@ docker run -p 3000:3000 claw-hospital
 
 ---
 
-## Production Considerations
+## Production Checklist
 
-- Use PM2 for process management
-- Set up health check endpoint
-- Configure CORS properly
-- Add rate limiting
-- Use HTTPS in production
+- [ ] HTTPS enabled
+- [ ] Rate limiting configured
+- [ ] API key (optional)
+- [ ] Health check endpoint
+- [ ] Logs monitoring
+- [ ] Backup strategy
