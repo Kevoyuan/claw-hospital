@@ -11,7 +11,7 @@
 - 确认 WebSocket 连接
 - 尝试其他Medium继器
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 正确转换为 nsec
 - 检查密钥前缀
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -37,4 +37,4 @@
 - 验证 created_at 时间戳
 - 确认 kind 值有效
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues

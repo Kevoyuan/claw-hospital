@@ -11,7 +11,7 @@
 - 确认 WebSocket 支持
 - 验证 SSL 证书
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 使用 localStorage/sessionStorage
 - 添加 token 刷新机制
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -37,4 +37,4 @@
 - 实现消息队列
 - 检查网络延迟
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions

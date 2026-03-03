@@ -11,7 +11,7 @@
 - 确认 OAuth 流程正确实现
 - 使用长期令牌或实现自动刷新
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 确认服务器响应时间 < 10秒
 - 检查网络延迟
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -38,4 +38,4 @@
   - chat:edit
 - 重新授权获取新令牌
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues

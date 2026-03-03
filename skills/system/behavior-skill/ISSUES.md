@@ -11,7 +11,7 @@
 - 确认规则文件位置
 - 使用 debug 模式查看匹配逻辑
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 使用 first-match 策略
 - 合并冲突规则
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions
 
 ---
 
@@ -37,4 +37,4 @@
 - 确认路径Config正确
 - 查看详细Error Log
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues

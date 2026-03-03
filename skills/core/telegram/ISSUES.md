@@ -11,7 +11,7 @@
 - 重新生成 Token：发送 /revoke 给 @BotFather
 - 确认 .env 文件Medium TELEGRAM_BOT_TOKEN 正确
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 实现消息分片发送
 - 使用 Telegram 的 markdown/HTML 解析
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -38,7 +38,7 @@
 - 检查防火墙/端口是否开放
 - 使用 `openclaw extensions telegram setup` 命令
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions
 
 ---
 
@@ -51,7 +51,7 @@
 - 正确设置 callback_data
 - 在 30 秒内回复（ Telegram 限制）
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -64,4 +64,4 @@
 - 确认文件格式支持
 - 使用正确的 input_file 格式
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions

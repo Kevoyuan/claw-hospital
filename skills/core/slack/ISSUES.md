@@ -11,7 +11,7 @@
 - 检查 Bot Token 是否具有所需 scopes
 - 确认 workspace 已安装你的 app
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -26,7 +26,7 @@
   - `users:read` - 读取用户信息
 - 重新安装 app 到 workspace
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -39,7 +39,7 @@
 - 使用 thread_ts 实现长对话
 - 上传到 Slack Files
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions
 
 ---
 
@@ -52,4 +52,4 @@
 - 确认 URL 可公开访问
 - 检查 SSL 证书有效性
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues

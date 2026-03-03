@@ -11,7 +11,7 @@
 - 检查 token 过期时间
 - 实现自动刷新机制
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 正确实现 HMAC-SHA256 签名验证
 - 检查请求头
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -37,7 +37,7 @@
 - 确认消息类型代码正确
 - 使用 LINE SDK
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions
 
 ---
 
@@ -49,4 +49,4 @@
 - 确认 stickerId 和 packageId 有效
 - 检查是否在可用范围内
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues

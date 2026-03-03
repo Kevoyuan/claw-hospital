@@ -11,7 +11,7 @@
 - 确认防火墙允许出站连接
 - 检查 SSL/TLS Config
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 等待连接建立后再发送认证
 - 检查是否需要邮箱验证
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -37,4 +37,4 @@
 - 遵守服务器 flood 保护
 - 添加错误处理
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions

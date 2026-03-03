@@ -11,7 +11,7 @@
 - 检查手机号格式（带国家代码）
 - 验证 2FA 状态
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 检查网络连接
 - 验证权限Config
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -37,4 +37,4 @@
 - 确认文件格式支持
 - 验证存储权限
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions

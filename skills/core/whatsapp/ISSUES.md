@@ -11,7 +11,7 @@
 - 检查 Meta Developer Console Medium的应用状态
 - 确认 webhook 验证通过
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 确保模板符合 WhatsApp 政策
 - 检查模板状态：必须为 "APPROVED"
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions
 
 ---
 
@@ -36,7 +36,7 @@
 - 实现消息去重逻辑（使用消息 ID）
 - 检查是否在代码Medium多次注册了 webhook
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -49,4 +49,4 @@
 - 使用 fresh URL 重新下载
 - 确认服务器可访问 WhatsApp CDN
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions

@@ -11,7 +11,7 @@
 - 检查是否在允许发送的频道Medium
 - 验证 Bot 是否有 posting 权限
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 检查 Redirect URI 是否完全匹配
 - 确认已创建 OAuth 应用
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -37,7 +37,7 @@
 - 验证内网穿透/端口转发Config
 - 检查 Mattermost 日志Medium的错误
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions
 
 ---
 
@@ -49,4 +49,4 @@
 - 使用正确的 Markdown 语法
 - 检查是否启用了 markdown 插件
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions

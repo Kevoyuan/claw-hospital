@@ -11,7 +11,7 @@
 - Ensure not sending pure emoji or special whitespace
 - 使用 `message.trim()` 确保消息不为空
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -27,7 +27,7 @@
 - 在 Discord Developer Portal 检查 OAuth2 权限
 - 重新授权 Bot，邀请链接添加权限参数
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -41,7 +41,7 @@
 - 遵守 Discord 的 5 请求/秒限制
 - 添加重试机制处理 429 错误
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions
 
 ---
 
@@ -59,7 +59,7 @@
   }
   ```
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -72,4 +72,4 @@
 - 实现消息 ID 缓存避免重复
 - 检查是否触发了多次事件监听
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions

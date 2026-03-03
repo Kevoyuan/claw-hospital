@@ -11,7 +11,7 @@
 - 确认已启用应用能力
 - 重新生成 App Secret
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -26,7 +26,7 @@
   - im:message:readonly
   - im:message:send_as_bot
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -39,7 +39,7 @@
 - 检查 image_key 是否有效
 - 确保 card_config 参数正确
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions
 
 ---
 
@@ -52,7 +52,7 @@
 - 确认 Encrypt Key Config正确
 - 验证签名算法
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -64,4 +64,4 @@
 - 用户必须先 @机器人 或发送消息
 - 使用 `im/v1/chats` API 获取可用聊天列表
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions

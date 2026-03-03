@@ -11,7 +11,7 @@
 - 检查 scopes 权限
 - 确认 API 已启用
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 检查管理员设置
 - 使用直接消息先激活 Bot
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -37,4 +37,4 @@
 - 检查 widgets 结构
 - 测试不同客户端
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions

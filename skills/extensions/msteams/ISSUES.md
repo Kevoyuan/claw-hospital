@@ -11,7 +11,7 @@
 - 确认 Client ID, Tenant ID, Client Secret 正确
 - 添加所需的 API 权限
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 确认 Bot 已发布到 Azure
 - 验证消息端点 URL
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -37,4 +37,4 @@
 - 检查版本兼容性
 - 测试不同客户端渲染效果
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions

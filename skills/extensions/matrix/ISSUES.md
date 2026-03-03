@@ -11,7 +11,7 @@
 - 确认用户名和密码正确
 - 验证设备 ID
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 检查权限设置
 - 使用房间 ID 而非别名
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -37,4 +37,4 @@
 - 正确存储设备密钥
 - 检查加密房间状态
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues

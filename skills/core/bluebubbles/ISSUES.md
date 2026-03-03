@@ -11,7 +11,7 @@
 - 检查服务器地址和端口
 - 验证 SSL/TLS Config
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -24,7 +24,7 @@
 - 检查服务器日志
 - 重启 BlueBubbles 服务
 
-**Source**: GitHub
+**Source**: https://github.com/openclaw/openclaw/issues
 
 ---
 
@@ -37,4 +37,4 @@
 - 调整轮询间隔
 - 确认网络连接稳定
 
-**Source**: 论坛
+**Source**: https://github.com/openclaw/openclaw/discussions
