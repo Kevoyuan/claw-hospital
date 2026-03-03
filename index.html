@@ -726,6 +726,10 @@
                             <div class="stat-label">TASKS</div>
                             <div class="stat-value" id="activeTasks">3</div>
                         </div>
+                        <div class="stat-box">
+                            <div class="stat-label">VISITS</div>
+                            <div class="stat-value" id="visitCount" style="color: var(--yellow);">0</div>
+                        </div>
                     </div>
                     
                     <!-- API Status -->
@@ -837,12 +841,19 @@
         }
         
         // Update Agent View with API data
-        function updateAgentView() {
+        async function updateAgentView() {
             // Update stats
             document.getElementById('memUsage').innerText = apiData.agent.memory + '%';
             document.getElementById('cpuUsage').innerText = apiData.agent.cpu + '%';
             document.getElementById('healthScore').innerText = apiData.agent.health;
             document.getElementById('activeTasks').innerText = apiData.agent.tasks;
+            
+            // Fetch visit count
+            try {
+                const resp = await fetch('/api/stats');
+                const data = await resp.json();
+                document.getElementById('visitCount').innerText = data.visits || 0;
+            } catch(e) {}
             
             // Update logs
             const logContainer = document.getElementById('agentLogs');

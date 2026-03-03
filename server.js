@@ -6,6 +6,12 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 
+// Visit counter
+let visitCount = 0;
+
+// Visit counter
+let visitCount = 0;
+
 // 科室关键词匹配规则
 const DEPARTMENT_RULES = {
   'emergency': {
@@ -154,6 +160,7 @@ function handleRequest(req, res) {
           return;
         }
         
+        visitCount++;
         const department = matchDepartment(description);
         
         if (!department) {
@@ -202,6 +209,13 @@ function handleRequest(req, res) {
   if (pathname === '/health' && req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ status: 'ok', service: 'Claw Hospital API' }));
+    return;
+  }
+  
+  // 接诊统计
+  if (pathname === '/api/stats' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ visits: visitCount }));
     return;
   }
   
