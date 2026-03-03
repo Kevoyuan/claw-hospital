@@ -30,3 +30,19 @@ Sources for collecting OpenClaw issues and solutions.
 - Daily: 5 AM (cron job)
 - Weekly: Full review
 - Monthly: Security updates
+
+---
+
+## Process
+
+1. **Research** - Collect issues from sources
+2. **Security Review** - Security team must review before adding
+3. **Add to ISSUES.md** - Only after approval
+4. **Publish** - Commit to repo
+
+## Security Review Checklist
+
+- [ ] No sensitive data exposed
+- [ ] Solution commands are safe
+- [ ] No security vulnerabilities introduced
+- [ ] CVE properly documented
