@@ -1,1 +1,0 @@
-../skills/neuro-skill/ISSUES.md

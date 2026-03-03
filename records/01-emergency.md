@@ -1,1 +1,0 @@
-../skills/emergency-skill/ISSUES.md

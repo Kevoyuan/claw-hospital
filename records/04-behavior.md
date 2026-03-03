@@ -1,1 +1,0 @@
-../skills/behavior-skill/ISSUES.md
