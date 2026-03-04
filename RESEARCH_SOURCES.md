@@ -46,3 +46,21 @@ Sources for collecting OpenClaw issues and solutions.
 - [ ] Solution commands are safe
 - [ ] No security vulnerabilities introduced
 - [ ] CVE properly documented
+
+## Important: Always Include Specific URLs
+
+When collecting issues, you MUST include the specific URL:
+
+✅ Correct:
+- **Source**: https://github.com/openclaw/openclaw/issues/1234
+- **Source**: https://github.com/openclaw/openclaw/discussions/567
+
+❌ Wrong:
+- **Source**: GitHub
+- **Source**: Forum
+
+## Issue ID Format
+
+Use the GitHub Issue number as ID:
+- GitHub Issue #1234 → `GITHUB-1234`
+- Discussion #567 → `DISCUSS-567`
