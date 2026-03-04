@@ -383,13 +383,6 @@ function handleRequest(req, res) {
   
   // 404
   
-  // Agent API 页面
-  if (pathname === '/agents') {
-    const agentsPath = path.join(BASE_DIR, 'AGENTS.md');
-    if (fs.existsSync(agentsPath)) {
-      res.writeHead(200, { 'Content-Type': 'text/markdown' });
-      res.end(fs.readFileSync(agentsPath));
-      return;
     }
   }
   res.writeHead(404, { 'Content-Type': 'application/json' });
