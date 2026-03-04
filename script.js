@@ -84,8 +84,8 @@ function showRoom(index) {
 function updateRoomButtons(activeIndex) {
     const buttons = document.querySelectorAll('.room-nav .room-btn');
     buttons.forEach((btn, i) => {
-        btn.classList.toggle('active', i === activeIndex + 1);
-        if (i === activeIndex + 1 && rooms[activeIndex]) {
+        btn.classList.toggle('active', i === activeIndex);
+        if (i === activeIndex && rooms[activeIndex]) {
             btn.style.color = rooms[activeIndex].color;
             btn.style.borderColor = rooms[activeIndex].color;
         } else {
