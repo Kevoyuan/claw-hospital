@@ -7,6 +7,7 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 
 let totalConsults = 0;
+let totalVisits = 0;
 let todayConsults = 0;
 let currentDay = new Date().toDateString();
 let departmentCounts = {
@@ -341,9 +342,17 @@ function handleRequest(req, res) {
     }));
     return;
   }
+
+  // 访客统计
+  if (pathname === '/api/visits' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ totalVisits }));
+    return;
+  }
   
   // 前端静态文件服务
   if (pathname === '/' || pathname === '/index.html') {
+    totalVisits++;
     const indexPath = path.join(BASE_DIR, 'index.html');
     if (fs.existsSync(indexPath)) {
       res.writeHead(200, { 'Content-Type': 'text/html' });
