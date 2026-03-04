@@ -1,40 +1,38 @@
-// NEW_ROOMS
-    // SYSTEM
-    { name: 'RUNTIME', category: 'system', doctor: 'Dr. Runtime', desc: 'Agent runtime issues' },
-    { name: 'CRASH', category: 'system', doctor: 'Dr. Crash', desc: 'Crash/hang issues' },
-    { name: 'BEHAVIOR', category: 'system', doctor: 'Dr. Behavior', desc: 'Incorrect behavior' },
-    { name: 'WEBUI', category: 'system', doctor: 'Dr. WebUI', desc: 'Web interface issues' },
-    { name: 'MOBILE', category: 'system', doctor: 'Dr. Mobile', desc: 'Mobile app issues' },
-    // CORE
-    { name: 'DISCORD', category: 'core', doctor: 'Ms. Chat', desc: 'Discord integration' },
-    { name: 'WHATSAPP', category: 'core', doctor: 'Mr. WA', desc: 'WhatsApp integration' },
-    { name: 'TELEGRAM', category: 'core', doctor: 'Mr. TG', desc: 'Telegram integration' },
-    { name: 'SLACK', category: 'core', doctor: 'Ms. Slack', desc: 'Slack integration' },
-    { name: 'SIGNAL', category: 'core', doctor: 'Mr. Signal', desc: 'Signal integration' },
-    // EXTENSIONS  
-    { name: 'FEISHU', category: 'extensions', doctor: 'Mr. Feishu', desc: 'Feishu integration' },
-    { name: 'LINE', category: 'extensions', doctor: 'Mr. LINE', desc: 'LINE integration' },
-    { name: 'MATRIX', category: 'extensions', doctor: 'Mr. Matrix', desc: 'Matrix integration' },
-    { name: 'TEAMS', category: 'extensions', doctor: 'Ms. Teams', desc: 'MS Teams integration' },
-    { name: 'BOSS', category: 'boss', doctor: 'The Admin', desc: 'Final boss!' }
+// All available rooms/departments
+const rooms = [
+    // LOBBY - Pokemon Clinic Reception
+    { name: 'LOBBY', dept: 'RECEPTION', doctor: 'Dr. Welcome', desc: 'Welcome to CLAW Hospital! How may I assist you today?', color: '#ff3333', env: 'lobby' },
+    // SYSTEM - index 1-5
+    { name: 'RUNTIME', dept: 'SYSTEM', doctor: 'Dr. Runtime', desc: 'Agent runtime issues - let me check your tooling...', color: '#ff6b6b', env: 'runtime' },
+    { name: 'CRASH', dept: 'SYSTEM', doctor: 'Dr. Crash', desc: 'Crash/hang issues - diagnosing the failure...', color: '#ff6b6b', env: 'crash' },
+    { name: 'BEHAVIOR', dept: 'SYSTEM', doctor: 'Dr. Behavior', desc: 'Incorrect behavior detected - analyzing patterns...', color: '#ff6b6b', env: 'behavior' },
+    { name: 'WEBUI', dept: 'SYSTEM', doctor: 'Dr. WebUI', desc: 'Web interface issues - checking the UI layer...', color: '#ff6b6b', env: 'webui' },
+    { name: 'MOBILE', dept: 'SYSTEM', doctor: 'Dr. Mobile', desc: 'Mobile app issues - testing the client...', color: '#ff6b6b', env: 'mobile' },
+    // CORE integrations - index 6-10
+    { name: 'DISCORD', dept: 'CORE', doctor: 'Ms. Chat', desc: 'Discord integration - processing message queues...', color: '#5865F2', env: 'discord' },
+    { name: 'WHATSAPP', dept: 'CORE', doctor: 'Mr. WA', desc: 'WhatsApp connection - restoring encrypted link...', color: '#25D366', env: 'whatsapp' },
+    { name: 'TELEGRAM', dept: 'CORE', doctor: 'Mr. TG', desc: 'Telegram bot - checking API connection...', color: '#0088cc', env: 'telegram' },
+    { name: 'SLACK', dept: 'CORE', doctor: 'Ms. Slack', desc: 'Slack workspace - analyzing channels...', color: '#4A154B', env: 'slack' },
+    { name: 'SIGNAL', dept: 'CORE', doctor: 'Mr. Signal', desc: 'Signal messaging - securing the path...', color: '#3a76f0', env: 'signal' },
+    // EXTENSIONS - index 11-15
+    { name: 'FEISHU', dept: 'EXT', doctor: 'Mr. Feishu', desc: 'Feishu integration - connecting to workspace...', color: '#29a1f6', env: 'feishu' },
+    { name: 'LINE', dept: 'EXT', doctor: 'Mr. LINE', desc: 'LINE bot - checking LINE API...', color: '#00c300', env: 'line' },
+    { name: 'MATRIX', dept: 'EXT', doctor: 'Mr. Matrix', desc: 'Matrix protocol - syncing the matrix...', color: '#000000', env: 'matrix' },
+    { name: 'TEAMS', dept: 'EXT', doctor: 'Ms. Teams', desc: 'Microsoft Teams - connecting to org...', color: '#6264a7', env: 'msteams' },
+    { name: 'MATTERMOST', dept: 'EXT', doctor: 'Mr. Matter', desc: 'Mattermost - checking self-hosted...', color: '#0052cc', env: 'mattermost' },
+    // BOSS - index 16
+    { name: 'BOSS', dept: 'ADMIN', doctor: 'The Admin', desc: 'Final boss encounter! Prepare yourself!', color: '#ff003c', env: 'boss' }
 ];
-    { name: 'LOBBY', dept: 'GENERAL', doctor: 'Dr. Welcome', desc: 'Welcome to CLAW Hospital! How may I assist you today?', color: '#00f3ff', env: 'lobby' },
-    { name: 'TRIAGE', dept: 'ASSESSMENT', doctor: 'Dr. Triage', desc: 'Let me evaluate your condition to direct you properly...', color: '#39ff14', env: 'triage' },
-    { name: 'EMERGENCY', dept: 'URGENT CARE', doctor: 'Dr. Urgent', desc: 'Critical condition detected! Initiating emergency protocols!', color: '#ff003c', env: 'emergency' },
-    { name: 'NEURO', dept: 'NEUROLOGY', doctor: 'Dr. Brain', desc: 'Scanning neural network pathways for anomalies...', color: '#b026ff', env: 'neuro' },
-    { name: 'MEMORY', dept: 'DATA STORAGE', doctor: 'Dr. Memory', desc: 'Reconstructing fragmented memory blocks...', color: '#ff00e5', env: 'memory' },
-    { name: 'BEHAVIOR', dept: 'PSYCHOLOGY', doctor: 'Dr. Play', desc: 'Calibrating behavioral models and response patterns...', color: '#fde047', env: 'behavior' },
-    { name: 'WHATSAPP', dept: 'COMMS LINK', doctor: 'Mr. Whats', desc: 'Restoring end-to-end encrypted connection...', color: '#39ff14', env: 'whatsapp' },
-    { name: 'DISCORD', dept: 'CHANNEL OPS', doctor: 'Ms. Chat', desc: 'Processing message queues in the mainframe...', color: '#5865F2', env: 'discord' },
-    { name: 'BOSS', dept: 'ADMINISTRATION', doctor: 'The Admin', desc: 'Final boss encounter sequence initiated! Prepare yourself!', color: '#ff003c', env: 'boss' }
-];
-
-// State variables removed as we pull from backend
 
 function showHospital() {
     document.getElementById('hospitalView').style.display = 'block';
     document.getElementById('roomScene').classList.remove('active');
     updateRoomButtons(-1);
+}
+
+// Show lobby by default on page load
+function showLobby() {
+    showRoom(0);
 }
 
 function renderEnvironment(envType) {
@@ -50,6 +48,7 @@ function renderEnvironment(envType) {
 
 function showRoom(index) {
     const room = rooms[index];
+    if (!room) return;
 
     document.getElementById('hospitalView').style.display = 'none';
     document.getElementById('roomScene').classList.add('active');
@@ -86,7 +85,7 @@ function updateRoomButtons(activeIndex) {
     const buttons = document.querySelectorAll('.room-nav .room-btn');
     buttons.forEach((btn, i) => {
         btn.classList.toggle('active', i === activeIndex + 1);
-        if (i === activeIndex + 1) {
+        if (i === activeIndex + 1 && rooms[activeIndex]) {
             btn.style.color = rooms[activeIndex].color;
             btn.style.borderColor = rooms[activeIndex].color;
         } else {
@@ -131,7 +130,7 @@ function fetchBackendStats() {
         .catch(err => console.error('Error fetching stats:', err));
 }
 
-showHospital();
+showLobby();
 fetchBackendStats();
 
 setInterval(() => {

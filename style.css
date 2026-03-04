@@ -1918,3 +1918,894 @@ footer {
 @media (max-width: 900px) {
     .split-view { flex-direction: column; height: auto; }
 }
+
+/* ============================================
+   POKEMON CLINIC INTERIOR STYLES
+   Pixel Pokemon Center / Hospital Theme
+   ============================================ */
+
+/* Pokemon Clinic Color Palette - Softer Version */
+:root {
+    --poke-red: #c94c4c;
+    --poke-red-dark: #8b3a3a;
+    --poke-red-muted: #a85c5c;
+    --poke-white: #f8f8f8;
+    --poke-cream: #f5e6c8;
+    --poke-wood: #8b5a2b;
+    --poke-wood-light: #a67c52;
+    --poke-blue: #4a90d9;
+    --poke-blue-light: #6ab0f3;
+    --poke-green: #4caf50;
+    --poke-yellow: #ffd700;
+    --poke-orange: #ff9800;
+    --poke-bg-dark: #1a1a2e;
+    --poke-bg-mid: #252547;
+    --poke-wall-cream: #e8dcc8;
+    --poke-wall-pink: #d4a5a5;
+}
+
+/* Main Indoor Environment - Pokemon Clinic Style - Muted */
+.indoor-environment.pokemon-clinic {
+    background: linear-gradient(180deg, 
+        #2d2d4a 0%, 
+        #252540 50%, 
+        #1e1e35 100%);
+    border: 4px solid var(--poke-red-muted);
+    box-shadow: 
+        inset 0 0 40px rgba(169, 92, 92, 0.15),
+        0 0 15px rgba(169, 92, 92, 0.2);
+}
+
+/* Clinic Wall Background - Softer */
+.pokemon-clinic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+        /* Wall panels */
+        linear-gradient(90deg, 
+            rgba(255,255,255,0.02) 1px, 
+            transparent 1px
+        ) 0 0 / 60px 100%,
+        /* Horizontal trim - muted coral/salmon */
+        linear-gradient(180deg,
+            #8b3a3a 0%,
+            #a85c5c 8%,
+            #a85c5c 12%,
+            #7a3535 12%,
+            #7a3535 14%,
+            #a85c5c 14%
+        );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Wooden Floor - Pokemon Center Style */
+.clinic-floor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: 
+        /* Wood planks */
+        repeating-linear-gradient(90deg,
+           (--poke-wood var) 0px,
+            var(--poke-wood) 48px,
+            #704020 48px,
+            #704020 52px,
+            var(--poke-wood) 52px,
+            var(--poke-wood-light) 100px
+        );
+    background-size: 104px 100%;
+    transform: perspective(500px) rotateX(55deg);
+    transform-origin: bottom;
+    border-top: 8px solid #5a3a1a;
+    box-shadow: 
+        inset 0 30px 40px rgba(0,0,0,0.4),
+        0 -5px 20px rgba(0,0,0,0.5);
+}
+
+.clinic-floor::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+        rgba(255,255,255,0.1) 0%,
+        transparent 30%,
+        rgba(0,0,0,0.2) 100%
+    );
+}
+
+/* Reception Counter - Softer */
+.reception-counter {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 80px;
+    background: linear-gradient(180deg, #d8c8b0 0%, #b8a080 100%);
+    border: 4px solid #7a5a4a;
+    border-radius: 4px;
+    box-shadow: 
+        0 4px 0 #4a3020,
+        0 8px 20px rgba(0,0,0,0.4);
+}
+
+.reception-counter::before {
+    content: 'CLINIC';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 12px;
+    color: #5a3a4a;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+}
+
+/* Pokeball - Softer Colors */
+.pokeball {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: 
+        linear-gradient(180deg, 
+            #c94c4c 0%, 
+            #c94c4c 45%,
+            #f8f8f8 45%,
+            #f8f8f8 55%,
+            #4a4a5a 55%,
+            #4a4a5a 100%
+        );
+    border: 3px solid #3a3a4a;
+    box-shadow: 
+        0 0 8px rgba(169, 92, 92, 0.4),
+        inset 0 -5px 10px rgba(0,0,0,0.3);
+}
+
+.pokeball::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border: 3px solid #333;
+    border-radius: 50%;
+}
+
+.pokeball-large {
+    width: 80px;
+    height: 80px;
+    border-width: 5px;
+}
+
+.pokeball-large::before {
+    width: 24px;
+    height: 24px;
+    border-width: 5px;
+}
+
+/* Healing Machine - Pokemon Center */
+.healing-machine {
+    position: absolute;
+    bottom: 100px;
+    right: 40px;
+    width: 60px;
+    height: 100px;
+    background: linear-gradient(180deg, #4a90d9 0%, #2e5a87 100%);
+    border: 4px solid #1a3a5c;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 
+        0 0 15px rgba(74, 144, 217, 0.5),
+        inset 0 0 20px rgba(255,255,255,0.1);
+}
+
+.healing-machine::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 60px;
+    background: linear-gradient(180deg,
+        rgba(255,255,255,0.3) 0%,
+        rgba(74, 144, 217, 0.5) 50%,
+        rgba(74, 144, 217, 0.8) 100%
+    );
+    border: 2px solid rgba(255,255,255,0.3);
+    animation: healing-glow 2s ease-in-out infinite;
+}
+
+@keyframes healing-glow {
+    0%, 100% { opacity: 0.6; box-shadow: 0 0 10px rgba(74, 144, 217, 0.5); }
+    50% { opacity: 1; box-shadow: 0 0 25px rgba(74, 144, 217, 0.9); }
+}
+
+/* PC Computer - Game Boy Style */
+.pc-computer {
+    position: absolute;
+    bottom: 80px;
+    left: 40px;
+    width: 50px;
+    height: 45px;
+    background: #8b8b9c;
+    border: 3px solid #5a5a6e;
+    border-radius: 4px;
+    box-shadow: 
+        0 4px 0 #4a4a5a,
+        0 8px 15px rgba(0,0,0,0.3);
+}
+
+.pc-computer::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 25px;
+    background: #9bbc0f;
+    border: 2px solid #306230;
+    box-shadow: inset 0 0 5px rgba(48, 98, 48, 0.3);
+}
+
+/* Sign Board - Softer */
+.sign-board {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #f0e6d8 0%, #d8c8b0 100%);
+    border: 4px solid var(--poke-wood);
+    padding: 8px 20px;
+    box-shadow: 
+        0 4px 0 #5a3a1a,
+        0 6px 10px rgba(0,0,0,0.3);
+}
+
+.sign-board::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 30px;
+    background: var(--poke-wood);
+}
+
+.sign-text {
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    color: #5a3a4a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Waiting Chairs - Softer Pixel Style */
+.waiting-chair {
+    position: absolute;
+    bottom: 30px;
+    width: 35px;
+    height: 35px;
+    background: #8b5a7a;
+    border: 3px solid #5a3a4a;
+    box-shadow: 0 3px 0 #3a2540;
+}
+
+.waiting-chair::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 3px;
+    width: 25px;
+    height: 15px;
+    background: #8b5a7a;
+    border: 3px solid #5a3a4a;
+    border-bottom: none;
+}
+
+.waiting-chair.chair-1 { left: 30px; }
+.waiting-chair.chair-2 { left: 80px; }
+.waiting-chair.chair-3 { right: 80px; }
+.waiting-chair.chair-4 { right: 30px; }
+
+/* Potion Bottle - Softer Pixel Art */
+.potion::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 16px;
+    height: 14px;
+    background: linear-gradient(180deg, #a85c7a 0%, #8b4a6a 50%, #6a2a4a 100%);
+    border: 2px solid #4a2a3a;
+    border-radius: 2px 2px 4px 4px;
+    animation: potion-shine 1.5s ease-in-out infinite;
+}
+
+.potion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 6px;
+    background: #666;
+    border: 2px solid #444;
+}
+
+.potion::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 16px;
+    height: 14px;
+    background: linear-gradient(180deg, #ff6b6b 0%, #ff3333 50%, #cc0000 100%);
+    border: 2px solid #990000;
+    border-radius: 2px 2px 4px 4px;
+    animation: potion-shine 1.5s ease-in-out infinite;
+}
+
+@keyframes potion-shine {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+}
+
+.potion-red { bottom: 110px; right: 120px; }
+.potion-blue { bottom: 110px; right: 150px; }
+.potion-green { bottom: 110px; right: 180px; }
+
+/* Heart Symbol - Softer Full HP */
+.heart-hp {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #c94c7a;
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px rgba(169, 92, 122, 0.5);
+    animation: heart-beat 1s ease-in-out infinite;
+}
+
+.heart-hp::before,
+.heart-hp::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #c94c7a;
+    border-radius: 50%;
+}
+
+.heart-hp::before { left: -10px; }
+.heart-hp::after { top: -10px; }
+
+@keyframes heart-beat {
+    0%, 100% { transform: rotate(45deg) scale(1); }
+    50% { transform: rotate(45deg) scale(1.1); }
+}
+
+/* Lamp / Light Fixture */
+.ceiling-lamp {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 20px;
+    background: #444;
+    border: 2px solid #222;
+    border-radius: 0 0 20px 20px;
+}
+
+.ceiling-lamp::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 10px;
+    background: rgba(255, 255, 200, 0.8);
+    box-shadow: 
+        0 0 20px rgba(255, 255, 200, 0.6),
+        0 0 40px rgba(255, 255, 200, 0.4),
+        0 20px 60px rgba(255, 255, 200, 0.2);
+    animation: lamp-glow 3s ease-in-out infinite;
+}
+
+@keyframes lamp-glow {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+/* Decorative Plant */
+.pixel-plant {
+    position: absolute;
+    bottom: 70px;
+}
+
+.pixel-plant .pot {
+    width: 24px;
+    height: 20px;
+    background: linear-gradient(180deg, #cd853f 0%, #8b4513 100%);
+    border: 2px solid #5a2d0a;
+    border-radius: 2px;
+}
+
+.pixel-plant .leaves {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+}
+
+.pixel-plant .leaves::before,
+.pixel-plant .leaves::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 25px solid #228b22;
+}
+
+.pixel-plant .leaves::before {
+    left: 0;
+    transform: rotate(-30deg);
+}
+
+.pixel-plant .leaves::after {
+    right: 0;
+    transform: rotate(30deg);
+}
+
+.plant-left { left: 20px; }
+.plant-right { right: 20px; }
+
+/* Pokemon Center-specific Lobby Environment */
+.env-layer#env-lobby .clinic-floor {
+    /* Standard clinic floor */
+}
+
+.env-layer#env-lobby .sign-board .sign-text {
+    content: 'RECEPTION';
+}
+
+/* Tiled wall effect for some rooms */
+.tiled-wall {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Blue medical room variant */
+.env-layer#env-telegram .indoor-environment.pokemon-clinic,
+.env-layer#env-slack .indoor-environment.pokemon-clinic {
+    border-color: var(--poke-blue);
+    box-shadow: 
+        inset 0 0 30px rgba(74, 144, 217, 0.1),
+        0 0 20px rgba(74, 144, 217, 0.3);
+}
+
+.env-layer#env-telegram .clinic-floor,
+.env-layer#env-slack .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #4a6fa5 0px,
+            #4a6fa5 48px,
+            #3a5a8a 48px,
+            #3a5a8a 52px,
+            #4a6fa5 52px,
+            #5a7fba 100px
+        );
+}
+
+/* Emergency / Red variant */
+.env-layer#env-crash .indoor-environment.pokemon-clinic,
+.env-layer#env-runtime .indoor-environment.pokemon-clinic {
+    border-color: var(--poke-orange);
+    box-shadow: 
+        inset 0 0 30px rgba(255, 152, 0, 0.1),
+        0 0 20px rgba(255, 152, 0, 0.3);
+}
+
+/* ============================================
+   ADDITIONAL POKEMON CLINIC DETAILS
+   ============================================ */
+
+/* TV / Monitor - Pokemon TV */
+.clinic-tv {
+    position: absolute;
+    top: 60px;
+    right: 80px;
+    width: 70px;
+    height: 55px;
+    background: #2a2a3a;
+    border: 4px solid #4a4a5a;
+    border-radius: 4px;
+    box-shadow: 
+        0 4px 0 #1a1a2a,
+        0 6px 15px rgba(0,0,0,0.4);
+}
+
+.clinic-tv::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 20px;
+    background: linear-gradient(180deg, #3a5a8a 0%, #2a4a6a 100%);
+    border: 2px solid #1a3a5a;
+    animation: tv-flicker 4s ease-in-out infinite;
+}
+
+.clinic-tv::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 8px;
+    background: #5a5a6a;
+    border-radius: 2px;
+}
+
+@keyframes tv-flicker {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 1; box-shadow: inset 0 0 10px rgba(100, 150, 255, 0.3); }
+    52% { opacity: 0.7; }
+    54% { opacity: 1; }
+}
+
+/* Bulletin Board */
+.bulletin-board {
+    position: absolute;
+    top: 50px;
+    left: 40px;
+    width: 50px;
+    height: 40px;
+    background: linear-gradient(180deg, #8b6a4a 0%, #6a4a2a 100%);
+    border: 3px solid #4a3020;
+    box-shadow: 
+        0 3px 0 #2a1a10,
+        0 5px 10px rgba(0,0,0,0.3);
+}
+
+.bulletin-board::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    background: 
+        /* Paper notes */
+        linear-gradient(135deg, #f5e6c8 0%, #f5e6c8 40%, transparent 40%),
+        linear-gradient(225deg, #f0e0c0 0%, #f0e0c0 35%, transparent 35%),
+        linear-gradient(45deg, #e8d8b8 0%, #e8d8b8 30%, transparent 30%);
+}
+
+/* Clock */
+.clinic-clock {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 35px;
+    background: #f8f8f8;
+    border: 3px solid #4a4a5a;
+    border-radius: 50%;
+    box-shadow: 
+        0 2px 0 #2a2a3a,
+        0 4px 8px rgba(0,0,0,0.3);
+}
+
+.clinic-clock::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 8px;
+    background: #3a3a4a;
+    transform-origin: bottom center;
+    transform: translate(-50%, -100%) rotate(0deg);
+    animation: clock-hour 12s steps(12) infinite;
+}
+
+.clinic-clock::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 12px;
+    background: #5a5a6a;
+    transform-origin: bottom center;
+    transform: translate(-50%, -100%) rotate(90deg);
+    animation: clock-minute 60s steps(60) infinite;
+}
+
+@keyframes clock-hour {
+    from { transform: translate(-50%, -100%) rotate(0deg); }
+    to { transform: translate(-50%, -100%) rotate(360deg); }
+}
+
+@keyframes clock-minute {
+    from { transform: translate(-50%, -100%) rotate(0deg); }
+    to { transform: translate(-50%, -100%) rotate(360deg); }
+}
+
+/* Vending Machine */
+.vending-machine {
+    position: absolute;
+    bottom: 70px;
+    right: 30px;
+    width: 40px;
+    height: 70px;
+    background: linear-gradient(180deg, #4a6a8a 0%, #2a4a6a 100%);
+    border: 3px solid #1a3a5a;
+    border-radius: 4px;
+    box-shadow: 
+        0 3px 0 #0a2a4a,
+        0 5px 12px rgba(0,0,0,0.4);
+}
+
+.vending-machine::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    height: 40px;
+    background: 
+        /* Drinks */
+        linear-gradient(90deg, 
+            #ff6b6b 0%, #ff6b6a 8%,
+            transparent 8%, transparent 25%,
+            #6bafff 25%, #6baffa 33%,
+            transparent 33%, transparent 50%,
+            #ffaf6b 50%, #ffaf6a 58%,
+            transparent 58%, transparent 75%,
+            #6bff6b 75%, #6bff6a 83%,
+            transparent 83%
+        );
+    border: 2px solid #1a3a5a;
+}
+
+/* Magazine Rack */
+.magazine-rack {
+    position: absolute;
+    bottom: 65px;
+    left: 120px;
+    width: 30px;
+    height: 45px;
+    background: #5a4a3a;
+    border: 2px solid #3a2a1a;
+    box-shadow: 
+        0 3px 0 #2a1a0a,
+        0 5px 10px rgba(0,0,0,0.3);
+}
+
+.magazine-rack::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 3px;
+    right: 3px;
+    height: 8px;
+    background: #ff6b8a;
+    border: 1px solid #cc4468;
+}
+
+.magazine-rack::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 3px;
+    right: 3px;
+    height: 8px;
+    background: #6bafff;
+    border: 1px solid #4488cc;
+}
+
+/* Trash Can */
+.trash-can {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    width: 20px;
+    height: 30px;
+    background: linear-gradient(180deg, #6a7a8a 0%, #4a5a6a 100%);
+    border: 2px solid #3a4a5a;
+    border-radius: 2px 2px 6px 6px;
+    box-shadow: 0 2px 0 #2a3a4a;
+}
+
+.trash-can::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -2px;
+    right: -2px;
+    height: 6px;
+    background: #5a6a7a;
+    border: 2px solid #3a4a5a;
+    border-radius: 3px 3px 0 0;
+}
+
+/* First Aid Kit */
+.first-aid-kit {
+    position: absolute;
+    top: 35px;
+    right: 40px;
+    width: 30px;
+    height: 25px;
+    background: linear-gradient(180deg, #f8f8f8 0%, #d8d8d8 100%);
+    border: 3px solid #8a3a3a;
+    border-radius: 3px;
+    box-shadow: 
+        0 2px 0 #5a2a2a,
+        0 4px 8px rgba(0,0,0,0.3);
+}
+
+.first-aid-kit::before {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 14px;
+    color: #c94c4c;
+    text-shadow: 0 0 3px rgba(169, 76, 76, 0.5);
+}
+
+/* Pokemon Poster */
+.pokemon-poster {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45px;
+    height: 55px;
+    background: linear-gradient(180deg, #f5e6c8 0%, #e8d5b7 100%);
+    border: 3px solid #8b5a2b;
+    box-shadow: 
+        0 3px 0 #5a3a1a,
+        0 5px 10px rgba(0,0,0,0.3);
+}
+
+.pokemon-poster::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 15px;
+    background: 
+        radial-gradient(ellipse at 50% 60%, #6bafff 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 70%, #ff6b8a 0%, transparent 25%),
+        radial-gradient(ellipse at 70% 80%, #ff6b8a 0%, transparent 20%),
+        linear-gradient(180deg, #4a8a4a 50%, #3a7a3a 100%);
+}
+
+/* Stacked Books */
+.stacked-books {
+    position: absolute;
+    bottom: 85px;
+    left: 160px;
+    width: 35px;
+    height: 20px;
+}
+
+.stacked-books .book {
+    position: absolute;
+    width: 30px;
+    height: 6px;
+    border: 1px solid #3a2a1a;
+}
+
+.stacked-books .book.b1 {
+    bottom: 0;
+    left: 0;
+    background: #8b4a4a;
+    transform: rotate(-3deg);
+}
+
+.stacked-books .book.b2 {
+    bottom: 5px;
+    left: 3px;
+    background: #4a6a8b;
+    transform: rotate(2deg);
+}
+
+.stacked-books .book.b3 {
+    bottom: 10px;
+    left: 1px;
+    background: #6a8b4a;
+    transform: rotate(-1deg);
+}
+
+/* Rug / Carpet */
+.clinic-rug {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 40px;
+    background: 
+        repeating-linear-gradient(90deg,
+            #8b4a5a 0px,
+            #8b4a5a 8px,
+            #6a3a4a 8px,
+            #6a3a4a 10px,
+            #8b4a5a 10px,
+            #8b4a5a 18px,
+            #a85c6a 18px,
+            #a85c6a 20px
+        );
+    border: 3px solid #5a2a3a;
+    border-radius: 4px;
+    opacity: 0.8;
+}
+
+/* Calendar */
+.clinic-calendar {
+    position: absolute;
+    top: 40px;
+    right: 130px;
+    width: 25px;
+    height: 30px;
+    background: #f8f8f8;
+    border: 2px solid #5a4a3a;
+    box-shadow: 0 2px 0 #3a2a1a;
+}
+
+.clinic-calendar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: #c94c4c;
+}
+
+.clinic-calendar::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 12px;
+    background: 
+        linear-gradient(180deg, 
+            transparent 0%,
+            transparent 30%,
+            #3a3a4a 30%,
+            #3a3a4a 35%,
+            transparent 35%
+        );
+}

@@ -351,6 +351,26 @@ function handleRequest(req, res) {
       return;
     }
   }
+
+  // CSS 文件
+  if (pathname === '/style.css') {
+    const cssPath = path.join(BASE_DIR, 'style.css');
+    if (fs.existsSync(cssPath)) {
+      res.writeHead(200, { 'Content-Type': 'text/css' });
+      res.end(fs.readFileSync(cssPath));
+      return;
+    }
+  }
+
+  // JS 文件
+  if (pathname === '/script.js') {
+    const jsPath = path.join(BASE_DIR, 'script.js');
+    if (fs.existsSync(jsPath)) {
+      res.writeHead(200, { 'Content-Type': 'application/javascript' });
+      res.end(fs.readFileSync(jsPath));
+      return;
+    }
+  }
   
   // 404
   res.writeHead(404, { 'Content-Type': 'application/json' });
