@@ -2168,6 +2168,7 @@ footer {
     box-shadow: 
         0 4px 0 #5a3a1a,
         0 6px 10px rgba(0,0,0,0.3);
+    min-width: 100px;
 }
 
 .sign-board::after {
@@ -2187,6 +2188,8 @@ footer {
     color: #5a3a4a;
     text-transform: uppercase;
     letter-spacing: 1px;
+    display: block;
+    text-align: center;
 }
 
 /* Waiting Chairs - Softer Pixel Style */
@@ -2423,6 +2426,433 @@ footer {
     box-shadow: 
         inset 0 0 30px rgba(255, 152, 0, 0.1),
         0 0 20px rgba(255, 152, 0, 0.3);
+}
+
+/* ============================================
+   DEPARTMENT THEMED POKEMON DECORATIONS
+   Each department gets brand colors + Pokemon props
+   ============================================ */
+
+/* CSS Variables for dynamic department colors */
+.indoor-environment {
+    --dept-primary: #c94c4c;
+    --dept-secondary: #a85c5c;
+}
+
+/* Discord Department Theme */
+.env-layer#env-discord .indoor-environment.pokemon-clinic {
+    border-color: #5865F2;
+    box-shadow: 
+        inset 0 0 40px rgba(88, 101, 242, 0.15),
+        0 0 20px rgba(88, 101, 242, 0.25);
+}
+.env-layer#env-discord .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #4a4a7a 0px,
+            #4a4a7a 48px,
+            #3a3a6a 48px,
+            #3a3a6a 52px,
+            #4a4a7a 52px,
+            #5a5a8a 100px
+        );
+}
+.env-layer#env-discord .sign-board {
+    border-color: #5865F2;
+}
+.env-layer#env-discord .sign-text {
+    color: #5865F2;
+}
+.env-layer#env-discord .sign-board::before {
+    content: 'DISCORD';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    color: #5865F2;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.env-layer#env-discord .sign-board .sign-text {
+    display: none;
+}
+
+/* WhatsApp Department Theme */
+.env-layer#env-whatsapp .indoor-environment.pokemon-clinic {
+    border-color: #25D366;
+    box-shadow: 
+        inset 0 0 40px rgba(37, 211, 102, 0.15),
+        0 0 20px rgba(37, 211, 102, 0.25);
+}
+.env-layer#env-whatsapp .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #1a7a4a 0px,
+            #1a7a4a 48px,
+            #0f5a3a 48px,
+            #0f5a3a 52px,
+            #1a7a4a 52px,
+            #2a9a5a 100px
+        );
+}
+.env-layer#env-whatsapp .sign-board::before {
+    content: 'WHATSAPP';
+}
+.env-layer#env-whatsapp .sign-board::before {
+    content: 'WHATSAPP';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 9px;
+    color: #25D366;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.env-layer#env-whatsapp .sign-board .sign-text {
+    display: none;
+}
+
+/* Telegram Department Theme */
+.env-layer#env-telegram .indoor-environment.pokemon-clinic {
+    border-color: #0088cc;
+    box-shadow: 
+        inset 0 0 40px rgba(0, 136, 204, 0.15),
+        0 0 20px rgba(0, 136, 204, 0.25);
+}
+.env-layer#env-telegram .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #1a5a7a 0px,
+            #1a5a7a 48px,
+            #0f4a6a 48px,
+            #0f4a6a 52px,
+            #1a5a7a 52px,
+            #2a7a9a 100px
+        );
+}
+.env-layer#env-telegram .sign-board::before {
+    content: 'TELEGRAM';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 9px;
+    color: #0088cc;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.env-layer#env-telegram .sign-board .sign-text {
+    display: none;
+}
+
+/* Slack Department Theme */
+.env-layer#env-slack .indoor-environment.pokemon-clinic {
+    border-color: #4A154B;
+    box-shadow: 
+        inset 0 0 40px rgba(74, 21, 75, 0.2),
+        0 0 20px rgba(74, 21, 75, 0.3);
+}
+.env-layer#env-slack .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #3a1040 0px,
+            #3a1040 48px,
+            #2a0a30 48px,
+            #2a0a30 52px,
+            #3a1040 52px,
+            #4a1550 100px
+        );
+}
+.env-layer#env-slack .sign-board::before {
+    content: 'SLACK';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    color: #611f69;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.env-layer#env-slack .sign-board .sign-text {
+    display: none;
+}
+
+/* Feishu Department Theme */
+.env-layer#env-feishu .indoor-environment.pokemon-clinic {
+    border-color: #29a1f6;
+    box-shadow: 
+        inset 0 0 40px rgba(41, 161, 246, 0.15),
+        0 0 20px rgba(41, 161, 246, 0.25);
+}
+.env-layer#env-feishu .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #1a5a8a 0px,
+            #1a5a8a 48px,
+            #0f4a7a 48px,
+            #0f4a7a 52px,
+            #1a5a8a 52px,
+            #2a7aaa 100px
+        );
+}
+.env-layer#env-feishu .sign-board::before {
+    content: 'FEISHU';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    color: #29a1f6;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.env-layer#env-feishu .sign-board .sign-text {
+    display: none;
+}
+
+/* LINE Department Theme */
+.env-layer#env-line .indoor-environment.pokemon-clinic {
+    border-color: #00c300;
+    box-shadow: 
+        inset 0 0 40px rgba(0, 195, 0, 0.15),
+        0 0 20px rgba(0, 195, 0, 0.25);
+}
+.env-layer#env-line .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #008a00 0px,
+            #008a00 48px,
+            #006a00 48px,
+            #006a00 52px,
+            #008a00 52px,
+            #00aa00 100px
+        );
+}
+.env-layer#env-line .sign-board::before {
+    content: 'LINE';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 11px;
+    color: #00c300;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.env-layer#env-line .sign-board .sign-text {
+    display: none;
+}
+
+/* Teams Department Theme */
+.env-layer#env-msteams .indoor-environment.pokemon-clinic {
+    border-color: #6264a7;
+    box-shadow: 
+        inset 0 0 40px rgba(98, 100, 167, 0.15),
+        0 0 20px rgba(98, 100, 167, 0.25);
+}
+.env-layer#env-msteams .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #4a4a7a 0px,
+            #4a4a7a 48px,
+            #3a3a6a 48px,
+            #3a3a6a 52px,
+            #4a4a7a 52px,
+            #5a5a8a 100px
+        );
+}
+.env-layer#env-msteams .sign-board::before {
+    content: 'TEAMS';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    color: #6264a7;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.env-layer#env-msteams .sign-board .sign-text {
+    display: none;
+}
+
+/* Matrix Department Theme */
+.env-layer#env-matrix .indoor-environment.pokemon-clinic {
+    border-color: #7faaff;
+    box-shadow: 
+        inset 0 0 40px rgba(127, 170, 255, 0.15),
+        0 0 20px rgba(127, 170, 255, 0.25);
+}
+.env-layer#env-matrix .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #2a2a4a 0px,
+            #2a2a4a 48px,
+            #1a1a3a 48px,
+            #1a1a3a 52px,
+            #2a2a4a 52px,
+            #3a3a5a 100px
+        );
+}
+.env-layer#env-matrix .sign-board::before {
+    content: 'MATRIX';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    color: #7faaff;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.env-layer#env-matrix .sign-board .sign-text {
+    display: none;
+}
+
+/* Signal Department Theme */
+.env-layer#env-signal .indoor-environment.pokemon-clinic {
+    border-color: #3a76f0;
+    box-shadow: 
+        inset 0 0 40px rgba(58, 118, 240, 0.15),
+        0 0 20px rgba(58, 118, 240, 0.25);
+}
+.env-layer#env-signal .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #2a5a2a 0px,
+            #2a5a2a 48px,
+            #1a4a1a 48px,
+            #1a4a1a 52px,
+            #2a5a2a 52px,
+            #3a7a3a 100px
+        );
+}
+.env-layer#env-signal .sign-board::before {
+    content: 'SIGNAL';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    color: #3a76f0;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.env-layer#env-signal .sign-board .sign-text {
+    display: none;
+}
+
+/* Mattermost Department Theme */
+.env-layer#env-mattermost .indoor-environment.pokemon-clinic {
+    border-color: #0052cc;
+    box-shadow: 
+        inset 0 0 40px rgba(0, 82, 204, 0.15),
+        0 0 20px rgba(0, 82, 204, 0.25);
+}
+.env-layer#env-mattermost .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #1a3a7a 0px,
+            #1a3a7a 48px,
+            #0f2a6a 48px,
+            #0f2a6a 52px,
+            #1a3a7a 52px,
+            #2a5aaa 100px
+        );
+}
+.env-layer#env-mattermost .sign-board::before {
+    content: 'MATTERMOST';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 7px;
+    color: #0052cc;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.env-layer#env-mattermost .sign-board .sign-text {
+    display: none;
+}
+
+/* Boss Department Theme */
+.env-layer#env-boss .indoor-environment.pokemon-clinic {
+    border-color: #ff003c;
+    box-shadow: 
+        inset 0 0 50px rgba(255, 0, 60, 0.2),
+        0 0 30px rgba(255, 0, 60, 0.4);
+    animation: boss-pulse 1s ease-in-out infinite;
+}
+.env-layer#env-boss .clinic-floor {
+    background: 
+        repeating-linear-gradient(90deg,
+            #4a0a1a 0px,
+            #4a0a1a 48px,
+            #3a0510 48px,
+            #3a0510 52px,
+            #4a0a1a 52px,
+            #6a1a2a 100px
+        );
+    animation: boss-floor 2s ease-in-out infinite;
+}
+.env-layer#env-boss .sign-board {
+    border-color: #ff003c;
+    background: linear-gradient(180deg, #ffcccc 0%, #ffaaaa 100%);
+}
+.env-layer#env-boss .sign-board::before {
+    content: 'BOSS';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-pixel);
+    font-size: 14px;
+    color: #ff003c;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+    animation: boss-text 0.5s ease-in-out infinite;
+}
+.env-layer#env-boss .sign-board .sign-text {
+    display: none;
+}
+
+@keyframes boss-pulse {
+    0%, 100% { box-shadow: inset 0 0 50px rgba(255, 0, 60, 0.2), 0 0 30px rgba(255, 0, 60, 0.4); }
+    50% { box-shadow: inset 0 0 60px rgba(255, 0, 60, 0.3), 0 0 40px rgba(255, 0, 60, 0.5); }
+}
+
+@keyframes boss-floor {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+@keyframes boss-text {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.05); }
 }
 
 /* ============================================
