@@ -22,38 +22,77 @@ let departmentCounts = {
 let totalApiCalls = 0;
 
 const DEPARTMENT_RULES = {
-  'emergency': {
-    keywords: ['启动', '启动失败', '崩溃', 'crash', '无响应', '连接中断', 'ECONNREFUSED', 'ECONNRESET', '无法启动', '进程退出', 'exit', 'died', '挂掉', '宕机', 'down'],
-    skillPath: 'system/emergency-skill'
-  },
-  'neuro': {
-    keywords: ['思维', '幻觉', 'hallucination', '幻觉', '胡言乱语', '乱说', '编造', '虚假信息', '事实错误', '记忆错误', '认知', '理解错误'],
-    skillPath: 'system/neuro-skill'
-  },
-  'memory': {
-    keywords: ['记忆', '丢失', '忘记', '不记得', 'memories', 'context', '忘记之前', '没有记忆', 'memory lost', '遗忘', '丢失'],
-    skillPath: 'system/memory-skill'
-  },
-  'behavior': {
-    keywords: ['行为', '异常', 'behaviour', 'behavior', '奇怪', '不对', '失控', '发疯', ' personality', '性格', '表现异常'],
-    skillPath: 'system/behavior-skill'
-  },
-  'discord': {
-    keywords: ['discord', 'Discord', 'DC', '服务器', '频道', '消息发不出', '无法发送', 'webhook'],
-    skillPath: 'core/discord'
-  },
-  'whatsapp': {
-    keywords: ['whatsapp', 'WhatsApp', 'Whatsapp', 'wa', '无法发送', '消息失败'],
-    skillPath: 'core/whatsapp'
-  },
-  'config': {
-    keywords: ['config', '配置', 'setting', '设置', '配置文件', 'env', '环境变量'],
-    skillPath: 'system/config'
-  },
-  'model': {
-    keywords: ['model', '模型', 'API', 'key', '密钥', 'token', 'GPT', 'Claude', 'Anthropic', '费用', ' quota', '额度'],
-    skillPath: 'system/model'
-  }
+    // SYSTEM
+    'runtime': {
+        keywords: ['runtime', 'tooling', 'agent', '启动', '启动失败'],
+        skillPath: 'system/runtime'
+    },
+    'crash': {
+        keywords: ['crash', '崩溃', 'exit', 'died', '挂掉', '宕机', 'down', 'not responding'],
+        skillPath: 'system/crash'
+    },
+    'behavior': {
+        keywords: ['behavior', 'incorrect', 'wrong', '行为', '异常', '不对'],
+        skillPath: 'system/behavior'
+    },
+    'webui': {
+        keywords: ['webui', 'web-ui', 'interface', 'ui', '界面'],
+        skillPath: 'system/webui'
+    },
+    'mobile': {
+        keywords: ['mobile', 'ios', 'android', 'app'],
+        skillPath: 'system/mobile'
+    },
+    // CORE
+    'discord': {
+        keywords: ['discord', 'dc', 'Discord'],
+        skillPath: 'core/discord'
+    },
+    'telegram': {
+        keywords: ['telegram', 'tg', 'Telegram'],
+        skillPath: 'core/telegram'
+    },
+    'whatsapp': {
+        keywords: ['whatsapp', 'wa', 'WhatsApp'],
+        skillPath: 'core/whatsapp'
+    },
+    'slack': {
+        keywords: ['slack', 'Slack'],
+        skillPath: 'core/slack'
+    },
+    'signal': {
+        keywords: ['signal', 'Signal'],
+        skillPath: 'core/signal'
+    },
+    // EXTENSIONS
+    'feishu': {
+        keywords: ['feishu', '飞书', 'Feishu', 'lark'],
+        skillPath: 'extensions/feishu'
+    },
+    'line': {
+        keywords: ['line', 'Line'],
+        skillPath: 'extensions/line'
+    },
+    'matrix': {
+        keywords: ['matrix', 'Matrix'],
+        skillPath: 'extensions/matrix'
+    },
+    'teams': {
+        keywords: ['teams', 'Teams', 'msteams'],
+        skillPath: 'extensions/msteams'
+    },
+    'mattermost': {
+        keywords: ['mattermost', 'Mattermost'],
+        skillPath: 'extensions/mattermost'
+    },
+    'nostr': {
+        keywords: ['nostr', 'Nostr'],
+        skillPath: 'extensions/nostr'
+    },
+    'twitch': {
+        keywords: ['twitch', 'Twitch'],
+        skillPath: 'extensions/twitch'
+    }
 };
 
 const BASE_DIR = __dirname;

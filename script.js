@@ -1,4 +1,23 @@
-const rooms = [
+// NEW_ROOMS
+    // SYSTEM
+    { name: 'RUNTIME', category: 'system', doctor: 'Dr. Runtime', desc: 'Agent runtime issues' },
+    { name: 'CRASH', category: 'system', doctor: 'Dr. Crash', desc: 'Crash/hang issues' },
+    { name: 'BEHAVIOR', category: 'system', doctor: 'Dr. Behavior', desc: 'Incorrect behavior' },
+    { name: 'WEBUI', category: 'system', doctor: 'Dr. WebUI', desc: 'Web interface issues' },
+    { name: 'MOBILE', category: 'system', doctor: 'Dr. Mobile', desc: 'Mobile app issues' },
+    // CORE
+    { name: 'DISCORD', category: 'core', doctor: 'Ms. Chat', desc: 'Discord integration' },
+    { name: 'WHATSAPP', category: 'core', doctor: 'Mr. WA', desc: 'WhatsApp integration' },
+    { name: 'TELEGRAM', category: 'core', doctor: 'Mr. TG', desc: 'Telegram integration' },
+    { name: 'SLACK', category: 'core', doctor: 'Ms. Slack', desc: 'Slack integration' },
+    { name: 'SIGNAL', category: 'core', doctor: 'Mr. Signal', desc: 'Signal integration' },
+    // EXTENSIONS  
+    { name: 'FEISHU', category: 'extensions', doctor: 'Mr. Feishu', desc: 'Feishu integration' },
+    { name: 'LINE', category: 'extensions', doctor: 'Mr. LINE', desc: 'LINE integration' },
+    { name: 'MATRIX', category: 'extensions', doctor: 'Mr. Matrix', desc: 'Matrix integration' },
+    { name: 'TEAMS', category: 'extensions', doctor: 'Ms. Teams', desc: 'MS Teams integration' },
+    { name: 'BOSS', category: 'boss', doctor: 'The Admin', desc: 'Final boss!' }
+];
     { name: 'LOBBY', dept: 'GENERAL', doctor: 'Dr. Welcome', desc: 'Welcome to CLAW Hospital! How may I assist you today?', color: '#00f3ff', env: 'lobby' },
     { name: 'TRIAGE', dept: 'ASSESSMENT', doctor: 'Dr. Triage', desc: 'Let me evaluate your condition to direct you properly...', color: '#39ff14', env: 'triage' },
     { name: 'EMERGENCY', dept: 'URGENT CARE', doctor: 'Dr. Urgent', desc: 'Critical condition detected! Initiating emergency protocols!', color: '#ff003c', env: 'emergency' },
