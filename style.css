@@ -389,6 +389,168 @@ body {
     background: #c9b110;
 }
 
+/* Hospital roof details */
+.roof-antenna {
+    position: absolute;
+    top: -60px; left: 30px;
+    width: 4px; height: 30px;
+    background: #52525b;
+    border: 2px solid #71717a;
+}
+.roof-antenna::after {
+    content: '';
+    position: absolute;
+    top: -8px; left: -4px;
+    width: 12px; height: 12px;
+    background: var(--color-red);
+    border-radius: 50%;
+    animation: blink 1s infinite;
+    box-shadow: 0 0 10px var(--color-red);
+}
+.roof-vent {
+    position: absolute;
+    top: -20px; width: 20px; height: 15px;
+    background: #27272a; border: 2px solid #52525b;
+}
+.roof-vent.v1 { left: 80px; }
+.roof-vent.v2 { right: 60px; }
+
+/* Annex building */
+.annex {
+    position: absolute;
+    bottom: 40px; right: 20px;
+    width: 60px; height: 80px;
+    background: #0d1326;
+    border: 4px solid var(--color-cyan);
+    border-bottom: none;
+}
+.annex .annex-window {
+    position: absolute;
+    width: 20px; height: 20px;
+    background: #061122;
+    border: 2px solid #0d1326;
+}
+.annex .annex-window.aw1 { top: 15px; left: 8px; }
+.annex .annex-window.aw2 { top: 15px; right: 8px; }
+.annex .annex-window.aw1 { background: #f9ed69; border-color: var(--color-yellow); box-shadow: 0 0 8px rgba(249,237,105,0.3); }
+.annex .annex-door {
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 24px; height: 35px;
+    background: #061122;
+    border: 2px solid var(--color-cyan);
+}
+
+/* Street lamps */
+.street-lamp {
+    position: absolute;
+    bottom: 40px;
+}
+.street-lamp .lamp-post {
+    position: absolute;
+    bottom: 0;
+    width: 6px; height: 60px;
+    background: #3f3f46;
+}
+.street-lamp .lamp-light {
+    position: absolute;
+    bottom: 60px; left: 50%; transform: translateX(-50%);
+    width: 20px; height: 15px;
+    background: #fef3c7;
+    border: 2px solid #f59e0b;
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    box-shadow: 0 0 20px rgba(254,243,199,0.5);
+    animation: lamp-glow 3s ease-in-out infinite;
+}
+.street-lamp.l1 { left: 30px; }
+.street-lamp.l2 { right: 30px; }
+@keyframes lamp-glow { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; box-shadow: 0 0 30px rgba(254,243,199,0.7); } }
+
+/* Department signs */
+.dept-sign {
+    position: absolute;
+    bottom: 130px;
+    background: #18181b;
+    border: 3px solid;
+    padding: 4px 8px;
+}
+.dept-sign .sign-text {
+    font-size: 6px;
+    font-family: var(--font-pixel);
+}
+.dept-sign.system-sign {
+    left: 50px;
+    border-color: var(--color-cyan);
+}
+.dept-sign.system-sign .sign-text {
+    color: var(--color-cyan);
+    text-shadow: 0 0 5px var(--color-cyan);
+}
+.dept-sign.core-sign {
+    left: 50%;
+    transform: translateX(-50%);
+    border-color: var(--color-purple);
+}
+.dept-sign.core-sign .sign-text {
+    color: var(--color-purple);
+    text-shadow: 0 0 5px var(--color-purple);
+}
+.dept-sign.ext-sign {
+    right: 50px;
+    border-color: var(--color-green);
+}
+.dept-sign.ext-sign .sign-text {
+    color: var(--color-green);
+    text-shadow: 0 0 5px var(--color-green);
+}
+
+/* Trees */
+.tree {
+    position: absolute;
+    bottom: 40px;
+}
+.tree .trunk {
+    position: absolute;
+    bottom: 0;
+    width: 10px; height: 30px;
+    background: #78350f;
+}
+.tree .leaves {
+    position: absolute;
+    bottom: 25px; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 40px;
+    background: #166534;
+    clip-path: polygon(50% 0%, 100% 50%, 80% 100%, 20% 100%, 0% 50%);
+}
+.tree.t1 { left: 80px; }
+.tree.t2 { right: 80px; }
+.tree.t1 .leaves { background: #15803d; }
+.tree.t2 .leaves { background: #16a34a; }
+
+/* Enhanced stars */
+.star.s4 { top: 60px; left: 400px; animation: twinkle 1.2s steps(2) infinite 0.3s; }
+.star.s5 { top: 25px; left: 520px; animation: twinkle 0.9s steps(2) infinite 0.7s; background: #ffffaa; }
+
+/* Enhanced cityscape buildings */
+.building {
+    position: absolute;
+    bottom: 0;
+    background: #061122;
+}
+.building.b1 { left: 5%; width: 25px; height: 60px; }
+.building.b2 { left: 15%; width: 30px; height: 90px; }
+.building.b3 { right: 12%; width: 28px; height: 70px; }
+.building.b4 { right: 5%; width: 22px; height: 50px; }
+.building.b5 { left: 35%; width: 20px; height: 45px; }
+.building::after {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    background: repeating-linear-gradient(0deg, transparent 0px, transparent 8px, #f9ed69 8px, #f9ed69 10px);
+    opacity: 0.3;
+}
+.building.b2::after { animation: twinkle 2s steps(2) infinite; }
+
 /* --- ROOM SCENES --- */
 .room-scene {
     display: none;
@@ -822,37 +984,662 @@ body {
 .warning-sign::after { content: '!'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); color: #000; font-size: 12px; font-weight: bold; }
 .red-screen .screen-content { position: absolute; inset: 3px; background: #1a0000; background-image: repeating-linear-gradient(0deg, var(--color-red) 0px, var(--color-red) 1px, transparent 1px, transparent 3px); }
 
-/* ========== NEW ANIMATIONS ========== */
-@keyframes pulse { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
-@keyframes vital-scroll { 0% { background-position: 0 0; } 100% { background-position: 20px 0; } }
-@keyframes ecg { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(5px); } 50% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-@keyframes scan-beam { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-@keyframes float { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-5px); } }
-@keyframes particle-float { 0% { background-position: 0 0; } 100% { background-position: 10px 10px; } }
-@keyframes rotate { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
-@keyframes eeg-scroll { 0% { background-position: 0 0; } 100% { background-position: 20px 0; } }
-@keyframes crystal-glow { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.5); } }
-@keyframes data-flow { 0% { background-position: 0 0; } 100% { background-position: 0 10px; } }
-@keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 5px var(--color-cyan); } 50% { box-shadow: 0 0 20px var(--color-cyan); } }
-@keyframes ring-pulse { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
-@keyframes cube-rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-@keyframes orb-float { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-3px); } }
-@keyframes fountain-splash { 0% { transform: translate(-50%, 0) scale(1); opacity: 1; } 100% { transform: translate(-50%, -15px) scale(0); opacity: 0; } }
-@keyframes signal-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-@keyframes wave-expand { 0% { transform: translate(50%, 50%) scale(0.5); opacity: 1; } 100% { transform: translate(50%, 50%) scale(2); opacity: 0; } }
-@keyframes queue-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
-@keyframes led-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.3; } }
-@keyframes chat-scroll { 0% { background-position: 0 0; } 100% { background-position: 0 16px; } }
-@keyframes voice-bounce { 0%, 100% { height: 15px; } 50% { height: 8px; } }
-@keyframes console-type { 0% { content: '>'; } 33% { content: '>>'; } 66% { content: '>>>'; } }
-@keyframes core-pulse { 0%, 100% { box-shadow: 0 0 10px var(--color-red); } 50% { box-shadow: 0 0 30px var(--color-red), 0 0 50px var(--color-red); } }
+/* ========== NEW DEPARTMENTS - ATMOSPHERIC EFFECTS ========== */
+.env-layer#env-runtime::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 100%, rgba(6,182,212,0.2) 0%, transparent 60%); }
+.env-layer#env-crash::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(239,68,68,0.25) 0%, rgba(153,27,27,0.15) 50%, transparent 100%); animation: crash-flash 0.5s ease-in-out infinite; }
+.env-layer#env-webui::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(99,102,241,0.1) 50%, transparent 100%); }
+.env-layer#env-mobile::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 80%, rgba(34,197,94,0.15) 0%, transparent 50%); }
+.env-layer#env-telegram::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,182,212,0.2) 0%, rgba(34,197,94,0.1) 100%); animation: telegram-pulse 2s ease-in-out infinite; }
+.env-layer#env-slack::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(234,179,8,0.15) 0%, rgba(220,38,38,0.1) 50%, transparent 100%); }
+.env-layer#env-signal::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(34,197,94,0.2) 0%, transparent 50%); animation: signal-ambient 3s ease-in-out infinite; }
+.env-layer#env-feishu::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(59,130,246,0.2) 0%, rgba(37,99,235,0.1) 100%); animation: feishu-pulse 2.5s ease-in-out infinite; }
+.env-layer#env-line::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(34,197,94,0.2) 0%, rgba(16,185,129,0.1) 100%); }
+.env-layer#env-matrix::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(168,85,247,0.2) 0%, rgba(88,28,135,0.15) 50%, transparent 100%); animation: matrix-ambient 2s steps(10) infinite; }
+.env-layer#env-teams::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.1) 50%, transparent 100%); }
 
-/* Remove previous animations that affect left/top for performance as per skill */
-/* 2.5D Sprites Sorting */
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-@keyframes flicker { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; } }
+@keyframes crash-flash { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; filter: brightness(1.2); } }
+@keyframes telegram-pulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+@keyframes signal-ambient { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.1); } }
+@keyframes feishu-pulse { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
+@keyframes matrix-ambient { 0%, 100% { opacity: 0.9; } 50% { opacity: 1; } }
 
-/* Sprites */
+/* Floor accents for new departments */
+.env-layer#env-runtime .env-floor { background-color: rgba(6,182,212,0.05); }
+.env-layer#env-crash .env-floor { background-color: rgba(239,68,68,0.1); background: linear-gradient(rgba(239,68,68,0.15) 2px, transparent 2px), linear-gradient(90deg, rgba(239,68,68,0.15) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-webui .env-floor { background: linear-gradient(rgba(59,130,246,0.12) 2px, transparent 2px), linear-gradient(90deg, rgba(99,102,241,0.12) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-mobile .env-floor { background-color: rgba(34,197,94,0.05); }
+.env-layer#env-telegram .env-floor { background: linear-gradient(rgba(6,182,212,0.12) 2px, transparent 2px), linear-gradient(90deg, rgba(34,197,94,0.12) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-slack .env-floor { background: linear-gradient(rgba(234,179,8,0.12) 2px, transparent 2px), linear-gradient(90deg, rgba(234,179,8,0.12) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-signal .env-floor { background: linear-gradient(rgba(34,197,94,0.12) 2px, transparent 2px), linear-gradient(90deg, rgba(16,185,129,0.12) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-feishu .env-floor { background: linear-gradient(rgba(59,130,246,0.12) 2px, transparent 2px), linear-gradient(90deg, rgba(37,99,235,0.12) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-line .env-floor { background: linear-gradient(rgba(34,197,94,0.12) 2px, transparent 2px), linear-gradient(90deg, rgba(16,185,129,0.12) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-matrix .env-floor { background: linear-gradient(rgba(168,85,247,0.15) 2px, transparent 2px), linear-gradient(90deg, rgba(88,28,135,0.15) 2px, transparent 2px); background-size: 40px 40px; }
+.env-layer#env-teams .env-floor { background: linear-gradient(rgba(99,102,241,0.12) 2px, transparent 2px), linear-gradient(90deg, rgba(139,92,246,0.12) 2px, transparent 2px); background-size: 40px 40px; }
+
+/* Particle colors for new departments */
+.env-layer#env-runtime .particle { background: var(--color-cyan); }
+.env-layer#env-crash .particle { background: var(--color-red); animation-duration: 3s; }
+.env-layer#env-webui .particle { background: var(--color-blue); }
+.env-layer#env-mobile .particle { background: #22c55e; }
+.env-layer#env-telegram .particle { background: var(--color-cyan); }
+.env-layer#env-slack .particle { background: #eab308; }
+.env-layer#env-signal .particle { background: #22c55e; }
+.env-layer#env-feishu .particle { background: #3b82f6; }
+.env-layer#env-line .particle { background: #22c55e; }
+.env-layer#env-matrix .particle { background: #a855f7; animation-duration: 4s; }
+.env-layer#env-teams .particle { background: #6366f1; }
+
+/* ========== NEW DEPARTMENTS - PIXEL PROPS ========== */
+
+/* RUNTIME - Terminal/Execution theme */
+.terminal-main {
+    bottom: 50px; left: 50%; transform: translateX(-50%); width: 100px; height: 60px;
+    background: #1e1e1e; border: 4px solid var(--color-cyan);
+}
+.terminal-main .screen {
+    position: absolute; inset: 8px; background: #0d0d0d;
+    border: 2px solid #333;
+}
+.terminal-main .screen::after {
+    content: '> RUNNING...'; position: absolute; top: 5px; left: 5px; color: var(--color-cyan); font-family: monospace; font-size: 8px;
+    animation: blink 0.5s steps(2) infinite;
+}
+.server-stack {
+    bottom: 50px; width: 40px; height: 90px;
+    background: #18181b; border: 4px solid var(--color-cyan);
+}
+.server-stack.s1 { left: 20%; }
+.server-stack.s2 { right: 20%; }
+.server-stack .led {
+    position: absolute; width: 8px; height: 8px; border-radius: 50%;
+}
+.server-stack .led.green { top: 10px; left: 8px; background: #22c55e; box-shadow: 0 0 5px #22c55e; }
+.server-stack .led.yellow { top: 25px; left: 8px; background: #eab308; box-shadow: 0 0 5px #eab308; }
+.server-stack .led.red { top: 10px; left: 8px; background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+.server-stack .led.blink { animation: blink 0.3s steps(2) infinite; }
+.process-monitor {
+    bottom: 60px; left: 50%; transform: translateX(-50%); width: 80px; height: 40px;
+    background: #18181b; border: 4px solid var(--color-cyan);
+}
+.process-monitor .bar {
+    position: absolute; bottom: 5px; width: 15px; background: var(--color-cyan);
+    animation: bar-pulse 1s ease-in-out infinite;
+}
+.process-monitor .bar.b1 { left: 8px; height: 20px; animation-delay: 0s; }
+.process-monitor .bar.b2 { left: 30px; height: 30px; animation-delay: 0.2s; background: #22c55e; }
+.process-monitor .bar.b3 { left: 52px; height: 15px; animation-delay: 0.4s; background: #eab308; }
+@keyframes bar-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+.clock-wall {
+    top: 30px; right: 25%; width: 40px; height: 40px;
+    background: #18181b; border: 4px solid var(--color-cyan); border-radius: 50%;
+}
+.clock-wall .hand {
+    position: absolute; background: #fff; transform-origin: bottom center;
+}
+.clock-wall .hand.hour {
+    bottom: 50%; left: 50%; width: 3px; height: 10px; transform: translateX(-50%) rotate(45deg);
+}
+.clock-wall .hand.minute {
+    bottom: 50%; left: 50%; width: 2px; height: 14px; transform: translateX(-50%) rotate(0deg);
+}
+
+/* CRASH - Warning/Danger theme */
+.warning-console {
+    bottom: 60px; left: 50%; transform: translateX(-50%); width: 120px; height: 50px;
+    background: #1a0000; border: 4px solid var(--color-red);
+}
+.warning-console .error-flash {
+    position: absolute; inset: 5px; background: #330000;
+    animation: error-flash 0.2s steps(2) infinite;
+}
+@keyframes error-flash { 0%, 100% { background: #330000; } 50% { background: #660000; } }
+.skull-icon {
+    bottom: 80px; left: 20%; width: 30px; height: 30px;
+    background: #18181b; border: 4px solid var(--color-red);
+    clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+}
+.skull-icon::before {
+    content: ''; position: absolute; top: 8px; left: 5px; width: 6px; height: 6px; background: #fff;
+    box-shadow: 14px 0 0 #fff;
+}
+.skull-icon::after {
+    content: ''; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 10px; height: 6px; background: #fff;
+}
+.broken-server {
+    bottom: 50px; right: 25%; width: 50px; height: 80px;
+    background: #18181b; border: 4px solid var(--color-red);
+}
+.broken-server .crack {
+    position: absolute; inset: 10px;
+    background: linear-gradient(45deg, transparent 40%, #ef4444 40%, #ef4444 45%, transparent 45%);
+}
+.tombstone {
+    bottom: 50px; left: 15%; width: 40px; height: 50px;
+    background: #27272a; border: 4px solid #52525b;
+    border-radius: 20px 20px 0 0;
+}
+.tombstone .rip {
+    position: absolute; top: 15px; left: 50%; transform: translateX(-50%); color: #71717a; font-size: 8px; font-weight: bold;
+}
+.explosion {
+    bottom: 100px; width: 20px; height: 20px;
+    background: #f97316; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation: explode 0.5s ease-out infinite;
+}
+.explosion.e1 { left: 30%; }
+.explosion.e2 { right: 30%; }
+@keyframes explode { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+/* BEHAVIOR - Brain/Mind theme */
+.brain-tank {
+    bottom: 50px; left: 20%; width: 60px; height: 80px;
+    background: #18181b; border: 4px solid #a855f7;
+    border-radius: 30px;
+}
+.brain-tank .liquid {
+    position: absolute; bottom: 5px; left: 5px; right: 5px; height: 50px;
+    background: linear-gradient(to top, rgba(168,85,247,0.6), rgba(168,85,247,0.2));
+    border-radius: 0 0 25px 25px;
+}
+.brain-tank .bubble {
+    position: absolute; width: 8px; height: 8px; background: rgba(168,85,247,0.8); border-radius: 50%;
+    animation: bubble-rise 2s ease-in-out infinite;
+}
+.brain-tank .bubble:first-child { bottom: 20px; left: 20px; animation-delay: 0s; }
+.brain-tank .bubble:last-child { bottom: 35px; right: 20px; animation-delay: 1s; width: 6px; height: 6px; }
+@keyframes bubble-rise { 0%, 100% { transform: translateY(0); opacity: 0.8; } 50% { transform: translateY(-20px); opacity: 0.4; } }
+.behavior-matrix {
+    bottom: 60px; right: 20%; width: 50px; height: 60px;
+    background: #0a0a0a; border: 4px solid #a855f7;
+}
+.behavior-matrix .matrix-row {
+    position: absolute; left: 5px; right: 5px; height: 4px; background: #a855f7;
+}
+.behavior-matrix .matrix-row:nth-child(1) { top: 10px; animation: matrix-scroll 0.5s linear infinite; }
+.behavior-matrix .matrix-row:nth-child(2) { top: 25px; animation: matrix-scroll 0.7s linear infinite 0.2s; }
+.behavior-matrix .matrix-row:nth-child(3) { top: 40px; animation: matrix-scroll 0.6s linear infinite 0.4s; }
+@keyframes matrix-scroll { 0% { background-position: 0 0; } 100% { background-position: 20px 0; } }
+.personality-crystal {
+    bottom: 80px; left: 50%; transform: translateX(-50%); width: 30px; height: 40px;
+    background: linear-gradient(135deg, #a855f7, #06b6d4); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    animation: crystal-pulse 2s ease-in-out infinite;
+}
+@keyframes crystal-pulse { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.3); } }
+.emotion-gauge {
+    bottom: 50px; right: 35%; width: 40px; height: 25px;
+    background: #18181b; border: 4px solid #a855f7;
+    border-radius: 0 0 20px 20px;
+}
+.emotion-gauge .needle {
+    position: absolute; bottom: 5px; left: 50%; width: 3px; height: 12px; background: #f97316;
+    transform-origin: bottom center; transform: translateX(-50%) rotate(-30deg);
+    animation: needle-swing 3s ease-in-out infinite;
+}
+@keyframes needle-swing { 0%, 100% { transform: translateX(-50%) rotate(-30deg); } 50% { transform: translateX(-50%) rotate(30deg); } }
+.mirror-broken {
+    top: 40px; left: 25%; width: 30px; height: 45px;
+    background: #1e1e1e; border: 4px solid #71717a;
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+}
+.mirror-broken::after {
+    content: ''; position: absolute; inset: 5px; background: repeating-linear-gradient(45deg, transparent, transparent 5px, #ef4444 5px, #ef4444 7px);
+}
+
+/* WEBUI - Browser/Digital theme */
+.browser-window {
+    bottom: 50px; left: 50%; transform: translateX(-50%); width: 120px; height: 70px;
+    background: #1e1e1e; border: 4px solid var(--color-blue);
+}
+.browser-window .url-bar {
+    position: absolute; top: 5px; left: 5px; right: 5px; height: 12px; background: #2d2d2d; border: 2px solid #404040;
+}
+.browser-window .content-area {
+    position: absolute; top: 25px; left: 5px; right: 5px; bottom: 5px; background: #fff;
+}
+.browser-window .broken-img {
+    position: absolute; top: 5px; left: 5px; width: 25px; height: 20px; background: #ccc; border: 2px dashed #999;
+}
+.browser-window .broken-link {
+    position: absolute; bottom: 5px; right: 5px; width: 30px; height: 8px; background: #3b82f6;
+}
+.mobile-phone {
+    bottom: 45px; right: 20%; width: 25px; height: 45px;
+    background: #18181b; border: 4px solid #52525b; border-radius: 4px;
+}
+.mobile-phone .crack-screen {
+    position: absolute; top: 5px; left: 3px; right: 3px; bottom: 15px; background: #0a0a0a;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 3px, #ef4444 3px, #ef4444 4px);
+}
+.error-popup {
+    bottom: 70px; left: 25%; width: 50px; height: 35px;
+    background: #fef2f2; border: 4px solid #ef4444;
+}
+.error-popup .x-btn {
+    position: absolute; top: 3px; right: 3px; width: 10px; height: 10px; background: #ef4444;
+}
+.error-popup .x-btn::before, .error-popup .x-btn::after {
+    content: ''; position: absolute; top: 4px; left: 1px; width: 8px; height: 2px; background: #fff; transform: rotate(45deg);
+}
+.error-popup .x-btn::after { transform: rotate(-45deg); }
+.loading-spinner {
+    bottom: 90px; left: 40%; width: 20px; height: 20px;
+    border: 4px solid #e5e5e5; border-top-color: #3b82f6; border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+.globe-broken {
+    top: 30px; right: 30%; width: 30px; height: 30px;
+    background: #3b82f6; border-radius: 50%; border: 4px solid #1d4ed8;
+}
+.globe-broken::before {
+    content: ''; position: absolute; inset: 3px; background: repeating-linear-gradient(0deg, transparent, transparent 4px, #1e3a8a 4px, #1e3a8a 5px);
+}
+
+/* MOBILE - Phone/Device theme */
+.phone-stand {
+    bottom: 50px; left: 20%; width: 30px; height: 50px;
+    background: #27272a; border: 4px solid #22c55e;
+}
+.phone-stand .phone-screen {
+    position: absolute; top: 5px; left: 3px; right: 3px; bottom: 30px; background: #0a0a0a; border: 2px solid #404040;
+}
+.app-icon-grid {
+    bottom: 60px; right: 25%; width: 50px; height: 40px;
+    background: #18181b; border: 4px solid #22c55e;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; padding: 4px;
+}
+.app-icon-grid .icon {
+    width: 8px; height: 8px; background: #22c55e;
+}
+.app-icon-grid .icon:nth-child(odd) { background: #3b82f6; }
+.battery-low {
+    bottom: 50px; left: 40%; width: 25px; height: 12px;
+    background: #18181b; border: 4px solid #ef4444;
+}
+.battery-low .level {
+    position: absolute; top: 2px; left: 2px; width: 8px; height: 4px; background: #ef4444;
+}
+.wifi-signal {
+    top: 30px; left: 30%; width: 30px; height: 20px;
+}
+.wifi-signal .wave {
+    position: absolute; bottom: 0; left: 0; width: 20px; height: 20px;
+    border: 3px solid #22c55e; border-bottom: none; border-radius: 50% 50% 0 0;
+}
+.wifi-signal .wave.w2 { left: 5px; bottom: 5px; width: 15px; height: 15px; }
+.wifi-signal .wave.w3 { left: 10px; bottom: 10px; width: 10px; height: 10px; }
+.push-notification {
+    top: 50px; right: 20%; width: 25px; height: 25px;
+    background: #fef3c7; border: 4px solid #f59e0b; border-radius: 50%;
+}
+.push-notification .bell {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 10px; background: #f59e0b;
+    clip-path: polygon(20% 0%, 80% 0%, 100% 40%, 100% 70%, 80% 70%, 80% 100%, 20% 100%, 20% 70%, 0% 70%, 0% 40%);
+}
+
+/* TELEGRAM - Paper plane/Communication theme */
+.tg-logo {
+    bottom: 60px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px;
+    background: #229ED5; border-radius: 50%; border: 4px solid #0088cc;
+}
+.tg-logo .plane {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20px; height: 15px; background: #fff;
+    clip-path: polygon(0 40%, 100% 50%, 60% 50%, 100% 100%, 60% 60%, 0 70%, 20% 50%);
+}
+.paper-plane {
+    bottom: 100px; left: 30%; width: 30px; height: 20px;
+    animation: plane-fly 2s ease-in-out infinite;
+}
+.paper-plane .trail {
+    position: absolute; left: -20px; top: 50%; width: 25px; height: 3px; background: linear-gradient(90deg, transparent, #229ED5);
+}
+@keyframes plane-fly { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(20px); } }
+.tg-channel {
+    bottom: 50px; right: 25%; width: 45px; height: 35px;
+    background: #18181b; border: 4px solid #229ED5;
+}
+.tg-channel .broadcast-icon {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 15px; height: 15px; background: #fff; border-radius: 50%;
+}
+.tg-group {
+    bottom: 50px; left: 25%; width: 45px; height: 35px;
+    background: #18181b; border: 4px solid #229ED5;
+}
+.tg-group .avatars {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 30px; height: 10px; background: repeating-linear-gradient(90deg, #229ED5 0px, #229ED5 8px, transparent 8px, transparent 12px);
+}
+.botfather {
+    top: 35px; right: 30%; width: 30px; height: 30px;
+    background: #18181b; border: 4px solid #f59e0b;
+}
+.botfather .crown {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 15px; height: 8px; background: #f59e0b;
+    clip-path: polygon(0% 100%, 25% 0%, 50% 50%, 75% 0%, 100% 100%);
+}
+.secret-chat {
+    top: 35px; left: 25%; width: 35px; height: 35px;
+    background: #18181b; border: 4px solid #22c55e;
+}
+.secret-chat .lock-icon {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 12px; height: 10px; border: 3px solid #22c55e; border-radius: 2px;
+}
+.secret-chat .lock-icon::after {
+    content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; border: 3px solid #22c55e; border-bottom: none; border-radius: 6px 6px 0 0;
+}
+
+/* SLACK - Hash/Workspace theme */
+.slack-logo {
+    bottom: 60px; left: 25%; width: 40px; height: 40px;
+    background: #4a154b; border: 4px solid #e01e5a;
+}
+.slack-logo .hash {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 15px; height: 15px; background: repeating-linear-gradient(0deg, #fff 0px, #fff 3px, transparent 3px, transparent 8px),
+                repeating-linear-gradient(90deg, #fff 0px, #fff 3px, transparent 3px, transparent 8px);
+}
+.slack-channel {
+    bottom: 50px; left: 45%; width: 40px; height: 30px;
+    background: #18181b; border: 4px solid #36c5f0;
+}
+.slack-channel .hash-icon {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #36c5f0; font-size: 14px; font-weight: bold;
+}
+.slack-dm {
+    bottom: 50px; right: 25%; width: 50px; height: 40px;
+    background: #18181b; border: 4px solid #e01e5a;
+}
+.slack-dm .avatar {
+    position: absolute; top: 5px; left: 5px; width: 12px; height: 12px; background: #e01e5a; border-radius: 50%;
+}
+.slack-dm .message {
+    position: absolute; bottom: 5px; left: 5px; width: 35px; height: 8px; background: #3f3f46;
+}
+.emoji-reaction {
+    top: 35px; left: 30%; width: 35px; height: 20px;
+    background: #18181b; border: 4px solid #f9a61a;
+}
+.emoji-reaction .face {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px;
+}
+.workspace {
+    top: 35px; right: 25%; width: 35px; height: 35px;
+    background: #18181b; border: 4px solid #2eb67d;
+}
+.workspace .grid-icon {
+    position: absolute; inset: 5px; background: repeating-linear-gradient(0deg, #2eb67d 0px, #2eb67d 3px, transparent 3px, transparent 8px),
+                                    repeating-linear-gradient(90deg, #2eb67d 0px, #2eb67d 3px, transparent 3px, transparent 8px);
+}
+.giphy-search {
+    bottom: 80px; left: 40%; width: 35px; height: 25px;
+    background: #18181b; border: 4px solid #f9a61a;
+}
+.giphy-search .magnifier {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; border: 3px solid #f9a61a; border-radius: 50%;
+}
+.giphy-search .magnifier::after {
+    content: ''; position: absolute; bottom: -5px; right: -5px; width: 6px; height: 3px; background: #f9a61a; transform: rotate(45deg);
+}
+
+/* SIGNAL - Secure/Privacy theme */
+.signal-logo {
+    bottom: 60px; left: 30%; width: 40px; height: 40px;
+    background: #3a76f0; border-radius: 50%; border: 4px solid #2a5cd1;
+}
+.signal-logo .bell-shape {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 15px; height: 20px; background: #fff;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 70%, 70% 100%, 30% 100%, 30% 70%, 0% 70%, 0% 30%);
+}
+.secure-chat {
+    bottom: 50px; right: 30%; width: 50px; height: 40px;
+    background: #18181b; border: 4px solid #3a76f0;
+}
+.secure-chat .lock-icon {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 15px; height: 12px; border: 3px solid #3a76f0; border-radius: 2px;
+}
+.timer-message {
+    bottom: 50px; left: 25%; width: 40px; height: 30px;
+    background: #18181b; border: 4px solid #3a76f0;
+}
+.timer-message .countdown {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 15px; height: 15px; border: 3px solid #3a76f0; border-radius: 50%;
+    border-top-color: transparent; animation: spin 2s linear infinite;
+}
+.story-ring {
+    top: 35px; left: 35%; width: 35px; height: 35px;
+    background: #18181b; border: 4px solid #3a76f0;
+}
+.story-ring .ring {
+    position: absolute; inset: 5px; border: 3px solid #3a76f0; border-radius: 50%; border-top-color: transparent; animation: spin 3s linear infinite;
+}
+.note-to-self {
+    top: 35px; right: 30%; width: 30px; height: 35px;
+    background: #fef3c7; border: 4px solid #f59e0b;
+}
+.note-to-self .pencil {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 15px; background: #f59e0b;
+}
+.group-update {
+    bottom: 90px; right: 35%; width: 30px; height: 30px;
+    background: #18181b; border: 4px solid #3a76f0;
+}
+.group-update .add-icon {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; color: #3a76f0;
+}
+
+/* FEISHU - Document/Collaboration theme */
+.feishu-logo {
+    bottom: 60px; left: 25%; width: 45px; height: 45px;
+    background: #1e90ff; border-radius: 8px; border: 4px solid #0066cc;
+}
+.feishu-logo .bird {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20px; height: 20px; background: #fff;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+.document-stack {
+    bottom: 50px; left: 45%; width: 50px; height: 40px;
+    background: #18181b; border: 4px solid #1e90ff;
+}
+.document-stack .doc {
+    position: absolute; width: 35px; height: 25px; background: #fff; border: 2px solid #ccc;
+}
+.document-stack .doc.d1 { top: 5px; left: 5px; }
+.document-stack .doc.d2 { top: 10px; left: 10px; background: #e0f0ff; }
+.calendar-grid {
+    bottom: 50px; right: 25%; width: 45px; height: 40px;
+    background: #18181b; border: 4px solid #1e90ff;
+}
+.calendar-grid .date {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 25px; height: 20px; background: #fff;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, #e0e0e0 3px, #e0e0e0 4px);
+}
+.table-sheet {
+    top: 35px; left: 30%; width: 50px; height: 35px;
+    background: #18181b; border: 4px solid #1e90ff;
+}
+.table-sheet .cell {
+    position: absolute; inset: 5px; background: repeating-linear-gradient(0deg, #1e90ff 0px, #1e90ff 2px, transparent 2px, transparent 8px),
+                                  repeating-linear-gradient(90deg, #1e90ff 0px, #1e90ff 2px, transparent 2px, transparent 12px);
+}
+.mind-map {
+    top: 35px; right: 25%; width: 60px; height: 50px;
+    background: #18181b; border: 4px solid #1e90ff;
+}
+.mind-map .node {
+    position: absolute; width: 12px; height: 12px; background: #1e90ff; border-radius: 50%;
+}
+.mind-map .node.center { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 16px; height: 16px; }
+.mind-map .node.child1 { top: 20px; left: 10px; }
+.mind-map .node.child2 { bottom: 10px; right: 10px; }
+.messenger-blue {
+    bottom: 100px; right: 35%; width: 40px; height: 30px;
+    background: #1e90ff; border-radius: 8px; border: 4px solid #0066cc;
+}
+
+/* LINE - Green/Chat theme */
+.line-logo {
+    bottom: 60px; left: 30%; width: 40px; height: 40px;
+    background: #06c755; border-radius: 8px; border: 4px solid #00b241;
+}
+.line-logo .line-barcode {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 20px; height: 20px; background: repeating-linear-gradient(90deg, #000 0px, #000 2px, transparent 2px, transparent 4px);
+}
+.line-chat {
+    bottom: 50px; left: 20%; width: 45px; height: 35px;
+    background: #18181b; border: 4px solid #06c755;
+}
+.line-chat .sticker {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20px; height: 20px; background: #06c755; border-radius: 4px;
+}
+.line-call {
+    bottom: 50px; right: 20%; width: 35px; height: 35px;
+    background: #18181b; border: 4px solid #06c755;
+}
+.line-call .phone-green {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 15px; height: 15px; background: #06c755; border-radius: 50%;
+}
+.line-pay {
+    top: 35px; left: 30%; width: 35px; height: 35px;
+    background: #18181b; border: 4px solid #06c755;
+}
+.line-pay .qr-square {
+    position: absolute; inset: 5px; background: repeating-linear-gradient(0deg, #06c755 0px, #06c755 2px, transparent 2px, transparent 6px),
+                                       repeating-linear-gradient(90deg, #06c755 0px, #06c755 2px, transparent 2px, transparent 6px);
+}
+.line-oa {
+    top: 35px; right: 25%; width: 40px; height: 30px;
+    background: #18181b; border: 4px solid #f9c513;
+}
+.line-oa .official-badge {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20px; height: 12px; background: #f9c513;
+}
+.line-group {
+    bottom: 90px; right: 30%; width: 50px; height: 30px;
+    background: #18181b; border: 4px solid #06c755;
+}
+.line-group .avatars-row {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 35px; height: 12px; background: repeating-linear-gradient(90deg, #06c755 0px, #06c755 10px, transparent 10px, transparent 15px);
+}
+
+/* MATRIX - Cyber/Security theme */
+.matrix-rain {
+    bottom: 60px; left: 20%; width: 40px; height: 70px;
+    background: #000; border: 4px solid #a855f7;
+    overflow: hidden;
+}
+.matrix-rain .code {
+    position: absolute; width: 8px; height: 40px; background: #a855f7;
+    animation: matrix-drop 2s linear infinite;
+}
+.matrix-rain .code.c1 { left: 5px; animation-delay: 0s; }
+.matrix-rain .code.c2 { left: 15px; animation-delay: 0.5s; }
+.matrix-rain .code.c3 { left: 25px; animation-delay: 1s; }
+@keyframes matrix-drop { 0% { transform: translateY(-40px); opacity: 1; } 100% { transform: translateY(70px); opacity: 0; } }
+.matrix-room {
+    bottom: 50px; left: 45%; width: 50px; height: 40px;
+    background: #18181b; border: 4px solid #a855f7;
+}
+.matrix-room .door {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20px; height: 25px; background: #a855f7;
+}
+.encrypted-msg {
+    bottom: 50px; right: 25%; width: 45px; height: 30px;
+    background: #18181b; border: 4px solid #a855f7;
+}
+.encrypted-msg .lock {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 15px; height: 12px; border: 3px solid #a855f7; border-radius: 2px;
+}
+.encrypted-msg .lock::after {
+    content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 7px; height: 6px; border: 3px solid #a855f7; border-bottom: none; border-radius: 7px 7px 0 0;
+}
+.bridge-icon {
+    top: 35px; left: 25%; width: 40px; height: 30px;
+    background: #18181b; border: 4px solid #22c55e;
+}
+.bridge-icon .link {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20px; height: 8px; border: 3px solid #22c55e; border-radius: 4px;
+}
+.synapse-status {
+    top: 35px; right: 30%; width: 35px; height: 35px;
+    background: #18181b; border: 4px solid #a855f7;
+}
+.synapse-status .dot {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 15px; height: 15px; background: #22c55e;
+    border-radius: 50%; animation: synapse-blink 1s steps(2) infinite;
+}
+@keyframes synapse-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.element-client {
+    bottom: 90px; right: 35%; width: 40px; height: 35px;
+    background: #18181b; border: 4px solid #a855f7;
+}
+.element-client .e-logo {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 15px; height: 15px; background: #a855f7;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+/* TEAMS - Microsoft/Meeting theme */
+.teams-logo {
+    bottom: 60px; left: 25%; width: 45px; height: 45px;
+    background: #464eb8; border-radius: 8px; border: 4px solid #3039a8;
+}
+.teams-logo .t-shape {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20px; height: 20px; background: #fff;
+    clip-path: polygon(0 0, 100% 0, 100% 20%, 60% 20%, 60% 100%, 40% 100%, 40% 20%, 0 20%);
+}
+.teams-call {
+    bottom: 50px; left: 45%; width: 55px; height: 40px;
+    background: #18181b; border: 4px solid #464eb8;
+}
+.teams-call .camera {
+    position: absolute; top: 5px; left: 5px; width: 20px; height: 15px; background: #464eb8;
+}
+.teams-call .mic {
+    position: absolute; top: 5px; right: 5px; width: 10px; height: 15px; background: #22c55e;
+}
+.teams-meeting {
+    bottom: 50px; right: 25%; width: 55px; height: 40px;
+    background: #18181b; border: 4px solid #464eb8;
+}
+.teams-meeting .grid-users {
+    position: absolute; inset: 5px; background: repeating-linear-gradient(0deg, #464eb8 0px, #464eb8 8px, transparent 8px, transparent 12px),
+                                             repeating-linear-gradient(90deg, #464eb8 0px, #464eb8 8px, transparent 8px, transparent 12px);
+}
+.teams-chat {
+    top: 35px; left: 25%; width: 45px; height: 35px;
+    background: #18181b; border: 4px solid #464eb8;
+}
+.teams-chat .thread {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 25px; height: 20px; background: #3f3f46;
+}
+.teams-files {
+    top: 35px; right: 30%; width: 40px; height: 35px;
+    background: #18181b; border: 4px solid #464eb8;
+}
+.teams-files .folder {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 25px; height: 18px; background: #f59e0b;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 30%, 20% 30%, 20% 10%, 40% 10%, 40% 30%, 100% 30%);
+}
+.teams-share {
+    bottom: 85px; left: 35%; width: 35px; height: 30px;
+    background: #18181b; border: 4px solid #464eb8;
+}
+.teams-share .link-chain {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20px; height: 8px; border: 3px solid #fff; border-radius: 4px;
+}
+.teams-calendar {
+    bottom: 85px; right: 35%; width: 40px; height: 35px;
+    background: #18181b; border: 4px solid #f59e0b;
+}
+.teams-calendar .date-box {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 25px; height: 20px; background: #fff;
+    background-image: linear-gradient(90deg, #ccc 50%, transparent 50%), linear-gradient(#ccc 50%, transparent 50%);
+    background-size: 10px 2px; background-position: 0 8px; background-repeat: no-repeat;
+}
+
+@keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-4px); } }
+
+/* Dialog */
 .room-sprites {
     position: absolute;
     bottom: 40px; left: 0; width: 100%;

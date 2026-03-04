@@ -32,9 +32,48 @@
                             <div class="star s1"></div>
                             <div class="star s2"></div>
                             <div class="star s3"></div>
+                            <div class="star s4"></div>
+                            <div class="star s5"></div>
                         </div>
-                        <div class="cityscape"></div>
+                        <div class="cityscape">
+                            <div class="building b1"></div>
+                            <div class="building b2"></div>
+                            <div class="building b3"></div>
+                            <div class="building b4"></div>
+                            <div class="building b5"></div>
+                        </div>
                         <div class="ground-dark"></div>
+
+                        <!-- Street lamps -->
+                        <div class="street-lamp l1">
+                            <div class="lamp-post"></div>
+                            <div class="lamp-light"></div>
+                        </div>
+                        <div class="street-lamp l2">
+                            <div class="lamp-post"></div>
+                            <div class="lamp-light"></div>
+                        </div>
+
+                        <!-- Department signs -->
+                        <div class="dept-sign system-sign">
+                            <span class="sign-text">SYSTEM</span>
+                        </div>
+                        <div class="dept-sign core-sign">
+                            <span class="sign-text">CORE</span>
+                        </div>
+                        <div class="dept-sign ext-sign">
+                            <span class="sign-text">EXT</span>
+                        </div>
+
+                        <!-- Trees -->
+                        <div class="tree t1">
+                            <div class="trunk"></div>
+                            <div class="leaves"></div>
+                        </div>
+                        <div class="tree t2">
+                            <div class="trunk"></div>
+                            <div class="leaves"></div>
+                        </div>
 
                         <div class="pixel-hospital">
                             <div class="h-sign">CLAW</div>
@@ -44,6 +83,17 @@
                             <div class="h-window w2"></div>
                             <div class="h-window w3"></div>
                             <div class="h-window w4"></div>
+                            <!-- Hospital roof details -->
+                            <div class="roof-antenna"></div>
+                            <div class="roof-vent v1"></div>
+                            <div class="roof-vent v2"></div>
+                        </div>
+
+                        <!-- Side annex building -->
+                        <div class="annex">
+                            <div class="annex-window aw1"></div>
+                            <div class="annex-window aw2"></div>
+                            <div class="annex-door"></div>
                         </div>
                     </div>
 
@@ -63,236 +113,359 @@
                                 <div class="particle p5"></div>
                             </div>
 
-                            <div class="env-layer" id="env-lobby">
-                                <!-- Reception Desk -->
-                                <div class="pixel-prop desk">
-                                    <div class="desk-side"></div>
-                                    <div class="desk-computer"></div>
-                                    <div class="desk-lamp"></div>
+                            <!-- ===== SYSTEM DEPARTMENTS ===== -->
+                            
+                            <!-- RUNTIME - Agent execution issues -->
+                            <div class="env-layer" id="env-runtime">
+                                <div class="pixel-prop terminal-main">
+                                    <div class="screen"></div>
                                 </div>
-                                <!-- Waiting Sofa -->
-                                <div class="pixel-prop sofa">
-                                    <div class="sofa-cushion"></div>
+                                <div class="pixel-prop server-stack s1">
+                                    <div class="led green"></div>
+                                    <div class="led yellow"></div>
                                 </div>
-                                <!-- Potted Plants -->
-                                <div class="pixel-prop plant p1"></div>
-                                <div class="pixel-prop plant p2"></div>
-                                <!-- Wall Clock -->
-                                <div class="pixel-prop wall-clock"></div>
-                                <!-- Info Kiosk -->
-                                <div class="pixel-prop info-kiosk"></div>
-                                <!-- Holographic Logo -->
-                                <div class="pixel-prop holo-logo"></div>
-                            </div>
-                            <div class="env-layer" id="env-triage">
-                                <!-- Medical Scale -->
-                                <div class="pixel-prop scale">
-                                    <div class="scale-platform"></div>
+                                <div class="pixel-prop server-stack s2">
+                                    <div class="led red blink"></div>
                                 </div>
-                                <!-- Monitor Stand with vital signs -->
-                                <div class="pixel-prop monitor-stand">
-                                    <div class="monitor-screen">
-                                        <div class="vital-line"></div>
-                                    </div>
+                                <div class="pixel-prop process-monitor">
+                                    <div class="bar b1"></div>
+                                    <div class="bar b2"></div>
+                                    <div class="bar b3"></div>
                                 </div>
-                                <!-- Exam Bed -->
-                                <div class="pixel-prop exam-bed">
-                                    <div class="exam-bed-side"></div>
-                                    <div class="bed-pillow"></div>
-                                </div>
-                                <!-- Medical Cart -->
-                                <div class="pixel-prop med-cart">
-                                    <div class="cart-drawer"></div>
-                                </div>
-                                <!-- IV Stand -->
-                                <div class="pixel-prop iv-pole"></div>
-                                <!-- First Aid Kit -->
-                                <div class="pixel-prop first-aid"></div>
-                            </div>
-                            <div class="env-layer" id="env-emergency">
-                                <!-- Operating Table -->
-                                <div class="pixel-prop op-table">
-                                    <div class="op-light"></div>
-                                </div>
-                                <!-- Surgical Light -->
-                                <div class="pixel-prop surg-light">
-                                    <div class="surg-light-head"></div>
-                                    <div class="surg-light-beam"></div>
-                                </div>
-                                <!-- IV Drip -->
-                                <div class="pixel-prop iv-drip">
-                                    <div class="iv-bag"></div>
-                                    <div class="iv-tube"></div>
-                                </div>
-                                <!-- Defibrillator -->
-                                <div class="pixel-prop defibrillator"></div>
-                                <!-- Emergency Cart -->
-                                <div class="pixel-prop emergency-cart">
-                                    <div class="cart-tray"></div>
-                                </div>
-                                <!-- Heart Monitor -->
-                                <div class="pixel-prop heart-monitor">
-                                    <div class="monitor-display">
-                                        <div class="ecg-line"></div>
-                                    </div>
-                                </div>
-                                <!-- Oxygen Tank -->
-                                <div class="pixel-prop oxygen-tank"></div>
-                            </div>
-                            <div class="env-layer" id="env-neuro">
-                                <!-- Brain Scanner -->
-                                <div class="pixel-prop brain-scanner">
-                                    <div class="scanner-ring"></div>
-                                    <div class="scanner-beam"></div>
-                                </div>
-                                <!-- Holographic Display -->
-                                <div class="pixel-prop holo-display">
-                                    <div class="holo-brain"></div>
-                                    <div class="holo-particles"></div>
-                                </div>
-                                <!-- Neural Interface Chair -->
-                                <div class="pixel-prop neural-chair">
-                                    <div class="chair-headset"></div>
-                                </div>
-                                <!-- Synapse Projector -->
-                                <div class="pixel-prop synapse-projector"></div>
-                                <!-- EEG Monitor -->
-                                <div class="pixel-prop eeg-monitor">
-                                    <div class="eeg-waves"></div>
-                                </div>
-                                <!-- Memory Crystal -->
-                                <div class="pixel-prop memory-crystal"></div>
-                            </div>
-                            <div class="env-layer" id="env-memory">
-                                <!-- Server Racks -->
-                                <div class="pixel-prop server-rack r1">
-                                    <div class="server-rack-side"></div>
-                                    <div class="server-lights"></div>
-                                </div>
-                                <div class="pixel-prop server-rack r2">
-                                    <div class="server-rack-side"></div>
-                                    <div class="server-lights"></div>
-                                </div>
-                                <div class="pixel-prop server-rack r3">
-                                    <div class="server-rack-side"></div>
-                                    <div class="server-lights"></div>
-                                </div>
-                                <!-- Data Core -->
-                                <div class="pixel-prop data-core">
-                                    <div class="core-orb"></div>
-                                    <div class="core-ring"></div>
-                                </div>
-                                <!-- Memory Matrix -->
-                                <div class="pixel-prop memory-matrix">
-                                    <div class="matrix-cube"></div>
-                                </div>
-                                <!-- Backup Drives -->
-                                <div class="pixel-prop backup-array">
-                                    <div class="drive-unit"></div>
+                                <div class="pixel-prop clock-wall">
+                                    <div class="hand hour"></div>
+                                    <div class="hand minute"></div>
                                 </div>
                             </div>
+
+                            <!-- CRASH - Crash/hang issues -->
+                            <div class="env-layer" id="env-crash">
+                                <div class="pixel-prop warning-console">
+                                    <div class="error-flash"></div>
+                                </div>
+                                <div class="pixel-prop skull-icon"></div>
+                                <div class="pixel-prop broken-server">
+                                    <div class="crack"></div>
+                                </div>
+                                <div class="pixel-prop tombstone">
+                                    <div class="rip">R.I.P</div>
+                                </div>
+                                <div class="pixel-prop explosion e1"></div>
+                                <div class="pixel-prop explosion e2"></div>
+                            </div>
+
+                            <!-- BEHAVIOR - Incorrect behavior -->
                             <div class="env-layer" id="env-behavior">
-                                <!-- Therapy Couch -->
-                                <div class="pixel-prop therapy-couch">
-                                    <div class="cushion"></div>
+                                <div class="pixel-prop brain-tank">
+                                    <div class="liquid"></div>
+                                    <div class="bubble"></div>
                                 </div>
-                                <!-- Bookcase -->
-                                <div class="pixel-prop bookcase">
-                                    <div class="book-row"></div>
-                                    <div class="book-row"></div>
-                                    <div class="book-row"></div>
+                                <div class="pixel-prop behavior-matrix">
+                                    <div class="matrix-row"></div>
+                                    <div class="matrix-row"></div>
+                                    <div class="matrix-row"></div>
                                 </div>
-                                <!-- Behavior Calibration Station -->
-                                <div class="pixel-prop behavior-station">
-                                    <div class="station-screen"></div>
+                                <div class="pixel-prop personality-crystal">
+                                    <div class="facet"></div>
                                 </div>
-                                <!-- Personality Matrix -->
-                                <div class="pixel-prop personality-matrix">
-                                    <div class="matrix-orb"></div>
+                                <div class="pixel-prop emotion-gauge">
+                                    <div class="needle"></div>
                                 </div>
-                                <!-- Test Charts -->
-                                <div class="pixel-prop test-chart"></div>
-                                <!-- Relaxation Fountain -->
-                                <div class="pixel-prop relax-fountain"></div>
+                                <div class="pixel-prop mirror-broken"></div>
                             </div>
+
+                            <!-- WEBUI - Web interface issues -->
+                            <div class="env-layer" id="env-webui">
+                                <div class="pixel-prop browser-window">
+                                    <div class="url-bar"></div>
+                                    <div class="content-area">
+                                        <div class="broken-img"></div>
+                                        <div class="broken-link"></div>
+                                    </div>
+                                </div>
+                                <div class="pixel-prop mobile-phone">
+                                    <div class="crack-screen"></div>
+                                </div>
+                                <div class="pixel-prop error-popup">
+                                    <div class="x-btn"></div>
+                                </div>
+                                <div class="pixel-prop loading-spinner"></div>
+                                <div class="pixel-prop globe-broken"></div>
+                            </div>
+
+                            <!-- MOBILE - Mobile app issues -->
+                            <div class="env-layer" id="env-mobile">
+                                <div class="pixel-prop phone-stand">
+                                    <div class="phone-screen"></div>
+                                </div>
+                                <div class="pixel-prop app-icon-grid">
+                                    <div class="icon i1"></div>
+                                    <div class="icon i2"></div>
+                                    <div class="icon i3"></div>
+                                    <div class="icon i4"></div>
+                                </div>
+                                <div class="pixel-prop battery-low">
+                                    <div class="level"></div>
+                                </div>
+                                <div class="pixel-prop wifi-signal">
+                                    <div class="wave w1"></div>
+                                    <div class="wave w2"></div>
+                                    <div class="wave w3"></div>
+                                </div>
+                                <div class="pixel-prop push-notification">
+                                    <div class="bell"></div>
+                                </div>
+                            </div>
+
+                            <!-- ===== CORE DEPARTMENTS ===== -->
+
+                            <!-- DISCORD -->
+                            <div class="env-layer" id="env-discord">
+                                <div class="pixel-prop discord-logo">
+                                    <div class="controller"></div>
+                                </div>
+                                <div class="pixel-prop voice-channel">
+                                    <div class="user u1"></div>
+                                    <div class="user u2"></div>
+                                    <div class="user u3"></div>
+                                </div>
+                                <div class="pixel-prop text-channel">
+                                    <div class="msg m1"></div>
+                                    <div class="msg m2"></div>
+                                    <div class="msg m3"></div>
+                                </div>
+                                <div class="pixel-prop bot-avatar">
+                                    <div class="bot-crown"></div>
+                                </div>
+                                <div class="pixel-prop role-colors">
+                                    <div class="color-stripe"></div>
+                                </div>
+                                <div class="pixel-prop server-crown"></div>
+                            </div>
+
+                            <!-- WHATSAPP -->
                             <div class="env-layer" id="env-whatsapp">
-                                <!-- Communications Array -->
-                                <div class="pixel-prop comms-array">
-                                    <div class="array-panel"></div>
-                                    <div class="signal-bars"></div>
+                                <div class="pixel-prop wa-logo">
+                                    <div class="phone-icon"></div>
                                 </div>
-                                <!-- Antenna Tower -->
-                                <div class="pixel-prop antenna">
-                                    <div class="antenna-dish"></div>
-                                    <div class="signal-wave"></div>
+                                <div class="pixel-prop chat-bubble sent">
+                                    <div class="tail"></div>
                                 </div>
-                                <!-- Phone Bank -->
-                                <div class="pixel-prop phone-bank">
-                                    <div class="phone-unit"></div>
-                                    <div class="phone-unit"></div>
+                                <div class="pixel-prop chat-bubble received">
+                                    <div class="tail"></div>
                                 </div>
-                                <!-- Encryption Server -->
-                                <div class="pixel-prop encrypter">
+                                <div class="pixel-prop green-check">
+                                    <div class="check c1"></div>
+                                    <div class="check c2"></div>
+                                </div>
+                                <div class="pixel-prop wa-call">
+                                    <div class="phone-handset"></div>
+                                </div>
+                                <div class="pixel-prop status-story">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="pixel-prop encrypter-lock">
+                                    <div class="lock-body"></div>
+                                    <div class=" shackle"></div>
+                                </div>
+                            </div>
+
+                            <!-- TELEGRAM -->
+                            <div class="env-layer" id="env-telegram">
+                                <div class="pixel-prop tg-logo">
+                                    <div class="plane"></div>
+                                </div>
+                                <div class="pixel-prop paper-plane">
+                                    <div class="trail"></div>
+                                </div>
+                                <div class="pixel-prop tg-channel">
+                                    <div class="broadcast-icon"></div>
+                                </div>
+                                <div class="pixel-prop tg-group">
+                                    <div class="avatars"></div>
+                                </div>
+                                <div class="pixel-prop botfather">
+                                    <div class="crown"></div>
+                                </div>
+                                <div class="pixel-prop secret-chat">
                                     <div class="lock-icon"></div>
                                 </div>
-                                <!-- Message Queue -->
-                                <div class="pixel-prop msg-queue">
-                                    <div class="queue-block"></div>
-                                </div>
-                                <!-- Satellite Dish -->
-                                <div class="pixel-prop sat-dish"></div>
                             </div>
-                            <div class="env-layer" id="env-discord">
-                                <!-- Gaming Setup -->
-                                <div class="pixel-prop gaming-setup">
-                                    <div class="monitor"></div>
-                                    <div class="keyboard"></div>
+
+                            <!-- SLACK -->
+                            <div class="env-layer" id="env-slack">
+                                <div class="pixel-prop slack-logo">
+                                    <div class="hash"></div>
                                 </div>
-                                <!-- Discord Server Rack -->
-                                <div class="pixel-prop server-rack r-blue">
-                                    <div class="r-blue-side"></div>
-                                    <div class="server-leds"></div>
+                                <div class="pixel-prop slack-channel">
+                                    <div class="hash-icon"></div>
                                 </div>
-                                <!-- Stream Setup -->
-                                <div class="pixel-prop stream-deck"></div>
-                                <!-- Chat Queue Display -->
-                                <div class="pixel-prop chat-display">
-                                    <div class="chat-scroll"></div>
+                                <div class="pixel-prop slack-dm">
+                                    <div class="avatar"></div>
+                                    <div class="message"></div>
                                 </div>
-                                <!-- Voice Channel Indicator -->
-                                <div class="pixel-prop voice-indicator">
-                                    <div class="voice-bars"></div>
+                                <div class="pixel-prop emoji-reaction">
+                                    <div class="face"></div>
                                 </div>
-                                <!-- Bot Command Console -->
-                                <div class="pixel-prop bot-console"></div>
+                                <div class="pixel-prop workspace">
+                                    <div class="grid-icon"></div>
+                                </div>
+                                <div class="pixel-prop giphy-search">
+                                    <div class="magnifier"></div>
+                                </div>
                             </div>
+
+                            <!-- SIGNAL -->
+                            <div class="env-layer" id="env-signal">
+                                <div class="pixel-prop signal-logo">
+                                    <div class="bell-shape"></div>
+                                </div>
+                                <div class="pixel-prop secure-chat">
+                                    <div class="lock-icon"></div>
+                                </div>
+                                <div class="pixel-prop timer-message">
+                                    <div class="countdown"></div>
+                                </div>
+                                <div class="pixel-prop story-ring">
+                                    <div class="ring"></div>
+                                </div>
+                                <div class="pixel-prop note-to-self">
+                                    <div class="pencil"></div>
+                                </div>
+                                <div class="pixel-prop group-update">
+                                    <div class="add-icon"></div>
+                                </div>
+                            </div>
+
+                            <!-- ===== EXTENSIONS DEPARTMENTS ===== -->
+
+                            <!-- FEISHU -->
+                            <div class="env-layer" id="env-feishu">
+                                <div class="pixel-prop feishu-logo">
+                                    <div class="bird"></div>
+                                </div>
+                                <div class="pixel-prop document-stack">
+                                    <div class="doc d1"></div>
+                                    <div class="doc d2"></div>
+                                </div>
+                                <div class="pixel-prop calendar-grid">
+                                    <div class="date"></div>
+                                </div>
+                                <div class="pixel-prop table-sheet">
+                                    <div class="cell"></div>
+                                </div>
+                                <div class="pixel-prop mind-map">
+                                    <div class="node center"></div>
+                                    <div class="node child1"></div>
+                                    <div class="node child2"></div>
+                                </div>
+                                <div class="pixel-prop messenger-blue"></div>
+                            </div>
+
+                            <!-- LINE -->
+                            <div class="env-layer" id="env-line">
+                                <div class="pixel-prop line-logo">
+                                    <div class="line-barcode"></div>
+                                </div>
+                                <div class="pixel-prop line-chat">
+                                    <div class="sticker"></div>
+                                </div>
+                                <div class="pixel-prop line-call">
+                                    <div class="phone-green"></div>
+                                </div>
+                                <div class="pixel-prop line-pay">
+                                    <div class="qr-square"></div>
+                                </div>
+                                <div class="pixel-prop line-oa">
+                                    <div class="official-badge"></div>
+                                </div>
+                                <div class="pixel-prop line-group">
+                                    <div class="avatars-row"></div>
+                                </div>
+                            </div>
+
+                            <!-- MATRIX -->
+                            <div class="env-layer" id="env-matrix">
+                                <div class="pixel-prop matrix-rain">
+                                    <div class="code c1"></div>
+                                    <div class="code c2"></div>
+                                    <div class="code c3"></div>
+                                </div>
+                                <div class="pixel-prop matrix-room">
+                                    <div class="door"></div>
+                                </div>
+                                <div class="pixel-prop encrypted-msg">
+                                    <div class="lock"></div>
+                                </div>
+                                <div class="pixel-prop bridge-icon">
+                                    <div class="link"></div>
+                                </div>
+                                <div class="pixel-prop synapse-status">
+                                    <div class="dot"></div>
+                                </div>
+                                <div class="pixel-prop element-client">
+                                    <div class="e-logo"></div>
+                                </div>
+                            </div>
+
+                            <!-- TEAMS -->
+                            <div class="env-layer" id="env-teams">
+                                <div class="pixel-prop teams-logo">
+                                    <div class="t-shape"></div>
+                                </div>
+                                <div class="pixel-prop teams-call">
+                                    <div class="camera"></div>
+                                    <div class="mic"></div>
+                                </div>
+                                <div class="pixel-prop teams-meeting">
+                                    <div class="grid-users"></div>
+                                </div>
+                                <div class="pixel-prop teams-chat">
+                                    <div class="thread"></div>
+                                </div>
+                                <div class="pixel-prop teams-files">
+                                    <div class="folder"></div>
+                                </div>
+                                <div class="pixel-prop teams-share">
+                                    <div class="link-chain"></div>
+                                </div>
+                                <div class="pixel-prop teams-calendar">
+                                    <div class="date-box"></div>
+                                </div>
+                            </div>
+
+                            <!-- ===== BOSS DEPARTMENT ===== -->
+
+                            <!-- BOSS -->
                             <div class="env-layer" id="env-boss">
-                                <!-- Boss Desk -->
+                                <div class="pixel-prop boss-throne">
+                                    <div class="spikes"></div>
+                                </div>
                                 <div class="pixel-prop boss-desk">
-                                    <div class="desk-computer"></div>
-                                    <div class="desk-items"></div>
+                                    <div class="monitors">
+                                        <div class="screen s1"></div>
+                                        <div class="screen s2"></div>
+                                        <div class="screen s3"></div>
+                                    </div>
                                 </div>
-                                <!-- Throne -->
-                                <div class="pixel-prop throne">
-                                    <div class="throne-back"></div>
+                                <div class="pixel-prop power-orb">
+                                    <div class="core"></div>
+                                    <div class="ring r1"></div>
+                                    <div class="ring r2"></div>
                                 </div>
-                                <!-- Red Screens -->
-                                <div class="pixel-prop red-screen s1">
-                                    <div class="screen-content"></div>
+                                <div class="pixel-prop admin-terminal">
+                                    <div class="terminal-screen">
+                                        <div class="typing">root@boss:~$</div>
+                                    </div>
                                 </div>
-                                <div class="pixel-prop red-screen s2">
-                                    <div class="screen-content"></div>
+                                <div class="pixel-prop warning-lights">
+                                    <div class="light l1"></div>
+                                    <div class="light l2"></div>
+                                    <div class="light l3"></div>
                                 </div>
-                                <!-- Power Core -->
-                                <div class="pixel-prop power-core">
-                                    <div class="core-glow"></div>
+                                <div class="pixel-prop security-drone">
+                                    <div class="eye"></div>
                                 </div>
-                                <!-- Security Terminal -->
-                                <div class="pixel-prop security-terminal">
-                                    <div class="terminal-screen"></div>
-                                </div>
-                                <!-- Warning Signs -->
-                                <div class="pixel-prop warning-sign"></div>
                             </div>
 
                             <div class="room-sprites">
