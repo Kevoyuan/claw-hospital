@@ -24,35 +24,35 @@ let totalApiCalls = 0;
 const DEPARTMENT_RULES = {
   'emergency': {
     keywords: ['启动', '启动失败', '崩溃', 'crash', '无响应', '连接中断', 'ECONNREFUSED', 'ECONNRESET', '无法启动', '进程退出', 'exit', 'died', '挂掉', '宕机', 'down'],
-    skillPath: 'emergency-skill'
+    skillPath: 'system/emergency-skill'
   },
   'neuro': {
     keywords: ['思维', '幻觉', 'hallucination', '幻觉', '胡言乱语', '乱说', '编造', '虚假信息', '事实错误', '记忆错误', '认知', '理解错误'],
-    skillPath: 'neuro-skill'
+    skillPath: 'system/neuro-skill'
   },
   'memory': {
     keywords: ['记忆', '丢失', '忘记', '不记得', 'memories', 'context', '忘记之前', '没有记忆', 'memory lost', '遗忘', '丢失'],
-    skillPath: 'memory-skill'
+    skillPath: 'system/memory-skill'
   },
   'behavior': {
     keywords: ['行为', '异常', 'behaviour', 'behavior', '奇怪', '不对', '失控', '发疯', ' personality', '性格', '表现异常'],
-    skillPath: 'behavior-skill'
+    skillPath: 'system/behavior-skill'
   },
   'discord': {
     keywords: ['discord', 'Discord', 'DC', '服务器', '频道', '消息发不出', '无法发送', 'webhook'],
-    skillPath: 'discord'
+    skillPath: 'core/discord'
   },
   'whatsapp': {
     keywords: ['whatsapp', 'WhatsApp', 'Whatsapp', 'wa', '无法发送', '消息失败'],
-    skillPath: 'whatsapp'
+    skillPath: 'core/whatsapp'
   },
   'config': {
     keywords: ['config', '配置', 'setting', '设置', '配置文件', 'env', '环境变量'],
-    skillPath: 'config'
+    skillPath: 'system/config'
   },
   'model': {
     keywords: ['model', '模型', 'API', 'key', '密钥', 'token', 'GPT', 'Claude', 'Anthropic', '费用', ' quota', '额度'],
-    skillPath: 'model'
+    skillPath: 'system/model'
   }
 };
 
