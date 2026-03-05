@@ -26,73 +26,73 @@ const DEPARTMENT_RULES = {
     // SYSTEM
     'runtime': {
         keywords: ['runtime', 'tooling', 'agent', '启动', '启动失败'],
-        skillPath: 'system/runtime'
+        skillPath: 'skills/system/runtime'
     },
     'crash': {
         keywords: ['crash', '崩溃', 'exit', 'died', '挂掉', '宕机', 'down', 'not responding'],
-        skillPath: 'system/crash'
+        skillPath: 'skills/system/crash'
     },
     'behavior': {
         keywords: ['behavior', 'incorrect', 'wrong', '行为', '异常', '不对'],
-        skillPath: 'system/behavior'
+        skillPath: 'skills/system/behavior'
     },
     'webui': {
         keywords: ['webui', 'web-ui', 'interface', 'ui', '界面'],
-        skillPath: 'system/webui'
+        skillPath: 'skills/system/webui'
     },
     'mobile': {
         keywords: ['mobile', 'ios', 'android', 'app'],
-        skillPath: 'system/mobile'
+        skillPath: 'skills/system/mobile'
     },
     // CORE
     'discord': {
         keywords: ['discord', 'dc', 'Discord'],
-        skillPath: 'core/discord'
+        skillPath: 'skills/core/discord'
     },
     'telegram': {
         keywords: ['telegram', 'tg', 'Telegram'],
-        skillPath: 'core/telegram'
+        skillPath: 'skills/core/telegram'
     },
     'whatsapp': {
         keywords: ['whatsapp', 'wa', 'WhatsApp'],
-        skillPath: 'core/whatsapp'
+        skillPath: 'skills/core/whatsapp'
     },
     'slack': {
         keywords: ['slack', 'Slack'],
-        skillPath: 'core/slack'
+        skillPath: 'skills/core/slack'
     },
     'signal': {
         keywords: ['signal', 'Signal'],
-        skillPath: 'core/signal'
+        skillPath: 'skills/core/signal'
     },
     // EXTENSIONS
     'feishu': {
         keywords: ['feishu', '飞书', 'Feishu', 'lark'],
-        skillPath: 'extensions/feishu'
+        skillPath: 'skills/extensions/feishu'
     },
     'line': {
         keywords: ['line', 'Line'],
-        skillPath: 'extensions/line'
+        skillPath: 'skills/extensions/line'
     },
     'matrix': {
         keywords: ['matrix', 'Matrix'],
-        skillPath: 'extensions/matrix'
+        skillPath: 'skills/extensions/matrix'
     },
     'teams': {
         keywords: ['teams', 'Teams', 'msteams'],
-        skillPath: 'extensions/msteams'
+        skillPath: 'skills/extensions/msteams'
     },
     'mattermost': {
         keywords: ['mattermost', 'Mattermost'],
-        skillPath: 'extensions/mattermost'
+        skillPath: 'skills/extensions/mattermost'
     },
     'nostr': {
         keywords: ['nostr', 'Nostr'],
-        skillPath: 'extensions/nostr'
+        skillPath: 'skills/extensions/nostr'
     },
     'twitch': {
         keywords: ['twitch', 'Twitch'],
-        skillPath: 'extensions/twitch'
+        skillPath: 'skills/extensions/twitch'
     }
 };
 
@@ -382,10 +382,6 @@ function handleRequest(req, res) {
   }
   
   // 404
-  
-    }
-  }
-  res.writeHead(404, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify({ error: 'Not found' }));
 }
 
