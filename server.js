@@ -375,16 +375,24 @@ function handleRequest(req, res) {
     if (fs.existsSync(indexPath)) {
       let html = fs.readFileSync(indexPath, 'utf-8');
       
-      // 自动诊断 - 系统健康检查
+      // 自动诊断 - 读取缓存的健康状态
+      let healthStatus = { status: 'checking', channels: {} };
+      try {
+        const statusCache = fs.readFileSync('/tmp/openclaw-health.json', 'utf-8');
+        healthStatus = JSON.parse(statusCache);
+      } catch (e) {
+        // 缓存不存在，返回默认状态
+        healthStatus = { 
+          status: 'unknown', 
+          channels: { note: 'Run openclaw health --json > /tmp/openclaw-health.json for live data' }
+        };
+      }
+      
       const autoDiagnosis = {
         timestamp: new Date().toISOString(),
         visitCount: totalVisits,
-        status: 'healthy',
-        checks: {
-          runtime: 'ok',
-          channels: 'ok',
-          memory: 'ok'
-        }
+        status: healthStatus.status,
+        checks: healthStatus
       };
       
       // 注入诊断数据到页面
