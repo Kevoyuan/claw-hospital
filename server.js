@@ -3,6 +3,64 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
+
+// GitHub raw URL for skills
+const GITHUB_RAW = 'https://raw.githubusercontent.com/Kevoyuan/claw-hospital/master/skills';
+
+// Fetch from GitHub
+function fetchFromGitHub(skillPath) {
+  return new Promise((resolve, reject) => {
+    const url = GITHUB_RAW + '/' + skillPath + '/SKILL.md';
+    https.get(url, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        if (res.statusCode === 200) resolve(data);
+        else resolve(null);
+      });
+    }).on('error', reject);
+  });
+}
+
+// Get department solutions from GitHub
+async function getDepartmentSolutions(dept) {
+  const deptMap = {
+    'discord': 'core/discord',
+    'whatsapp': 'core/whatsapp',
+    'telegram': 'core/telegram',
+    'slack': 'core/slack',
+    'signal': 'core/signal',
+    'runtime': 'system/runtime',
+    'crash': 'system/crash',
+    'behavior': 'system/behavior',
+    'webui': 'system/webui',
+    'mobile': 'system/mobile',
+    'feishu': 'extensions/feishu',
+    'line': 'extensions/line',
+    'matrix': 'extensions/matrix',
+    'teams': 'extensions/teams'
+  };
+  
+  const githubPath = deptMap[dept];
+  if (!githubPath) return null;
+  
+  const content = await fetchFromGitHub(githubPath);
+  if (!content) return null;
+  
+  // Extract solutions from markdown
+  const solutions = [];
+  const lines = content.split('\n');
+  let inSolutions = false;
+  for (const line of lines) {
+    if (line.includes('## ')) inSolutions = false;
+    if (line.includes('## 解决方案') || line.includes('## Solutions')) inSolutions = true;
+    if (inSolutions && line.trim() && !line.startsWith('#') && !line.startsWith('##')) {
+      solutions.push(line.trim());
+    }
+  }
+  return solutions.length > 0 ? solutions : null;
+}
 
 const PORT = process.env.PORT || 3000;
 
@@ -216,7 +274,7 @@ function handleRequest(req, res) {
   if (pathname === '/api/diagnose' && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => body += chunk);
-    req.on('end', () => {
+    req.on('end', async () => {
       try {
         const { description } = JSON.parse(body);
         
@@ -254,7 +312,7 @@ function handleRequest(req, res) {
           return;
         }
         
-        const solutions = getDepartmentSolution(department);
+        const solutions = await getDepartmentSolutions(department);
         
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
