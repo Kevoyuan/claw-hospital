@@ -195,6 +195,19 @@ function handleRequest(req, res) {
   const pathname = url.pathname;
   
   // API 路由
+  
+  // Agent 自动诊断入口 - 访问自动诊断
+  if (pathname === '/api/agent' && req.method === 'GET') {
+    totalVisits++;
+    const agentDiagnosis = diagnoseIssue('Agent self-check');
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      type: 'agent-visit',
+      visitCount: totalVisits,
+      diagnosis: agentDiagnosis
+    }));
+    return;
+  }
   if (pathname === '/api/diagnose' && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => body += chunk);
