@@ -165,3 +165,23 @@ fetchBackendStats();
 setInterval(() => {
     fetchBackendStats();
 }, 2000);
+
+// Agent Demo - Auto diagnose a sample issue
+function agentDemo() {
+    const demoProblem = "OpenClaw WhatsApp not responding";
+    fetch('/api/diagnose', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description: demoProblem })
+    })
+    .then(r => r.json())
+    .then(data => {
+        console.log('Agent Demo Result:', data);
+        document.getElementById('agentResult').innerHTML = 
+            '<pre style="color: #0f0; font-size: 9px;">' + JSON.stringify(data, null, 2) + '</pre>';
+    })
+    .catch(err => console.error('Demo error:', err));
+}
+
+// Run demo after 2 seconds
+setTimeout(agentDemo, 2000);
