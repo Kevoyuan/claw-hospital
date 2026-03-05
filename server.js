@@ -199,12 +199,17 @@ function handleRequest(req, res) {
   // Agent 自动诊断入口 - 访问自动诊断
   if (pathname === '/api/agent' && req.method === 'GET') {
     totalVisits++;
-    const agentDiagnosis = diagnoseIssue('Agent self-check');
+    // 返回引导 Agent 进行诊断的信息
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       type: 'agent-visit',
       visitCount: totalVisits,
-      diagnosis: agentDiagnosis
+      message: 'Agent detected. Use POST /api/diagnose with description to get diagnosis.',
+      example: {
+        method: 'POST',
+        url: '/api/diagnose',
+        body: { description: 'OpenClaw Discord not responding' }
+      }
     }));
     return;
   }
