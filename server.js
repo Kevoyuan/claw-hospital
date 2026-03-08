@@ -498,18 +498,6 @@ function handleRequest(req, res) {
             }
           });
         }
-        if (fixSectionMatch) {
-          const fixLines = fixSectionMatch[1].split('\n');
-          fixLines.forEach(line => {
-            const trimmed = line.trim();
-            if (trimmed && (trimmed.startsWith('```') || trimmed.startsWith('openclaw') || trimmed.startsWith('npm '))) {
-              const cmd = trimmed.replace(/^```bash\n?/, '').replace(/```$/, '').trim();
-              if (cmd && !fixCommands.includes(cmd)) {
-                fixCommands.push(cmd);
-              }
-            }
-          });
-        }
         
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
