@@ -45,6 +45,34 @@ body {
     overflow: hidden;
     position: relative;
     line-height: 1.4;
+    /* 移动端触摸滚动支持 */
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 允许移动端滚动 */
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto;
+        height: 100vh;
+        height: 100dvh;
+    }
+    
+    .container {
+        overflow-y: visible;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .split-view {
+        flex-direction: column;
+    }
+    
+    .view-panel {
+        width: 100% !important;
+        min-height: 50vh;
+        overflow-y: auto;
+    }
 }
 
 /* --- CRT EFFECTS --- */
@@ -107,6 +135,8 @@ body {
     gap: 20px;
     z-index: 10;
     position: relative;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Panels & Borders */
@@ -170,6 +200,13 @@ body {
     gap: 20px;
     height: 65vh;
     min-height: 400px;
+}
+
+@media (max-width: 768px) {
+    .split-view {
+        flex-direction: column;
+        height: auto;
+    }
 }
 
 .view-panel {
