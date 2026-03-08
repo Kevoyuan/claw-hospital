@@ -475,22 +475,29 @@ function handleRequest(req, res) {
         // 提取修复命令
         const fixCommands = [];
         
-        // 提取 bash 代码块 (简化正则)
-        const bashRegex = /```bash\n([\s\S]*?)```/g;
-        let match;
-        while ((match = bashRegex.exec(content)) !== null) {
-          const cmdBlock = match[1].trim();
-          // 按行处理
-          cmdBlock.split('\n').forEach(line => {
-            const trimmed = line.trim();
-            if (trimmed && !trimmed.startsWith('#') && !fixCommands.includes(trimmed)) {
-              fixCommands.push(trimmed);
+        // 备选方案：从解决方案文本中提取命令
+        const allLines = content.split('\n');
+        for (const line of allLines) {
+          const trimmed = line.trim();
+          // 匹配常见的命令行模式
+          if (trimmed.match(/^(openclaw|npm |ps |lsof |tail |cat |grep )/) && 
+              !fixCommands.includes(trimmed)) {
+            fixCommands.push(trimmed);
+          }
+        }
+        
+        // 也尝试用正则匹配 bash 代码块
+        const codeBlockRegex = /```bash\n([\s\S]*?)\n```/g;
+        let codeMatch;
+        while ((codeMatch = codeBlockRegex.exec(content)) !== null) {
+          const cmds = codeMatch[1].split('\n');
+          cmds.forEach(cmd => {
+            const t = cmd.trim();
+            if (t && !fixCommands.includes(t)) {
+              fixCommands.push(t);
             }
           });
         }
-        
-        // 提取一键修复命令部分
-        const fixSectionMatch = content.match(/## 一键修复命令([\s\S]*?)(?:##|$)/);
         if (fixSectionMatch) {
           const fixLines = fixSectionMatch[1].split('\n');
           fixLines.forEach(line => {
