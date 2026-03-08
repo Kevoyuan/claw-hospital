@@ -8,10 +8,18 @@ System crash and hang issues.
 
 ## 解决方案
 
-检查日志: `tail -100 /tmp/openclaw/openclaw-2026-03-05.log`
+```bash
+tail -100 /tmp/openclaw/openclaw-2026-03-05.log
+```
 
-重启 Gateway: `openclaw gateway restart`
+```bash
+openclaw gateway restart
+```
 
-检查进程: `ps aux | grep openclaw`
+```bash
+ps aux | grep openclaw
+```
 
-检查端口: `lsof -i :3000`
+```bash
+lsof -i :3000
+```
