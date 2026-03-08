@@ -475,26 +475,17 @@ function handleRequest(req, res) {
         // 提取修复命令
         const fixCommands = [];
         
-        // 提取 bash 代码块
-        const bashMatches = content.match(/```bash\n?([\s\S]*?)```/g);
-        if (bashMatches) {
-          bashMatches.forEach(cmd => {
-            const cleaned = cmd.replace(/```bash\n?/g, '').replace(/```$/g, '').trim();
-            // 过滤掉非命令行
-            const lines = cleaned.split('\n').filter(line => 
-              line.trim().startsWith('#') || 
-              line.trim().startsWith('openclaw') ||
-              line.trim().startsWith('npm ') ||
-              line.trim().startsWith('ps ') ||
-              line.trim().startsWith('lsof') ||
-              line.trim().startsWith('tail')
-            );
-            lines.forEach(line => {
-              const cmd = line.trim();
-              if (cmd && !fixCommands.includes(cmd) && !cmd.startsWith('#')) {
-                fixCommands.push(cmd);
-              }
-            });
+        // 提取 bash 代码块 (简化正则)
+        const bashRegex = /```bash\n([\s\S]*?)```/g;
+        let match;
+        while ((match = bashRegex.exec(content)) !== null) {
+          const cmdBlock = match[1].trim();
+          // 按行处理
+          cmdBlock.split('\n').forEach(line => {
+            const trimmed = line.trim();
+            if (trimmed && !trimmed.startsWith('#') && !fixCommands.includes(trimmed)) {
+              fixCommands.push(trimmed);
+            }
           });
         }
         
