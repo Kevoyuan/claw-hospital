@@ -472,21 +472,10 @@ function handleRequest(req, res) {
           return;
         }
         
-        // 提取修复命令
+        // 提取修复命令 - 使用更宽松的正则
         const fixCommands = [];
         
-        // 备选方案：从解决方案文本中提取命令
-        const allLines = content.split('\n');
-        for (const line of allLines) {
-          const trimmed = line.trim();
-          // 匹配常见的命令行模式
-          if (trimmed.match(/^(openclaw|npm |ps |lsof |tail |cat |grep )/) && 
-              !fixCommands.includes(trimmed)) {
-            fixCommands.push(trimmed);
-          }
-        }
-        
-        // 也尝试用正则匹配 bash 代码块
+        // 方法1: 匹配 bash 代码块
         const codeBlockRegex = /```bash\n([\s\S]*?)\n```/g;
         let codeMatch;
         while ((codeMatch = codeBlockRegex.exec(content)) !== null) {
@@ -495,6 +484,25 @@ function handleRequest(req, res) {
             const t = cmd.trim();
             if (t && !fixCommands.includes(t)) {
               fixCommands.push(t);
+            }
+          });
+        }
+        
+        // 方法2: 匹配纯文本中的命令
+        const lineCommands = [
+          'openclaw gateway restart',
+          'openclaw doctor',
+          'openclaw channels status',
+          'openclaw gateway start',
+          'openclaw gateway stop',
+          'openclaw status'
+        ];
+        
+        // 如果从代码块没找到，尝试从全文匹配
+        if (fixCommands.length === 0) {
+          lineCommands.forEach(cmd => {
+            if (content.includes(cmd) && !fixCommands.includes(cmd)) {
+              fixCommands.push(cmd);
             }
           });
         }
