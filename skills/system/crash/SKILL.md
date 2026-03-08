@@ -23,3 +23,13 @@ ps aux | grep openclaw
 ```bash
 lsof -i :3000
 ```
+
+## 一键修复命令
+
+```bash
+openclaw doctor
+openclaw gateway restart
+openclaw status
+ps aux | grep openclaw
+lsof -i :18789
+```
