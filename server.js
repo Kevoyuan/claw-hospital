@@ -425,6 +425,109 @@ function handleRequest(req, res) {
     res.end(JSON.stringify({ totalVisits }));
     return;
   }
+
+  // 一键修复 - 获取修复命令
+  if (pathname === '/api/fix' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', async () => {
+      try {
+        const { department, issue } = JSON.parse(body);
+        
+        if (!department) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Missing department' }));
+          return;
+        }
+        
+        // 从 GitHub 获取 SKILL.md
+        const deptMap = {
+          'discord': 'core/discord',
+          'whatsapp': 'core/whatsapp',
+          'telegram': 'core/telegram',
+          'slack': 'core/slack',
+          'signal': 'core/signal',
+          'runtime': 'system/crash', // runtime 使用 crash 科室
+          'crash': 'system/crash',
+          'behavior': 'system/behavior-skill',
+          'config': 'system/config',
+          'model': 'system/model',
+          'feishu': 'extensions/feishu',
+          'line': 'extensions/line',
+          'matrix': 'extensions/matrix',
+          'teams': 'extensions/msteams'
+        };
+        
+        const githubPath = deptMap[department];
+        if (!githubPath) {
+          res.writeHead(404, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Department not found' }));
+          return;
+        }
+        
+        const content = await fetchFromGitHub(githubPath);
+        if (!content) {
+          res.writeHead(404, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Skill content not found' }));
+          return;
+        }
+        
+        // 提取修复命令
+        const fixCommands = [];
+        
+        // 提取 bash 代码块
+        const bashMatches = content.match(/```bash\n?([\s\S]*?)```/g);
+        if (bashMatches) {
+          bashMatches.forEach(cmd => {
+            const cleaned = cmd.replace(/```bash\n?/g, '').replace(/```$/g, '').trim();
+            // 过滤掉非命令行
+            const lines = cleaned.split('\n').filter(line => 
+              line.trim().startsWith('#') || 
+              line.trim().startsWith('openclaw') ||
+              line.trim().startsWith('npm ') ||
+              line.trim().startsWith('ps ') ||
+              line.trim().startsWith('lsof') ||
+              line.trim().startsWith('tail')
+            );
+            lines.forEach(line => {
+              const cmd = line.trim();
+              if (cmd && !fixCommands.includes(cmd) && !cmd.startsWith('#')) {
+                fixCommands.push(cmd);
+              }
+            });
+          });
+        }
+        
+        // 提取一键修复命令部分
+        const fixSectionMatch = content.match(/## 一键修复命令([\s\S]*?)(?:##|$)/);
+        if (fixSectionMatch) {
+          const fixLines = fixSectionMatch[1].split('\n');
+          fixLines.forEach(line => {
+            const trimmed = line.trim();
+            if (trimmed && (trimmed.startsWith('```') || trimmed.startsWith('openclaw') || trimmed.startsWith('npm '))) {
+              const cmd = trimmed.replace(/^```bash\n?/, '').replace(/```$/, '').trim();
+              if (cmd && !fixCommands.includes(cmd)) {
+                fixCommands.push(cmd);
+              }
+            }
+          });
+        }
+        
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          department: department,
+          departmentName: getDepartmentName(department),
+          fixCommands: fixCommands,
+          instructions: '复制以下命令到终端执行'
+        }, null, 2));
+        
+      } catch (e) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
   
   // 前端静态文件服务 - 访问时自动诊断
   if (pathname === '/' || pathname === '/index.html') {

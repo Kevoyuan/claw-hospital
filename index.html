@@ -631,6 +631,17 @@
                         <div class="api-title">AGENT API</div>
                         <div id="agentResult" style="margin: 10px 0; max-height: 150px; overflow: auto;"></div>
                         <div class="api-code">curl -X POST /api/diagnose -H "Content-Type: application/json" -d '{"description":"问题描述"}'</div>
+                        
+                        <!-- 一键修复按钮 -->
+                        <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="fixDepartment" placeholder="科室名称 (如: discord)" 
+                                   style="flex:1; padding: 8px; background: #1a1a2e; border: 1px solid #0f0; color: #0f0; font-family: monospace;">
+                            <button onclick="getFixCommands()" 
+                                    style="padding: 8px 15px; background: #0f0; color: #000; border: none; cursor: pointer; font-family: 'Press Start 2P'; font-size: 8px;">
+                                一键修复
+                            </button>
+                        </div>
+                        <div id="fixResult" style="margin-top: 10px; max-height: 200px; overflow: auto; font-family: monospace; font-size: 10px;"></div>
                     </div>
                     <!-- Statistics -->
                     <div class="api-status" style="flex:1; display:flex; flex-direction:column; margin-bottom: 0;">

@@ -154,3 +154,23 @@ openclaw status            # 全面状态检查
 # 日志
 # 查看系统日志或 OpenClaw 日志目录
 ```
+
+## 一键修复命令
+
+### 诊断
+```bash
+openclaw doctor
+openclaw gateway status
+openclaw status
+```
+
+### Gateway 无响应
+```bash
+openclaw gateway restart
+lsof -i :18789
+```
+
+### 重新初始化
+```bash
+openclaw onboard
+```

@@ -183,5 +183,49 @@ function agentDemo() {
     .catch(err => console.error('Demo error:', err));
 }
 
+// 一键修复 - 获取修复命令
+function getFixCommands() {
+    const dept = document.getElementById('fixDepartment').value.trim();
+    if (!dept) {
+        document.getElementById('fixResult').innerHTML = '<span style="color: #ff6b6b;">请输入科室名称</span>';
+        return;
+    }
+    
+    document.getElementById('fixResult').innerHTML = '<span style="color: #0f0;">诊断中...</span>';
+    
+    fetch('/api/fix', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ department: dept })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.error) {
+            document.getElementById('fixResult').innerHTML = '<span style="color: #ff6b6b;">错误: ' + data.error + '</span>';
+            return;
+        }
+        
+        let html = '<div style="color: #0f0; margin-bottom: 10px;">';
+        html += '科室: ' + data.departmentName + '<br>';
+        html += '</div>';
+        
+        if (data.fixCommands && data.fixCommands.length > 0) {
+            html += '<div style="color: #ffeb3b; margin-bottom: 5px;">修复命令:</div>';
+            data.fixCommands.forEach((cmd, i) => {
+                html += '<div style="margin: 5px 0; padding: 5px; background: #1a1a2e; border-left: 3px solid #0f0;">';
+                html += '<span style="color: #888;">$</span> <span style="color: #0f0;">' + cmd + '</span>';
+                html += '</div>';
+            });
+        } else {
+            html += '<div style="color: #888;">暂无修复命令</div>';
+        }
+        
+        document.getElementById('fixResult').innerHTML = html;
+    })
+    .catch(err => {
+        document.getElementById('fixResult').innerHTML = '<span style="color: #ff6b6b;">请求失败: ' + err.message + '</span>';
+    });
+}
+
 // Run demo after 2 seconds
 setTimeout(agentDemo, 2000);
