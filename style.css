@@ -5190,3 +5190,120 @@ footer {
         flex: 1 1 30%;
     }
 }
+
+/* ==================== GEMINI-STYLE MOBILE FIX ==================== */
+/* 基于截图分析：场景元素太小，需要大幅放大 */
+
+@media (max-width: 768px) {
+    /* 全屏容器 */
+    .container {
+        height: auto !important;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+    
+    /* 分割视图 */
+    .split-view {
+        display: block !important;
+        height: auto !important;
+    }
+    
+    .view-panel {
+        height: auto !important;
+        min-height: auto !important;
+    }
+    
+    /* 房间场景 - 大幅增加高度 */
+    #roomScene, .room-scene {
+        display: block !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        padding: 40px 20px !important;
+        box-sizing: border-box;
+    }
+    
+    /* 隐藏外部医院 */
+    #hospitalView {
+        display: none !important;
+    }
+    
+    /* 所有环境层默认显示 */
+    .env-layer {
+        display: flex !important;
+    }
+    
+    /* 场景网格 - 大幅放大 */
+    .scene-grid {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100% !important;
+        height: 100% !important;
+        transform: scale(3) !important;
+        transform-origin: center center;
+        gap: 40px !important;
+    }
+    
+    /* 终端银行 */
+    .terminal-bank {
+        display: flex !important;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .terminal {
+        width: 200px !important;
+        transform: scale(1.5);
+    }
+    
+    .term-screen {
+        font-size: 12px !important;
+    }
+    
+    /* 服务器机架 */
+    .server-rack {
+        display: flex !important;
+        transform: scale(2.5) !important;
+    }
+    
+    /* 崩溃场景 */
+    .broken-server-rig,
+    .crash-console {
+        transform: scale(2) !important;
+    }
+    
+    /* 脑容器 */
+    .brain-tank {
+        transform: scale(2.5) !important;
+    }
+    
+    .behavior-matrix-rig {
+        transform: scale(2) !important;
+    }
+    
+    /* 浏览器 */
+    .browser-rig {
+        transform: scale(2) !important;
+    }
+    
+    /* 手机 */
+    .phone-rig {
+        transform: scale(2) !important;
+    }
+    
+    /* 导航 */
+    .room-nav {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px !important;
+        gap: 10px !important;
+    }
+    
+    .room-btn {
+        flex: 1 1 40%;
+        min-height: 60px;
+        font-size: 14px !important;
+    }
+}
