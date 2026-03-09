@@ -5126,3 +5126,67 @@ footer {
         display: flex !important;
     }
 }
+
+/* ==================== MOBILE ULTRA FIX ==================== */
+
+@media (max-width: 768px) {
+    /* 强制显示房间场景 */
+    #roomScene, .room-scene {
+        display: block !important;
+        height: auto !important;
+        min-height: 500px !important;
+    }
+    
+    /* 隐藏医院外部 */
+    #hospitalView {
+        display: none !important;
+    }
+    
+    /* 显示所有环境层用于调试 */
+    #env-runtime,
+    #env-crash,
+    #env-behavior,
+    #env-webui,
+    #env-mobile,
+    #env-discord,
+    #env-whatsapp,
+    #env-telegram {
+        display: flex !important;
+    }
+    
+    .env-layer {
+        display: flex !important;
+        position: relative !important;
+    }
+    
+    .scene-grid {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+    }
+    
+    .terminal-bank {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .terminal {
+        width: 45%;
+        min-width: 140px;
+    }
+    
+    .server-rack {
+        display: flex;
+    }
+    
+    .room-nav {
+        display: flex !important;
+        flex-wrap: wrap;
+        position: static !important;
+    }
+    
+    .room-btn {
+        flex: 1 1 30%;
+    }
+}
