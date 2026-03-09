@@ -11,28 +11,27 @@ OpenClaw discord integration.
 openclaw config add discord
 ```
 
-## Common Issues
-See ISSUES.md
+## 常见问题
+
+| 病历号 | 问题 | 解决方案 |
+|--------|------|----------|
+| DC-001 | Bot online 但无 guild replies | `openclaw channels status --probe` → 允许 guild/channel |
+| DC-002 | Group messages ignored | 检查 mention gating → 提及 bot 或设置 `requireMention: false` |
+| DC-003 | DM replies missing | `openclaw pairing list discord` → 批准 DM pairing |
+| DC-004 | Bot Online 但不回复 | 检查 Message Content Intent / requireMention / DM pairing |
+| DC-005 | Gateway 错误 1006/1008 | 禁用插件 / 修复配置 / 检查 corrupted openclaw.json |
+| DC-006 | Bot 显示 Offline | 检查 token / 确认已添加到 server / Gateway 状态 |
+| DC-007 | "Failed to resolve Discord application id" | 清理旧凭证 / 验证 token / 检查网络 |
 
 ## 一键修复命令
 
-### 诊断
 ```bash
-openclaw doctor
+openclaw status
+openclaw status --all
+openclaw channels status --probe
 openclaw channels status discord
-```
-
-### 修复 Bot 权限
-```bash
-# 重新配置 Discord
-openclaw config set channels.discord.enabled true
-# 重启 Gateway
+openclaw doctor --fix
 openclaw gateway restart
-```
-
-### 检查 Bot 状态
-```bash
-openclaw channels status
 ```
 
 ## References
