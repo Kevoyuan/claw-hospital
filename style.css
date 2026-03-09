@@ -5543,3 +5543,35 @@ footer {
         overflow-x: hidden;
     }
 }
+
+/* ==================== 像素小人位置修复 ==================== */
+@media screen and (max-width: 768px) {
+    /* 医生精灵位置 */
+    .sprite {
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+    
+    .sprite-doctor {
+        bottom: 10px !important;
+        right: 10px !important;
+        left: auto !important;
+        transform: none !important;
+    }
+    
+    /* 对话框位置 */
+    #dialogBox {
+        position: fixed !important;
+        bottom: 80px !important;
+        left: 5px !important;
+        right: 5px !important;
+        width: auto !important;
+    }
+    
+    /* 医生名称位置 */
+    .npc-name {
+        position: absolute !important;
+        bottom: 60px !important;
+    }
+}
