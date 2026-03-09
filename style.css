@@ -4806,3 +4806,97 @@ footer {
         transform: scale(0.92);
     }
 }
+
+/* ==================== MOBILE SCENE FIX ==================== */
+
+@media (max-width: 768px) {
+    /* 确保场景可见 */
+    .room-scene {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100% !important;
+        min-height: 300px;
+        padding: 20px;
+        overflow: visible !important;
+    }
+    
+    /* 环境层可见 */
+    .env-layer {
+        display: none !important;
+    }
+    
+    .env-layer.active {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative !important;
+        inset: auto !important;
+        width: 100%;
+        height: 100%;
+        min-height: 250px;
+    }
+    
+    /* 场景网格居中 */
+    .scene-grid {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+        max-width: 300px;
+        transform: none !important;
+        padding: 10px;
+    }
+    
+    /* 终端银行 */
+    .terminal-bank {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+    
+    .terminal {
+        width: 90% !important;
+        max-width: 200px;
+    }
+    
+    /* 服务器机架 */
+    .server-rack {
+        transform: scale(0.8);
+    }
+    
+    /* 脑容器 */
+    .brain-container,
+    .brain-tank {
+        transform: scale(0.7);
+    }
+    
+    /* 手机场景 */
+    .phone-rig,
+    .phone-body {
+        transform: scale(0.8);
+    }
+    
+    /* 浏览器 */
+    .browser-rig {
+        width: 90% !important;
+        max-width: 220px;
+    }
+    
+    /* 修复崩溃场景 */
+    .broken-server-rig,
+    .crash-console {
+        transform: scale(0.7);
+    }
+    
+    /* 确保元素可见 */
+    .scene-grid > * {
+        position: relative;
+        visibility: visible;
+        opacity: 1;
+    }
+}
