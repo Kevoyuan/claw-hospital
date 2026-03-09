@@ -4531,3 +4531,110 @@ footer {
         transform: scale(0.95);
     }
 }
+
+/* ==================== GEMINI MOBILE UX IMPROVEMENTS ==================== */
+
+@media (max-width: 900px) {
+    /* 1. 更大的场景容器 */
+    .split-view { 
+        flex-direction: column; 
+        height: auto; 
+    }
+    
+    .view-panel { 
+        min-height: 60vh;
+        min-height: 60dvh;
+    }
+    
+    /* 增加医院场景高度 */
+    .hospital { 
+        height: 45vh !important; 
+        min-height: 350px !important; 
+    }
+    
+    /* 2. 导航横向滚动 */
+    .room-nav {
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        padding: 15px 10px !important;
+        gap: 10px !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    
+    .room-nav::-webkit-scrollbar { 
+        display: none; 
+    }
+    
+    /* 按钮满足 44px 触摸标准 */
+    .room-btn {
+        padding: 14px 20px !important;
+        font-size: 14px !important;
+        flex-shrink: 0 !important;
+        min-width: 80px;
+        min-height: 44px;
+    }
+    
+    /* 3. 像素场景放大 */
+    .room-scene {
+        min-height: 400px;
+        padding: 20px 15px;
+    }
+    
+    /* 放大终端 */
+    .scene-grid {
+        transform: scale(1.2);
+        transform-origin: center center;
+        padding: 30px 20px;
+    }
+    
+    /* 4. 像素抗锯齿 */
+    * {
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+    }
+    
+    /* 5. 触摸反馈 */
+    .room-btn:active {
+        transform: scale(0.95);
+        background: #0f0 !important;
+        color: #000 !important;
+    }
+}
+
+/* 更大的像素元素 */
+@media (max-width: 600px) {
+    .scene-grid {
+        transform: scale(1.4);
+    }
+    
+    .hospital {
+        height: 50vh !important;
+    }
+    
+    .room-btn {
+        padding: 16px 24px !important;
+        font-size: 16px !important;
+    }
+}
+
+/* 触摸友好的点击区域 */
+@media (hover: none) {
+    .terminal, 
+    .server-rack, 
+    .brain-tank,
+    .phone-body,
+    .browser-window {
+        cursor: pointer;
+        transition: transform 0.1s ease;
+    }
+    
+    .terminal:active,
+    .server-rack:active,
+    .brain-tank:active,
+    .phone-body:active,
+    .browser-window:active {
+        transform: scale(0.98);
+    }
+}
