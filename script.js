@@ -46,7 +46,8 @@ const deptThemes = {
 };
 
 function showHospital() {
-    document.getElementById('hospitalView').style.display = 'block';
+    // 使用 classList 替代 style.display
+    document.getElementById('hospitalView').classList.add('active');
     document.getElementById('roomScene').classList.remove('active');
     updateRoomButtons(-1);
 }
@@ -80,7 +81,8 @@ function showRoom(index) {
     const room = rooms[index];
     if (!room) return;
 
-    document.getElementById('hospitalView').style.display = 'none';
+    // 使用 classList 替代 style.display
+    document.getElementById('hospitalView').classList.remove('active');
     document.getElementById('roomScene').classList.add('active');
 
     document.getElementById('roomTitle').innerText = `${room.name} - ${room.dept}`;

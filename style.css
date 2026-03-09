@@ -5307,3 +5307,78 @@ footer {
         font-size: 14px !important;
     }
 }
+
+/* =========================================================
+   审核通过的最终移动端修复方案
+   ========================================================= */
+
+/* 1. 基础布局 */
+@media (max-width: 768px) {
+    .split-view {
+        flex-direction: column;
+        height: auto;
+    }
+
+    /* 2. 像素小人恢复 + 限制场景 */
+    .hospital {
+        overflow: hidden;
+    }
+    
+    .pixel-char {
+        display: block;
+        transform: scale(1.2);
+        transform-origin: bottom center;
+    }
+
+    /* 3. 合理缩放 */
+    .scene-grid {
+        transform: scale(1.2) !important;
+    }
+
+    /* 4 & 5. 导航触摸滑动 */
+    .room-nav {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+        gap: 8px;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+    }
+    
+    .room-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .room-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+}
+
+/* 2. 触摸设备交互修复 */
+@media (hover: none) and (pointer: coarse) {
+    .room-btn:hover {
+        background: rgba(0,0,0,0.4);
+        border-color: #444;
+    }
+    .room-btn.active, 
+    .room-btn.active:hover {
+        border-color: #0f0;
+        background: rgba(0,255,0,0.2);
+    }
+
+    .pixel-char:active {
+        transform: scale(1.5) translateY(-2px);
+    }
+}
+
+/* ==================== CLASSLIST 显示控制 ==================== */
+.hospital, .room-scene {
+    display: none;
+}
+
+.hospital.active, .room-scene.active {
+    display: block;
+}
