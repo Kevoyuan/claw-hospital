@@ -229,3 +229,227 @@ function getFixCommands() {
 
 // Run demo after 2 seconds
 setTimeout(agentDemo, 2000);
+
+// ==================== EVOMAP FUNCTIONS ====================
+
+// EvoMap data - department relationships
+const evoNodes = [
+    // System
+    { id: 'runtime', name: 'RUNTIME', category: 'system', x: 400, y: 80, color: '#ff9800' },
+    { id: 'crash', name: 'CRASH', category: 'system', x: 300, y: 150, color: '#f44336' },
+    { id: 'config', name: 'CONFIG', category: 'system', x: 500, y: 150, color: '#9c27b0' },
+    { id: 'model', name: 'MODEL', category: 'system', x: 400, y: 220, color: '#2196f3' },
+    { id: 'memory', name: 'MEMORY', category: 'system', x: 250, y: 220, color: '#00bcd4' },
+    { id: 'automation', name: 'AUTOMATION', category: 'system', x: 550, y: 220, color: '#607d8b' },
+    { id: 'security', name: 'SECURITY', category: 'system', x: 400, y: 300, color: '#f44336' },
+    
+    // Core Channels
+    { id: 'discord', name: 'DISCORD', category: 'core', x: 150, y: 350, color: '#5865F2' },
+    { id: 'whatsapp', name: 'WHATSAPP', category: 'core', x: 280, y: 380, color: '#25D366' },
+    { id: 'telegram', name: 'TELEGRAM', category: 'core', x: 400, y: 400, color: '#0088cc' },
+    { id: 'signal', name: 'SIGNAL', category: 'core', x: 520, y: 380, color: '#3a76f0' },
+    { id: 'slack', name: 'SLACK', category: 'core', x: 650, y: 350, color: '#4A154B' },
+    
+    // Extensions
+    { id: 'feishu', name: 'FEISHU', category: 'ext', x: 150, y: 480, color: '#29a1f6' },
+    { id: 'line', name: 'LINE', category: 'ext', x: 280, y: 500, color: '#00c300' },
+    { id: 'matrix', name: 'MATRIX', category: 'ext', x: 400, y: 520, color: '#7faaff' },
+    { id: 'teams', name: 'TEAMS', category: 'ext', x: 520, y: 500, color: '#6264a7' },
+    { id: 'mattermost', name: 'MATTERMOST', category: 'ext', x: 650, y: 480, color: '#0052cc' }
+];
+
+// Connections between nodes
+const evoConnections = [
+    // System connections
+    { from: 'runtime', to: 'crash' },
+    { from: 'runtime', to: 'config' },
+    { from: 'config', to: 'model' },
+    { from: 'config', to: 'memory' },
+    { from: 'model', to: 'automation' },
+    { from: 'memory', to: 'security' },
+    { from: 'crash', to: 'security' },
+    
+    // Channel connections to system
+    { from: 'discord', to: 'config' },
+    { from: 'whatsapp', to: 'config' },
+    { from: 'telegram', to: 'config' },
+    { from: 'signal', to: 'config' },
+    { from: 'slack', to: 'config' },
+    { from: 'feishu', to: 'config' },
+    { from: 'line', to: 'config' },
+    { from: 'matrix', to: 'config' },
+    { from: 'teams', to: 'config' },
+    { from: 'mattermost', to: 'config' },
+    
+    // Related channels
+    { from: 'discord', to: 'whatsapp' },
+    { from: 'telegram', to: 'signal' },
+    { from: 'feishu', to: 'line' },
+    { from: 'teams', to: 'mattermost' }
+];
+
+// Node information
+const evoInfo = {
+    'runtime': { issues: 1, desc: 'Gateway 启动/运行问题', cmds: 'openclaw gateway restart' },
+    'crash': { issues: 1, desc: '系统崩溃/卡住', cmds: 'openclaw doctor\ntail -100 /tmp/openclaw/*.log' },
+    'config': { issues: 2, desc: '配置错误/冲突', cmds: 'openclaw config get\nopenclaw doctor --fix' },
+    'model': { issues: 2, desc: '模型选择/额度问题', cmds: 'openclaw status' },
+    'memory': { issues: 2, desc: '记忆丢失/检索失败', cmds: 'openclaw memory search' },
+    'automation': { issues: 3, desc: 'Cron/Heartbeat 不执行', cmds: 'openclaw cron status' },
+    'security': { issues: 5, desc: '安全漏洞/CVE', cmds: 'openclaw security audit' },
+    'discord': { issues: 7, desc: '消息不回复/离线', cmds: 'openclaw channels status discord' },
+    'whatsapp': { issues: 11, desc: '连接失败/配对问题', cmds: 'openclaw whatsapp pair' },
+    'telegram': { issues: 15, desc: 'Bot 无响应/网络问题', cmds: 'openclaw pairing pending' },
+    'signal': { issues: 3, desc: 'Signal 连接问题', cmds: 'openclaw channels status signal' },
+    'slack': { issues: 3, desc: 'Socket mode/权限问题', cmds: 'openclaw channels status slack' },
+    'feishu': { issues: 2, desc: 'Group binding/权限', cmds: 'openclaw agents bindings' },
+    'line': { issues: 2, desc: 'LINE Bot 配置问题', cmds: 'openclaw channels status line' },
+    'matrix': { issues: 2, desc: 'Matrix 同步问题', cmds: 'openclaw channels status matrix' },
+    'teams': { issues: 2, desc: 'Teams 集成问题', cmds: 'openclaw channels status teams' },
+    'mattermost': { issues: 2, desc: '自托管实例问题', cmds: 'openclaw channels status mattermost' }
+};
+
+let evoMapDrawn = false;
+
+function toggleEvoMap() {
+    const evoView = document.getElementById('evoMapView');
+    const hospitalView = document.getElementById('hospitalView');
+    const roomScene = document.getElementById('roomScene');
+    
+    if (evoView.style.display === 'none') {
+        evoView.style.display = 'block';
+        hospitalView.style.display = 'none';
+        roomScene.classList.remove('active');
+        if (!evoMapDrawn) {
+            drawEvoMap();
+            evoMapDrawn = true;
+        }
+    } else {
+        evoView.style.display = 'none';
+        hospitalView.style.display = 'block';
+    }
+}
+
+function drawEvoMap() {
+    const svg = document.getElementById('evoMapSvg');
+    const width = svg.clientWidth || 800;
+    const height = svg.clientHeight || 600;
+    
+    let html = '';
+    
+    // Draw connections first (behind nodes)
+    evoConnections.forEach(conn => {
+        const fromNode = evoNodes.find(n => n.id === conn.from);
+        const toNode = evoNodes.find(n => n.id === conn.to);
+        if (fromNode && toNode) {
+            html += `<line x1="${fromNode.x}" y1="${fromNode.y}" x2="${toNode.x}" y2="${toNode.y}" 
+                     stroke="#333" stroke-width="2" opacity="0.5"/>`;
+        }
+    });
+    
+    // Draw nodes
+    evoNodes.forEach(node => {
+        const info = evoInfo[node.id] || { issues: 0, desc: '' };
+        html += `
+            <g class="evo-node" onclick="showEvoInfo('${node.id}')" 
+               style="cursor: pointer;" 
+               onmouseover="highlightNode('${node.id}', true)" 
+               onmouseout="highlightNode('${node.id}', false)">
+                <circle cx="${node.x}" cy="${node.y}" r="35" fill="${node.color}" opacity="0.8"/>
+                <circle cx="${node.x}" cy="${node.y}" r="35" fill="none" stroke="${node.color}" stroke-width="3"/>
+                <text x="${node.x}" y="${node.y}" text-anchor="middle" dominant-baseline="middle" 
+                      fill="#fff" font-family="monospace" font-size="9" font-weight="bold">
+                    ${node.name}
+                </text>
+                <circle cx="${node.x + 25}" cy="${node.y - 25}" r="10" fill="#f00"/>
+                <text x="${node.x + 25}" y="${node.y - 25}" text-anchor="middle" dominant-baseline="middle" 
+                      fill="#fff" font-family="monospace" font-size="8">${info.issues}</text>
+            </g>
+        `;
+    });
+    
+    svg.innerHTML = html;
+}
+
+function showEvoInfo(nodeId) {
+    const node = evoNodes.find(n => n.id === nodeId);
+    const info = evoInfo[nodeId] || { issues: 0, desc: '无数据', cmds: '' };
+    
+    const infoDiv = document.getElementById('evoInfo');
+    infoDiv.innerHTML = `
+        <div style="color: ${node.color}; font-weight: bold; margin-bottom: 5px;">
+            ${node.name} 科室
+        </div>
+        <div>问题数: ${info.issues}</div>
+        <div>${info.desc}</div>
+        <div style="margin-top: 5px; color: #0f0;">命令:</div>
+        <pre style="margin: 5px 0; white-space: pre-wrap;">${info.cmds}</pre>
+        <button onclick="navigateToRoom('${node.id}')" 
+                style="padding: 5px 10px; background: #0f0; color: #000; border: none; cursor: pointer; font-family: monospace;">
+            进入科室 →
+        </button>
+    `;
+}
+
+function navigateToRoom(nodeId) {
+    const roomMap = {
+        'runtime': 1, 'crash': 2, 'behavior': 3, 'webui': 4, 'mobile': 5,
+        'discord': 6, 'whatsapp': 7, 'telegram': 8, 'slack': 9, 'signal': 10,
+        'feishu': 11, 'line': 12, 'matrix': 13, 'teams': 14, 'mattermost': 15,
+        'config': 16, 'model': 16, 'memory': 16, 'automation': 16, 'security': 16
+    };
+    
+    const roomIndex = roomMap[nodeId] || 0;
+    toggleEvoMap();
+    showRoom(roomIndex);
+}
+
+function highlightNode(nodeId, highlight) {
+    // Could add visual highlight effects here
+}
+
+function searchEvoMap(query) {
+    if (!query) {
+        drawEvoMap();
+        return;
+    }
+    
+    query = query.toLowerCase();
+    const svg = document.getElementById('evoMapSvg');
+    let html = '';
+    
+    // Draw connections (dimmed)
+    evoConnections.forEach(conn => {
+        const fromNode = evoNodes.find(n => n.id === conn.from);
+        const toNode = evoNodes.find(n => n.id === conn.to);
+        if (fromNode && toNode) {
+            html += `<line x1="${fromNode.x}" y1="${fromNode.y}" x2="${toNode.x}" y2="${toNode.y}" 
+                     stroke="#333" stroke-width="1" opacity="0.2"/>`;
+        }
+    });
+    
+    // Draw nodes (highlighted if matches)
+    evoNodes.forEach(node => {
+        const info = evoInfo[node.id] || { issues: 0, desc: '' };
+        const matches = node.name.toLowerCase().includes(query) || 
+                       node.id.includes(query) ||
+                       info.desc.toLowerCase().includes(query);
+        
+        const opacity = matches ? 1 : 0.3;
+        const strokeWidth = matches ? 4 : 2;
+        
+        html += `
+            <g class="evo-node" onclick="showEvoInfo('${node.id}')" 
+               style="cursor: pointer; opacity: ${opacity};">
+                <circle cx="${node.x}" cy="${node.y}" r="35" fill="${node.color}" opacity="0.8"/>
+                <circle cx="${node.x}" cy="${node.y}" r="35" fill="none" stroke="${node.color}" stroke-width="${strokeWidth}"/>
+                <text x="${node.x}" y="${node.y}" text-anchor="middle" dominant-baseline="middle" 
+                      fill="#fff" font-family="monospace" font-size="9" font-weight="bold">
+                    ${node.name}
+                </text>
+            </g>
+        `;
+    });
+    
+    svg.innerHTML = html;
+}
