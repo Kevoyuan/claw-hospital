@@ -4900,3 +4900,142 @@ footer {
         opacity: 1;
     }
 }
+
+/* ==================== MOBILE SCENE FULL FIX ==================== */
+
+@media (max-width: 768px) {
+    /* 容器 */
+    .split-view {
+        flex-direction: column;
+        height: auto !important;
+        min-height: 50vh;
+        overflow: visible !important;
+    }
+    
+    .view-panel {
+        height: auto !important;
+        min-height: auto !important;
+        overflow: visible !important;
+    }
+    
+    /* 房间场景 */
+    .room-scene {
+        display: block !important;
+        height: auto !important;
+        min-height: 300px !important;
+        padding: 30px 15px !important;
+        overflow-x: hidden !important;
+        overflow-y: visible !important;
+    }
+    
+    /* 环境层 */
+    .env-layer {
+        display: none !important;
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 200px;
+        padding: 20px 10px;
+    }
+    
+    .env-layer.active {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* 场景网格 */
+    .scene-grid {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100% !important;
+        max-width: 100% !important;
+        transform: none !important;
+        padding: 10px !important;
+        gap: 15px !important;
+        overflow: visible !important;
+    }
+    
+    /* 所有场景元素 */
+    .terminal-bank,
+    .server-rack,
+    .broken-server-rig,
+    .crash-console,
+    .brain-container,
+    .behavior-matrix-rig,
+    .browser-rig,
+    .phone-rig {
+        transform: none !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    /* 终端 */
+    .terminal-bank {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .terminal {
+        width: 100% !important;
+        max-width: 180px;
+    }
+    
+    .term-screen {
+        font-size: 8px !important;
+    }
+    
+    /* 服务器 */
+    .server-rack {
+        transform: scale(0.7);
+    }
+    
+    /* 崩溃场景 */
+    .broken-server-rig {
+        transform: scale(0.6);
+    }
+    
+    .crash-console {
+        width: 100% !important;
+        max-width: 160px;
+    }
+    
+    /* 脑 */
+    .brain-tank {
+        transform: scale(0.6);
+    }
+    
+    .behavior-matrix-rig {
+        transform: scale(0.8);
+    }
+    
+    /* 浏览器 */
+    .browser-rig {
+        width: 100% !important;
+        max-width: 200px;
+    }
+    
+    /* 手机 */
+    .phone-rig {
+        transform: scale(0.8);
+    }
+    
+    /* 房间导航 */
+    .room-nav {
+        position: relative !important;
+        flex-wrap: wrap !important;
+        justify-content: center;
+        padding: 15px 10px !important;
+        gap: 8px !important;
+    }
+    
+    .room-btn {
+        flex: 0 1 auto !important;
+        min-width: 60px !important;
+        padding: 12px 15px !important;
+        font-size: 10px !important;
+    }
+}
