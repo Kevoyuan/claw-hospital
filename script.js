@@ -59,11 +59,12 @@ function showLobby() {
 function renderEnvironment(envType) {
     const layers = document.querySelectorAll('.env-layer');
     layers.forEach(layer => {
-        layer.style.display = 'none';
+        layer.classList.remove('active');
+        layer.style.display = '';
     });
     const activeLayer = document.getElementById('env-' + envType);
     if (activeLayer) {
-        activeLayer.style.display = 'block';
+        activeLayer.classList.add('active');
     }
     
     // Apply department theme colors to the Pokemon clinic interior

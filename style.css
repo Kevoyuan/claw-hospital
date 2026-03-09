@@ -5039,3 +5039,90 @@ footer {
         font-size: 10px !important;
     }
 }
+
+/* ==================== MOBILE SCENE VISIBILITY FIX ==================== */
+
+@media (max-width: 768px) {
+    /* 场景容器 */
+    #roomScene,
+    .room-scene {
+        display: flex !important;
+        flex-direction: column;
+        height: auto !important;
+        min-height: 350px !important;
+    }
+    
+    /* 环境层 - JavaScript 控制显示 */
+    .env-layer {
+        display: none !important;
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 250px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    /* 激活的层 */
+    .env-layer[style*="block"],
+    .env-layer[style*="display: block"] {
+        display: flex !important;
+        display: flex !important;
+    }
+    
+    /* 使用 JavaScript 类的激活方式 */
+    .env-layer.active {
+        display: flex !important;
+    }
+    
+    /* 场景内容 */
+    .scene-grid {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 200px;
+        padding: 10px;
+    }
+    
+    /* 确保所有元素可见 */
+    .terminal-bank,
+    .server-rack,
+    .brain-tank,
+    .broken-server-rig,
+    .crash-console,
+    .browser-rig,
+    .phone-rig,
+    .behavior-matrix-rig {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+    }
+    
+    /* 导航 */
+    .room-nav {
+        position: relative !important;
+        flex-wrap: wrap !important;
+        display: flex !important;
+        padding: 15px !important;
+    }
+}
+
+/* 解决 display:none 冲突 - 确保激活的层显示 */
+@media (max-width: 768px) {
+    #env-runtime.active,
+    #env-crash.active,
+    #env-behavior.active,
+    #env-webui.active,
+    #env-mobile.active,
+    #env-discord.active,
+    #env-whatsapp.active,
+    #env-telegram.active,
+    #env-slack.active,
+    #env-signal.active,
+    #env-feishu.active {
+        display: flex !important;
+    }
+}
