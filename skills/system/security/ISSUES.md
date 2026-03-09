@@ -238,6 +238,58 @@ chmod 600 ~/.openclaw/openclaw.json
 
 ---
 
+### Problem 12: CVE-2026-25253 - 未认证远程代码执行
+
+**Severity**: Critical
+
+**ProblemDescription**:
+- 未认证远程攻击者窃取认证令牌并实现 RCE
+- 影响版本: < 2026.1.29
+
+**Solution**:
+1. 立即升级到 2026.1.29+：
+   ```
+   openclaw self-update
+   ```
+2. 检查日志中的异常访问
+3. 重置所有 API Keys
+
+**Source**: https://www.sonicwall.com/blog/openclaw-auth-token-theft-leading-to-rce-cve-2026-25253
+
+---
+
+### Problem 13: ClawJacked - WebSocket 劫持漏洞
+
+**Severity**: Critical
+
+**ProblemDescription**:
+- 恶意网站通过 WebSocket 劫持本地 AI Agent
+- Gateway 绑定 localhost 且缺少 rate-limiting
+
+**Solution**:
+1. 升级到 2026.2.25+
+2. 为 localhost 连接启用 rate-limiting
+3. 避免在访问恶意网站时运行 OpenClaw
+
+**Source**: https://thehackernews.com/2026/02/clawjacked-flaw-lets-malicious-sites.html
+
+---
+
+### Problem 14: Log Poisoning - 间接 Prompt Injection
+
+**Severity**: High
+
+**ProblemDescription**:
+- Log poisoning 漏洞导致间接 prompt injection
+
+**Solution**:
+1. 升级到 2026.2.13+
+2. 审查日志内容，过滤用户输入
+
+**Source**: Web Search
+
+---
+
 ## 快速Diagnosis清单
 
 | 检查项 | 命令 |

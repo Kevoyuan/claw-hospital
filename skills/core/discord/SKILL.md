@@ -22,6 +22,9 @@ openclaw config add discord
 | DC-005 | Gateway 错误 1006/1008 | 禁用插件 / 修复配置 / 检查 corrupted openclaw.json |
 | DC-006 | Bot 显示 Offline | 检查 token / 确认已添加到 server / Gateway 状态 |
 | DC-007 | "Failed to resolve Discord application id" | 清理旧凭证 / 验证 token / 检查网络 |
+| DC-008 | Bot online but not replying in server channels | 1. Requires @mention in server channels<br>2. Check permissions (Send Messages, Read Message History)<br>3. Confirm sender ID is in approved list |
+| DC-009 | Regression after 2026.2.13/2.23: guild messages not received or outbound replies silently dropped | Rollback or wait for fix |
+| DC-010 | Missing "Message Content Intent" | Enable in Discord Developer Portal |
 
 ## 一键修复命令
 

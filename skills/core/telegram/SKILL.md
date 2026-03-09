@@ -30,6 +30,10 @@ openclaw config add telegram
 | TG-013 | 模型流式输出 bug (Qwen) | 尝试其他模型或设置 stream: false |
 | TG-014 | 多个进程冲突 | 确保只有一个 gateway 进程连接 |
 | TG-015 | 遗留安装干扰 | 清理旧 Moltbot/Clawdbot 文件 |
+| TG-016 | Bot online but ignoring group messages | 1. Disable Privacy mode in BotFather<br>2. Requires explicit @mention |
+| TG-017 | 401 errors | Bot token expired or invalid, reconfigure |
+| TG-018 | After 2026.2.22-2 update, inbound messages silently dropped | Wait for fix or rollback |
+| TG-019 | Messages not routed to agent | Confirm user has "started" the bot |
 
 ## 诊断流程
 

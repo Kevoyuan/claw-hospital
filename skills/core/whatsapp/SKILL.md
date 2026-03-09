@@ -25,6 +25,11 @@ openclaw config add whatsapp
 | WA-008 | 多设备冲突 | WhatsApp 只能一个 Web/Desktop 连接 |
 | WA-009 | 30 分钟 Watchdog bug | 定期发送 keepalive 消息 |
 | WA-010 | 重连时丢消息 | 3-5 秒重连窗口期间可能丢失 |
+| WA-012 | Random disconnects and relogin loops | Check session status, may be banned |
+| WA-013 | QR code failures, session expires after 24 hours | Re-pair, check account status |
+| WA-014 | GitHub Issue #834: Mass pairing messages sent to contacts if WhatsApp partially set up and gateway restarts | Complete WhatsApp setup before starting |
+| WA-015 | "Linked but Disconnected" or reconnect loops | 1. Clear corrupted credentials<br>2. Check for other instances using same session<br>3. Check if banned |
+| WA-016 | Credentials file format breakage after v2026.1.29 update | Re-pair |
 
 ## 诊断流程
 

@@ -163,6 +163,19 @@ google/gemini-pro
 2. 等待配额重置（通常每月重置）
 3. 升级付费计划
 
+### ❌ Issue: "Model not allowed"
+
+**Solution**:
+1. Check model config and account access
+2. Verify model is in allowed list
+
+### ❌ Issue: 401/403/429 errors
+
+**Solution**:
+1. API key expired/invalid or rate limiting
+2. Increase retry interval
+3. Check provider dashboard for rate limits
+
 ---
 
 ## Config文件位置
