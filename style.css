@@ -4638,3 +4638,171 @@ footer {
         transform: scale(0.98);
     }
 }
+/* ==================== YOLO MODE MOBILE UX ==================== */
+
+/* 全屏模式 */
+@media (max-width: 768px) {
+    html, body {
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    .container {
+        height: 100vh;
+        height: 100dvh;
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .header {
+        flex-shrink: 0;
+        padding: 15px !important;
+    }
+    
+    .header h1 {
+        font-size: 14px !important;
+    }
+    
+    .subtitle {
+        font-size: 8px !important;
+    }
+    
+    /* 主视图区域 - 全屏 */
+    .split-view {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        overflow: hidden;
+    }
+    
+    .view-panel {
+        flex: 1;
+        min-height: 0;
+        border-radius: 0;
+        margin: 0;
+    }
+    
+    /* 隐藏不需要的元素 */
+    .human-view .view-header {
+        display: none;
+    }
+    
+    /* 医院场景占满 */
+    .hospital {
+        height: 35vh !important;
+        min-height: 200px !important;
+    }
+    
+    .room-scene {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+    }
+    
+    .scene-grid {
+        transform: scale(1.5) !important;
+        transform-origin: center center;
+    }
+    
+    /* 科室导航 - 底部固定 */
+    .room-nav {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: linear-gradient(180deg, rgba(10,10,26,0.95) 0%, rgba(10,10,26,1) 100%) !important;
+        padding: 15px 10px 25px 10px !important;
+        display: flex !important;
+        gap: 8px !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        z-index: 1000;
+        box-shadow: 0 -5px 20px rgba(0,255,0,0.3);
+    }
+    
+    .room-btn {
+        flex: 1 0 auto !important;
+        min-width: 70px !important;
+        min-height: 50px !important;
+        padding: 10px 12px !important;
+        font-size: 11px !important;
+        font-weight: bold;
+        border-radius: 12px !important;
+        background: linear-gradient(180deg, #1a1a3a 0%, #0a0a1a 100%) !important;
+        border: 2px solid #0f0 !important;
+    }
+    
+    .room-btn:active,
+    .room-btn.active {
+        background: #0f0 !important;
+        color: #000 !important;
+        transform: scale(0.95);
+    }
+    
+    /* Agent 面板底部固定 */
+    .agent {
+        position: fixed !important;
+        bottom: 80px !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: 30vh !important;
+        z-index: 999;
+    }
+    
+    /* 卡片式场景选择 */
+    .scene-container {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* EvoMap 按钮优化 */
+    .view-toggle {
+        font-size: 10px !important;
+        padding: 8px 12px !important;
+    }
+    
+    /* 一键修复区域 */
+    .agent-api {
+        padding: 10px !important;
+    }
+    
+    #fixDepartment {
+        font-size: 12px !important;
+        padding: 12px !important;
+    }
+    
+    /* 输入区域优化 */
+    .query-input {
+        font-size: 14px !important;
+        padding: 15px !important;
+    }
+    
+    .query-btn {
+        padding: 15px 20px !important;
+        font-size: 14px !important;
+    }
+    
+    /* 滚动条隐藏 */
+    ::-webkit-scrollbar {
+        display: none !important;
+    }
+    
+    * {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+/* 触摸优化 */
+@media (hover: none) {
+    .room-btn {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    .room-btn:active {
+        transform: scale(0.92);
+    }
+}
