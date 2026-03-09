@@ -321,9 +321,13 @@ function toggleEvoMap() {
         hospitalView.style.display = 'none';
         roomScene.classList.remove('active');
         if (!evoMapDrawn) {
+            initMobileEvoMap();
             drawEvoMap();
             evoMapDrawn = true;
         }
+        // Re-init on mobile after orientation change
+        initMobileEvoMap();
+        drawEvoMap();
     } else {
         evoView.style.display = 'none';
         hospitalView.style.display = 'block';
@@ -334,6 +338,7 @@ function drawEvoMap() {
     const svg = document.getElementById('evoMapSvg');
     const width = svg.clientWidth || 800;
     const height = svg.clientHeight || 600;
+    const isMobile = window.innerWidth <= 768;
     
     let html = '';
     
@@ -343,11 +348,14 @@ function drawEvoMap() {
         const toNode = evoNodes.find(n => n.id === conn.to);
         if (fromNode && toNode) {
             html += `<line x1="${fromNode.x}" y1="${fromNode.y}" x2="${toNode.x}" y2="${toNode.y}" 
-                     stroke="#333" stroke-width="2" opacity="0.5"/>`;
+                     stroke="#333" stroke-width="${isMobile ? 1 : 2}" opacity="0.5"/>`;
         }
     });
     
     // Draw nodes
+    const nodeRadius = isMobile ? 28 : 35;
+    const fontSize = isMobile ? 7 : 9;
+    
     evoNodes.forEach(node => {
         const info = evoInfo[node.id] || { issues: 0, desc: '' };
         html += `
@@ -355,15 +363,15 @@ function drawEvoMap() {
                style="cursor: pointer;" 
                onmouseover="highlightNode('${node.id}', true)" 
                onmouseout="highlightNode('${node.id}', false)">
-                <circle cx="${node.x}" cy="${node.y}" r="35" fill="${node.color}" opacity="0.8"/>
-                <circle cx="${node.x}" cy="${node.y}" r="35" fill="none" stroke="${node.color}" stroke-width="3"/>
+                <circle cx="${node.x}" cy="${node.y}" r="${nodeRadius}" fill="${node.color}" opacity="0.8"/>
+                <circle cx="${node.x}" cy="${node.y}" r="${nodeRadius}" fill="none" stroke="${node.color}" stroke-width="3"/>
                 <text x="${node.x}" y="${node.y}" text-anchor="middle" dominant-baseline="middle" 
-                      fill="#fff" font-family="monospace" font-size="9" font-weight="bold">
+                      fill="#fff" font-family="monospace" font-size="${fontSize}" font-weight="bold">
                     ${node.name}
                 </text>
-                <circle cx="${node.x + 25}" cy="${node.y - 25}" r="10" fill="#f00"/>
-                <text x="${node.x + 25}" y="${node.y - 25}" text-anchor="middle" dominant-baseline="middle" 
-                      fill="#fff" font-family="monospace" font-size="8">${info.issues}</text>
+                <circle cx="${node.x + nodeRadius - 5}" cy="${node.y - nodeRadius + 5}" r="8" fill="#f00"/>
+                <text x="${node.x + nodeRadius - 5}" y="${node.y - nodeRadius + 5}" text-anchor="middle" dominant-baseline="middle" 
+                      fill="#fff" font-family="monospace" font-size="6">${info.issues}</text>
             </g>
         `;
     });
@@ -453,3 +461,49 @@ function searchEvoMap(query) {
     
     svg.innerHTML = html;
 }
+
+// ==================== MOBILE RESPONSIVE ====================
+
+function initMobileEvoMap() {
+    const isMobile = window.innerWidth <= 768;
+    const svg = document.getElementById('evoMapSvg');
+    if (!svg) return;
+    
+    if (isMobile) {
+        // Recalculate positions for mobile
+        const width = window.innerWidth - 20;
+        const height = Math.max(window.innerHeight - 200, 600);
+        
+        // Mobile-friendly positions (vertical layout)
+        const mobileNodes = [
+            { id: 'runtime', name: 'RUNTIME', category: 'system', x: width/2, y: 50, color: '#ff9800' },
+            { id: 'crash', name: 'CRASH', category: 'system', x: width/2 - 60, y: 120, color: '#f44336' },
+            { id: 'config', name: 'CONFIG', category: 'system', x: width/2 + 60, y: 120, color: '#9c27b0' },
+            { id: 'model', name: 'MODEL', category: 'system', x: width/2, y: 190, color: '#2196f3' },
+            { id: 'memory', name: 'MEMORY', category: 'system', x: width/2 - 60, y: 260, color: '#00bcd4' },
+            { id: 'automation', name: 'AUTO', category: 'system', x: width/2 + 60, y: 260, color: '#607d8b' },
+            { id: 'security', name: 'SECURITY', category: 'system', x: width/2, y: 330, color: '#f44336' },
+            
+            // Core on next row
+            { id: 'discord', name: 'DC', category: 'core', x: width/2 - 80, y: 400, color: '#5865F2' },
+            { id: 'whatsapp', name: 'WA', category: 'core', x: width/2, y: 400, color: '#25D366' },
+            { id: 'telegram', name: 'TG', category: 'core', x: width/2 + 80, y: 400, color: '#0088cc' },
+            
+            // Extensions
+            { id: 'feishu', name: 'FEISHU', category: 'ext', x: width/2 - 60, y: 470, color: '#29a1f6' },
+            { id: 'teams', name: 'TEAMS', category: 'ext', x: width/2 + 60, y: 470, color: '#6264a7' }
+        ];
+        
+        // Override global nodes for mobile
+        evoNodes.length = 0;
+        mobileNodes.forEach(n => evoNodes.push(n));
+    }
+}
+
+// Initialize on load and resize
+window.addEventListener('resize', function() {
+    if (document.getElementById('evoMapView').style.display !== 'none') {
+        initMobileEvoMap();
+        drawEvoMap();
+    }
+});
