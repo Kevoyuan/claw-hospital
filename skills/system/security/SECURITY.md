@@ -22,6 +22,55 @@ OpenClaw Security Issues, Vulnerabilities, and Hardening Guide
 
 ---
 
+### CVE-2026-25254 - ClawJacked (Website Hijacking)
+
+**Severity**: HIGH
+
+**Description**: 
+- Malicious websites can hijack local OpenClaw Agent
+- Through WebSocket connection
+- Can execute commands without user knowledge
+
+**Affected Versions**: < v2026.2.26
+
+**Fix**: Upgrade to v2026.2.26 or later
+
+---
+
+### CVE-2026-26322 - SSRF in Gateway Tool
+
+**Severity**: MEDIUM
+
+**Description**: 
+- Server-Side Request Forgery vulnerability
+- Can be exploited to access internal resources
+
+**Fix**: Already fixed in latest version
+
+---
+
+### CVE-2026-26329 - Browser Upload Path Traversal
+
+**Severity**: MEDIUM
+
+**Description**: 
+- Path traversal in file upload functionality
+- Can potentially write files to unexpected locations
+
+**Fix**: Already fixed in latest version
+
+---
+
+## Common Security Issues
+
+| 病历号 | 问题 | 解决方案 |
+|--------|------|----------|
+| SEC-006 | 间接 Prompt Injection | 审查输入，过滤恶意内容 |
+| SEC-007 | 恶意 Skills/Plugins | 只使用可信来源的 Skills |
+| SEC-008 | 数万实例暴露到互联网 | 使用 Cloudflare/Tailscale，禁止 0.0.0.0 |
+
+---
+
 ## Public Exposure Issues
 
 ### OpenClaw Exposure Watchboard
