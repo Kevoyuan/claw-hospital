@@ -205,104 +205,148 @@
                             
                             <!-- RUNTIME - Agent execution issues -->
                             <div class="env-layer" id="env-runtime">
-                                <div class="pixel-prop terminal-main">
-                                    <div class="screen"></div>
-                                </div>
-                                <div class="pixel-prop server-stack s1">
-                                    <div class="led green"></div>
-                                    <div class="led yellow"></div>
-                                </div>
-                                <div class="pixel-prop server-stack s2">
-                                    <div class="led red blink"></div>
-                                </div>
-                                <div class="pixel-prop process-monitor">
-                                    <div class="bar b1"></div>
-                                    <div class="bar b2"></div>
-                                    <div class="bar b3"></div>
-                                </div>
-                                <div class="pixel-prop clock-wall">
-                                    <div class="hand hour"></div>
-                                    <div class="hand minute"></div>
+                                <div class="scene-grid env-runtime-scene">
+                                    <!-- Main terminal bank -->
+                                    <div class="terminal-bank">
+                                        <div class="terminal t1">
+                                            <div class="term-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                                            <div class="term-screen">
+                                                <div class="code-line">$ openclaw status</div>
+                                                <div class="code-line">Runtime: ● running</div>
+                                                <div class="code-line">Agents: 2 active</div>
+                                                <div class="code-line blink">_</div>
+                                            </div>
+                                        </div>
+                                        <div class="terminal t2">
+                                            <div class="term-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                                            <div class="term-screen">
+                                                <div class="code-line error">ERROR: timeout</div>
+                                                <div class="code-line">Retrying...</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Server rack with blinking lights -->
+                                    <div class="server-rack">
+                                        <div class="rack-unit u1"><div class="led green blink-fast"></div></div>
+                                        <div class="rack-unit u2"><div class="led green"></div></div>
+                                        <div class="rack-unit u3"><div class="led yellow blink"></div></div>
+                                        <div class="rack-unit u4"><div class="led red blink-slow"></div></div>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- CRASH - Crash/hang issues -->
                             <div class="env-layer" id="env-crash">
-                                <div class="pixel-prop warning-console">
-                                    <div class="error-flash"></div>
+                                <div class="scene-grid env-crash-scene">
+                                    <div class="broken-server-rig">
+                                        <div class="smoke s1"></div>
+                                        <div class="smoke s2"></div>
+                                        <div class="smoke s3"></div>
+                                        <div class="server-body damaged">
+                                            <div class="crack-line c1"></div>
+                                            <div class="crack-line c2"></div>
+                                            <div class="fried-chip"></div>
+                                        </div>
+                                        <div class="sparks">
+                                            <div class="spark sp1"></div>
+                                            <div class="spark sp2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="crash-console">
+                                        <div class="console-header">KERNEL PANIC</div>
+                                        <div class="console-screen">
+                                            <div class="error-line">0x0000: SEGFAULT</div>
+                                            <div class="error-line">0x0004: memory dump</div>
+                                            <div class="error-line blink">panic: system dead</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="pixel-prop skull-icon"></div>
-                                <div class="pixel-prop broken-server">
-                                    <div class="crack"></div>
-                                </div>
-                                <div class="pixel-prop tombstone">
-                                    <div class="rip">R.I.P</div>
-                                </div>
-                                <div class="pixel-prop explosion e1"></div>
-                                <div class="pixel-prop explosion e2"></div>
                             </div>
 
                             <!-- BEHAVIOR - Incorrect behavior -->
                             <div class="env-layer" id="env-behavior">
-                                <div class="pixel-prop brain-tank">
-                                    <div class="liquid"></div>
-                                    <div class="bubble"></div>
+                                <div class="scene-grid env-behavior-scene">
+                                    <div class="brain-container">
+                                        <div class="brain-tank">
+                                            <div class="tank-glass"></div>
+                                            <div class="brain-matter">
+                                                <div class="neuron n1"></div>
+                                                <div class="neuron n2"></div>
+                                                <div class="neuron n3"></div>
+                                            </div>
+                                            <div class="liquid green"></div>
+                                            <div class="bubble b1"></div>
+                                            <div class="bubble b2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="behavior-matrix-rig">
+                                        <div class="matrix-screen">
+                                            <div class="matrix-row"><span>IF input THEN</span><span class="confused">???</span></div>
+                                            <div class="matrix-row"><span>ELSE</span><span class="wrong">wrong</span></div>
+                                            <div class="matrix-row"><span>OUTPUT</span><span class="glitch">GITCH</span></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="pixel-prop behavior-matrix">
-                                    <div class="matrix-row"></div>
-                                    <div class="matrix-row"></div>
-                                    <div class="matrix-row"></div>
-                                </div>
-                                <div class="pixel-prop personality-crystal">
-                                    <div class="facet"></div>
-                                </div>
-                                <div class="pixel-prop emotion-gauge">
-                                    <div class="needle"></div>
-                                </div>
-                                <div class="pixel-prop mirror-broken"></div>
                             </div>
 
                             <!-- WEBUI - Web interface issues -->
                             <div class="env-layer" id="env-webui">
-                                <div class="pixel-prop browser-window">
-                                    <div class="url-bar"></div>
-                                    <div class="content-area">
-                                        <div class="broken-img"></div>
-                                        <div class="broken-link"></div>
+                                <div class="scene-grid env-webui-scene">
+                                    <div class="browser-rig">
+                                        <div class="browser-window">
+                                            <div class="browser-bar">
+                                                <div class="dots"><span></span><span></span><span></span></div>
+                                                <div class="url">http://localhost:18789</div>
+                                            </div>
+                                            <div class="browser-content">
+                                                <div class="broken-image">🖼</div>
+                                                <div class="error-box">
+                                                    <div class="error-icon">!</div>
+                                                    <div class="error-text">Connection Lost</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="debug-console">
+                                        <div class="console-title">Console</div>
+                                        <div class="console-line error">Failed to fetch</div>
+                                        <div class="console-line warn">404 Not Found</div>
+                                        <div class="console-line info">Retrying in 3s...</div>
                                     </div>
                                 </div>
-                                <div class="pixel-prop mobile-phone">
-                                    <div class="crack-screen"></div>
-                                </div>
-                                <div class="pixel-prop error-popup">
-                                    <div class="x-btn"></div>
-                                </div>
-                                <div class="pixel-prop loading-spinner"></div>
-                                <div class="pixel-prop globe-broken"></div>
                             </div>
 
                             <!-- MOBILE - Mobile app issues -->
                             <div class="env-layer" id="env-mobile">
-                                <div class="pixel-prop phone-stand">
-                                    <div class="phone-screen"></div>
+                                <div class="scene-grid env-mobile-scene">
+                                    <div class="phone-rig">
+                                        <div class="phone-body">
+                                            <div class="phone-screen">
+                                                <div class="app-grid">
+                                                    <div class="app-icon a1"></div>
+                                                    <div class="app-icon a2"></div>
+                                                    <div class="app-icon a3 error"></div>
+                                                    <div class="app-icon a4"></div>
+                                                </div>
+                                            </div>
+                                            <div class="crack-overlay">
+                                                <div class="crack-line"></div>
+                                                <div class="crack-line"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="status-panel">
+                                        <div class="status-item">
+                                            <div class="icon wifi error"></div>
+                                            <div class="label">No Signal</div>
+                                        </div>
+                                        <div class="status-item">
+                                            <div class="icon battery low"></div>
+                                            <div class="label">2%</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="pixel-prop app-icon-grid">
-                                    <div class="icon i1"></div>
-                                    <div class="icon i2"></div>
-                                    <div class="icon i3"></div>
-                                    <div class="icon i4"></div>
-                                </div>
-                                <div class="pixel-prop battery-low">
-                                    <div class="level"></div>
-                                </div>
-                                <div class="pixel-prop wifi-signal">
-                                    <div class="wave w1"></div>
-                                    <div class="wave w2"></div>
-                                    <div class="wave w3"></div>
-                                </div>
-                                <div class="pixel-prop push-notification">
-                                    <div class="bell"></div>
-                                </div>
+                            </div>
                             </div>
 
                             <!-- ===== CORE DEPARTMENTS ===== -->
