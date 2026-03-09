@@ -8,6 +8,7 @@ const rooms = [
     { name: 'BEHAVIOR', dept: 'SYSTEM', doctor: 'Dr. Behavior', desc: 'Incorrect behavior detected - analyzing patterns...', color: '#ff6b6b', env: 'behavior' },
     { name: 'WEBUI', dept: 'SYSTEM', doctor: 'Dr. WebUI', desc: 'Web interface issues - checking the UI layer...', color: '#ff6b6b', env: 'webui' },
     { name: 'MOBILE', dept: 'SYSTEM', doctor: 'Dr. Mobile', desc: 'Mobile app issues - testing the client...', color: '#ff6b6b', env: 'mobile' },
+    { name: 'SECURITY', dept: 'SYSTEM', doctor: 'Dr. Sec', desc: 'Security vulnerabilities - scanning for threats...', color: '#ff0000', env: 'security' },
     // CORE integrations - index 6-10
     { name: 'DISCORD', dept: 'CORE', doctor: 'Ms. Chat', desc: 'Discord integration - processing message queues...', color: '#5865F2', env: 'discord' },
     { name: 'WHATSAPP', dept: 'CORE', doctor: 'Mr. WA', desc: 'WhatsApp connection - restoring encrypted link...', color: '#25D366', env: 'whatsapp' },
@@ -42,7 +43,8 @@ const deptThemes = {
     'crash': { primary: '#f44336', secondary: '#ef5350', name: 'CRASH' },
     'behavior': { primary: '#ffeb3b', secondary: '#fff176', name: 'BEHAVIOR' },
     'webui': { primary: '#2196f3', secondary: '#64b5f6', name: 'WEBUI' },
-    'mobile': { primary: '#4caf50', secondary: '#81c784', name: 'MOBILE' }
+    'mobile': { primary: '#4caf50', secondary: '#81c784', name: 'MOBILE' },
+    'security': { primary: '#ff0000', secondary: '#aa0000', name: 'SECURITY' }
 };
 
 function showHospital() {
@@ -404,7 +406,7 @@ function showEvoInfo(nodeId) {
 
 function navigateToRoom(nodeId) {
     const roomMap = {
-        'runtime': 1, 'crash': 2, 'behavior': 3, 'webui': 4, 'mobile': 5,
+        'runtime': 1, 'crash': 2, 'behavior': 3, 'webui': 4, 'mobile': 5, 'security': 6,
         'discord': 6, 'whatsapp': 7, 'telegram': 8, 'slack': 9, 'signal': 10,
         'feishu': 11, 'line': 12, 'matrix': 13, 'teams': 14, 'mattermost': 15,
         'config': 16, 'model': 16, 'memory': 16, 'automation': 16, 'security': 16
