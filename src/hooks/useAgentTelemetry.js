@@ -12,30 +12,45 @@ export function useAgentTelemetry() {
     const [latestEvent, setLatestEvent] = useState(null);
 
     useEffect(() => {
-        const eventSource = new EventSource('/api/stream');
+        let eventSource;
+        let mounted = true;
 
-        eventSource.onmessage = (event) => {
-            try {
-                const payload = JSON.parse(event.data);
+        const connectSSE = () => {
+            eventSource = new EventSource('/api/stream');
 
-                if (payload.stats) {
-                    setStats(payload.stats);
+            eventSource.onmessage = (event) => {
+                if (!mounted) return;
+                try {
+                    const payload = JSON.parse(event.data);
+
+                    if (payload.stats) {
+                        setStats(payload.stats);
+                    }
+
+                    if (payload.type === 'telemetry') {
+                        setLatestEvent(payload.data);
+                    }
+                } catch (err) {
+                    console.error("Failed to parse SSE data", err);
                 }
+            };
 
-                if (payload.type === 'telemetry') {
-                    setLatestEvent(payload.data);
+            eventSource.onerror = (error) => {
+                console.error("SSE Connection Error", error);
+                // Retry connection after 5 seconds
+                if (mounted) {
+                    setTimeout(connectSSE, 5000);
                 }
-            } catch (err) {
-                console.error("Failed to parse SSE data", err);
-            }
+            };
         };
 
-        eventSource.onerror = (error) => {
-            console.error("SSE Connection Error", error);
-        };
+        connectSSE();
 
         return () => {
-            eventSource.close();
+            mounted = false;
+            if (eventSource) {
+                eventSource.close();
+            }
         };
     }, []);
 
