@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Import all Digimon Pixel Art Assets
 import clinicImg from '../assets/clinic-isometric-small.png';
