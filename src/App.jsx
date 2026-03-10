@@ -2,8 +2,10 @@ import { TerminalWindow } from '@phosphor-icons/react';
 import { DataMetrics } from './components/DataMetrics';
 import { TerminalCore } from './components/TerminalCore';
 import { VisualFeed } from './components/VisualFeed';
+import { useAgentTelemetry } from './hooks/useAgentTelemetry';
 
 function App() {
+    const { stats, latestEvent } = useAgentTelemetry();
     return (
         <div className="min-h-[100dvh] w-full flex flex-col md:flex-row relative">
             <div className="scanlines"></div>
@@ -25,7 +27,7 @@ function App() {
                 </div>
 
                 <div className="flex-1 relative bg-[#05050A] w-full overflow-hidden">
-                    <VisualFeed />
+                    <VisualFeed latestEvent={latestEvent} />
                 </div>
             </div>
 
@@ -35,7 +37,7 @@ function App() {
                     <h2 className="pixel-font text-xs text-claw-cyan">AGENT TERMINAL</h2>
                     <span className="font-mono text-[10px] text-white/30 uppercase">v_1.4.0</span>
                 </div>
-                <DataMetrics />
+                <DataMetrics stats={stats} />
                 <TerminalCore />
             </div>
         </div>

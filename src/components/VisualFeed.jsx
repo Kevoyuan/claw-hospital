@@ -19,8 +19,24 @@ const DEPARTMENTS = [
     { id: 'boss', label: 'BOSS', img: bossImg },
 ];
 
-export function VisualFeed() {
+export function VisualFeed({ latestEvent }) {
     const [activeDept, setActiveDept] = useState(DEPARTMENTS[0]);
+    const [glitchMessage, setGlitchMessage] = useState(null);
+
+    useEffect(() => {
+        if (latestEvent) {
+            const targetDept = DEPARTMENTS.find(d => d.id === (latestEvent.department || '').toLowerCase());
+            if (targetDept) {
+                setActiveDept(targetDept);
+            }
+            // Show telemetry overlay
+            setGlitchMessage(latestEvent);
+
+            // clear after 5s
+            const timer = setTimeout(() => setGlitchMessage(null), 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [latestEvent]);
 
     // Generate random particles for atmospheric effect
     const particles = Array.from({ length: 20 }).map((_, i) => ({
@@ -84,6 +100,30 @@ export function VisualFeed() {
                         [ SECURE ]
                     </div>
                 </div>
+
+                {/* Glitch Overlay for Telemetry Alerts */}
+                {glitchMessage && (
+                    <div className="absolute inset-0 z-20 pointer-events-none bg-red-900/20 mix-blend-color-dodge animate-pulse flex flex-col items-center justify-center p-8 backdrop-blur-[2px]">
+                        <div className="bg-black/90 border-2 border-red-500 shadow-[0_0_30px_rgba(239,68,68,0.6)] p-6 max-w-sm w-full font-mono">
+                            <h3 className="text-red-500 text-lg font-bold tracking-widest uppercase animate-bounce mb-2">
+                                !! INCOMING TELEMETRY !!
+                            </h3>
+                            <div className="space-y-2 text-xs">
+                                <div className="flex justify-between border-b border-red-500/30 pb-1">
+                                    <span className="text-red-500/60">AGENT_ID</span>
+                                    <span className="text-white">{glitchMessage.agentId}</span>
+                                </div>
+                                <div className="flex justify-between border-b border-red-500/30 pb-1">
+                                    <span className="text-red-500/60">STATUS</span>
+                                    <span className="text-white">{glitchMessage.status}</span>
+                                </div>
+                                <div className="text-red-200 mt-2 bg-red-950/50 p-2 border-l-2 border-red-500">
+                                    {glitchMessage.message || 'CRITICAL FAILURE DETECTED'}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Navigation Bar */}
