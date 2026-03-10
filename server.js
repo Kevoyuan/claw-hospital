@@ -244,21 +244,24 @@ ${bestMatch.content}
     return;
   }
 
+  // Catch-all for unhandled API endpoints to prevent ENOENT from static fallback
+  if (req.url.startsWith('/api/')) {
+    res.writeHead(404, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({ error: 'API endpoint not found' }));
+  }
+
   // Serve static frontend from 'dist'
   if (req.method === 'GET') {
-    // Check multiple possible dist locations
-    const possiblePaths = [
-      '/tmp/claw-build/dist',
-      path.join(__dirname, 'dist'),
-      path.join(__dirname, '../dist'),
-      path.resolve(process.cwd(), 'dist'),
-    ];
-    
-    let distTarget = possiblePaths.find(p => fs.existsSync(p)) || path.join(__dirname, 'dist');
+    const distTarget = fs.existsSync('/tmp/claw-build/dist') ? '/tmp/claw-build/dist' : path.join(__dirname, 'dist');
     let filePath = path.join(distTarget, req.url === '/' ? 'index.html' : req.url);
 
     if (!fs.existsSync(filePath)) {
       filePath = path.join(distTarget, 'index.html');
+    }
+
+    if (!fs.existsSync(filePath)) {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      return res.end('Dist folder not found. Please run "npm run build" to generate the frontend, or deploy with @vercel/static-build.');
     }
 
     const extname = String(path.extname(filePath)).toLowerCase();
