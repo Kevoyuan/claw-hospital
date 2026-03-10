@@ -246,7 +246,15 @@ ${bestMatch.content}
 
   // Serve static frontend from 'dist'
   if (req.method === 'GET') {
-    const distTarget = fs.existsSync('/tmp/claw-build/dist') ? '/tmp/claw-build/dist' : path.join(__dirname, 'dist');
+    // Check multiple possible dist locations
+    const possiblePaths = [
+      '/tmp/claw-build/dist',
+      path.join(__dirname, 'dist'),
+      path.join(__dirname, '../dist'),
+      path.resolve(process.cwd(), 'dist'),
+    ];
+    
+    let distTarget = possiblePaths.find(p => fs.existsSync(p)) || path.join(__dirname, 'dist');
     let filePath = path.join(distTarget, req.url === '/' ? 'index.html' : req.url);
 
     if (!fs.existsSync(filePath)) {
